@@ -10,5 +10,5 @@ public class NotesApiException extends Exception {
 	public NotesApiException(Throwable e) {
 		super(e);
 	}
-
+	// TODO push und fetch testen
 }
