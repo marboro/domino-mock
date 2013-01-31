@@ -19,7 +19,7 @@ public interface NotesForm extends NotesBase {
 
 	public abstract Vector getReaders() throws NotesApiException;
 
-	public abstract void setReaders(Vector arg0) throws NotesApiException;
+	public abstract void setReaders(Vector readers) throws NotesApiException;
 
 	public abstract boolean isSubForm() throws NotesApiException;
 
@@ -30,7 +30,8 @@ public interface NotesForm extends NotesBase {
 
 	public abstract boolean isProtectUsers() throws NotesApiException;
 
-	public abstract void setProtectUsers(boolean readers) throws NotesApiException;
+	public abstract void setProtectUsers(boolean readers)
+			throws NotesApiException;
 
 	public abstract void remove() throws NotesApiException;
 
