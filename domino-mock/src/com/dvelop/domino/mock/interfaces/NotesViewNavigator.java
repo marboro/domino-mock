@@ -45,10 +45,10 @@ public interface NotesViewNavigator extends NotesBase {
 
 	public abstract NotesViewEntry getLastDocument() throws NotesApiException;
 
-	public abstract boolean gotoPos(String arg0, char arg1)
+	public abstract boolean gotoPos(String pos, char separator)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getPos(String arg0, char arg1)
+	public abstract NotesViewEntry getPos(String pos, char separator)
 			throws NotesApiException;
 
 	public abstract NotesViewEntry getNth(int arg0) throws NotesApiException;
@@ -69,59 +69,60 @@ public interface NotesViewNavigator extends NotesBase {
 
 	public abstract NotesViewEntry getParent() throws NotesApiException;
 
-	public abstract boolean gotoEntry(Object arg0) throws NotesApiException;
+	public abstract boolean gotoEntry(Object entry) throws NotesApiException;
 
-	public abstract boolean gotoNext(NotesViewEntry arg0)
+	public abstract boolean gotoNext(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getNext(NotesViewEntry arg0)
+	public abstract NotesViewEntry getNext(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract boolean gotoPrev(NotesViewEntry arg0)
+	public abstract boolean gotoPrev(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getPrev(NotesViewEntry arg0)
+	public abstract NotesViewEntry getPrev(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract boolean gotoChild(NotesViewEntry arg0)
+	public abstract boolean gotoChild(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getChild(NotesViewEntry arg0)
+	public abstract NotesViewEntry getChild(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract boolean gotoNextSibling(NotesViewEntry arg0)
+	public abstract boolean gotoNextSibling(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getNextSibling(NotesViewEntry arg0)
+	public abstract NotesViewEntry getNextSibling(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract boolean gotoPrevSibling(NotesViewEntry arg0)
+	public abstract boolean gotoPrevSibling(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getPrevSibling(NotesViewEntry arg0)
+	public abstract NotesViewEntry getPrevSibling(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract boolean gotoParent(NotesViewEntry arg0)
+	public abstract boolean gotoParent(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getParent(NotesViewEntry arg0)
+	public abstract NotesViewEntry getParent(NotesViewEntry entry)
 			throws NotesApiException;
 
 	public abstract int getCacheSize();
 
-	public abstract void setCacheSize(int arg0) throws NotesApiException;
+	public abstract void setCacheSize(int cachesize) throws NotesApiException;
 
 	public abstract int getMaxLevel();
 
-	public abstract void setMaxLevel(int arg0) throws NotesApiException;
+	public abstract void setMaxLevel(int level) throws NotesApiException;
 
 	public abstract NotesView getParentView();
 
 	public abstract int getCount();
 
-	public abstract void markAllRead(String arg0) throws NotesApiException;
+	public abstract void markAllRead(String username) throws NotesApiException;
 
-	public abstract void markAllUnread(String arg0) throws NotesApiException;
+	public abstract void markAllUnread(String username)
+			throws NotesApiException;
 
 	public abstract void markAllRead() throws NotesApiException;
 

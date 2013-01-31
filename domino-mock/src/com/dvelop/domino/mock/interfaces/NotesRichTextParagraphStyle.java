@@ -26,45 +26,47 @@ public interface NotesRichTextParagraphStyle extends NotesBase {
 
 	public abstract int getAlignment() throws NotesApiException;
 
-	public abstract void setAlignment(int arg0) throws NotesApiException;
+	public abstract void setAlignment(int value) throws NotesApiException;
 
 	public abstract int getInterLineSpacing() throws NotesApiException;
 
-	public abstract void setInterLineSpacing(int arg0) throws NotesApiException;
+	public abstract void setInterLineSpacing(int value)
+			throws NotesApiException;
 
 	public abstract int getSpacingAbove() throws NotesApiException;
 
-	public abstract void setSpacingAbove(int arg0) throws NotesApiException;
+	public abstract void setSpacingAbove(int value) throws NotesApiException;
 
 	public abstract int getSpacingBelow() throws NotesApiException;
 
-	public abstract void setSpacingBelow(int arg0) throws NotesApiException;
+	public abstract void setSpacingBelow(int value) throws NotesApiException;
 
 	public abstract int getLeftMargin() throws NotesApiException;
 
-	public abstract void setLeftMargin(int arg0) throws NotesApiException;
+	public abstract void setLeftMargin(int value) throws NotesApiException;
 
 	public abstract int getRightMargin() throws NotesApiException;
 
-	public abstract void setRightMargin(int arg0) throws NotesApiException;
+	public abstract void setRightMargin(int value) throws NotesApiException;
 
 	public abstract int getFirstLineLeftMargin() throws NotesApiException;
 
-	public abstract void setFirstLineLeftMargin(int arg0)
+	public abstract void setFirstLineLeftMargin(int value)
 			throws NotesApiException;
 
 	public abstract int getPagination() throws NotesApiException;
 
-	public abstract void setPagination(int arg0) throws NotesApiException;
+	public abstract void setPagination(int value) throws NotesApiException;
 
 	public abstract Vector getTabs() throws NotesApiException;
 
-	public abstract void setTab(int arg0, int arg1) throws NotesApiException;
-
-	public abstract void setTabs(int arg0, int arg1, int arg2)
+	public abstract void setTab(int position, int type)
 			throws NotesApiException;
 
-	public abstract void setTabs(int arg0, int arg1, int arg2, int arg3)
+	public abstract void setTabs(int count, int startpos, int interval)
+			throws NotesApiException;
+
+	public abstract void setTabs(int count, int startpos, int interval, int type)
 			throws NotesApiException;
 
 	public abstract void clearAllTabs() throws NotesApiException;

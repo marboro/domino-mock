@@ -29,7 +29,7 @@ public interface NotesViewEntry extends NotesBase {
 
 	public abstract int getColumnIndentLevel() throws NotesApiException;
 
-	public abstract String getPosition(char arg0) throws NotesApiException;
+	public abstract String getPosition(char separator) throws NotesApiException;
 
 	public abstract String getNoteID() throws NotesApiException;
 
@@ -45,5 +45,5 @@ public interface NotesViewEntry extends NotesBase {
 
 	public abstract boolean getRead() throws NotesApiException;
 
-	public abstract boolean getRead(String arg0) throws NotesApiException;
+	public abstract boolean getRead(String username) throws NotesApiException;
 }

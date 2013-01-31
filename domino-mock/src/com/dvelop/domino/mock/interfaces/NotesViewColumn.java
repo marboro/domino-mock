@@ -171,109 +171,110 @@ public interface NotesViewColumn extends NotesBase {
 
 	public abstract void setHeaderAlignment(int arg0) throws NotesApiException;
 
-	public abstract void setAccentSensitiveSort(boolean arg0)
+	public abstract void setAccentSensitiveSort(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setCaseSensitiveSort(boolean arg0)
+	public abstract void setCaseSensitiveSort(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setHidden(boolean arg0) throws NotesApiException;
+	public abstract void setHidden(boolean flag) throws NotesApiException;
 
-	public abstract void setHideDetail(boolean arg0) throws NotesApiException;
+	public abstract void setHideDetail(boolean flag) throws NotesApiException;
 
-	public abstract void setResize(boolean arg0) throws NotesApiException;
+	public abstract void setResize(boolean flag) throws NotesApiException;
 
-	public abstract void setResortAscending(boolean arg0)
+	public abstract void setResortAscending(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setResortDescending(boolean arg0)
+	public abstract void setResortDescending(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setResortToView(boolean arg0) throws NotesApiException;
+	public abstract void setResortToView(boolean flag) throws NotesApiException;
 
-	public abstract void setSecondaryResort(boolean arg0)
+	public abstract void setSecondaryResort(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setSecondaryResortDescending(boolean arg0)
+	public abstract void setSecondaryResortDescending(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setShowTwistie(boolean arg0) throws NotesApiException;
+	public abstract void setShowTwistie(boolean flag) throws NotesApiException;
 
-	public abstract void setSortDescending(boolean arg0)
+	public abstract void setSortDescending(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setSorted(boolean arg0) throws NotesApiException;
+	public abstract void setSorted(boolean flag) throws NotesApiException;
 
-	public abstract void setListSep(int arg0) throws NotesApiException;
+	public abstract void setListSep(int separator) throws NotesApiException;
 
-	public abstract void setNumberAttrib(int arg0) throws NotesApiException;
-
-	public abstract void setNumberDigits(int arg0) throws NotesApiException;
-
-	public abstract void setNumberFormat(int arg0) throws NotesApiException;
-
-	public abstract void setPosition(int arg0) throws NotesApiException;
-
-	public abstract void setTimeDateFmt(int arg0) throws NotesApiException;
-
-	public abstract void setTimeFmt(int arg0) throws NotesApiException;
-
-	public abstract void setTimeZoneFmt(int arg0) throws NotesApiException;
-
-	public abstract void setTitle(String arg0) throws NotesApiException;
-
-	public abstract void setWidth(int arg0) throws NotesApiException;
-
-	public abstract void setHeaderFontColor(int arg0) throws NotesApiException;
-
-	public abstract void setHeaderFontFace(String arg0)
+	public abstract void setNumberAttrib(int attributes)
 			throws NotesApiException;
 
-	public abstract void setHeaderFontPointSize(int arg0)
+	public abstract void setNumberDigits(int digits) throws NotesApiException;
+
+	public abstract void setNumberFormat(int format) throws NotesApiException;
+
+	public abstract void setPosition(int position) throws NotesApiException;
+
+	public abstract void setTimeDateFmt(int format) throws NotesApiException;
+
+	public abstract void setTimeFmt(int format) throws NotesApiException;
+
+	public abstract void setTimeZoneFmt(int format) throws NotesApiException;
+
+	public abstract void setTitle(String title) throws NotesApiException;
+
+	public abstract void setWidth(int width) throws NotesApiException;
+
+	public abstract void setHeaderFontColor(int color) throws NotesApiException;
+
+	public abstract void setHeaderFontFace(String face)
 			throws NotesApiException;
 
-	public abstract void setHeaderFontStyle(int arg0) throws NotesApiException;
-
-	public abstract void setSecondaryResortColumnIndex(int arg0)
+	public abstract void setHeaderFontPointSize(int size)
 			throws NotesApiException;
 
-	public abstract void setFontBold(boolean arg0) throws NotesApiException;
+	public abstract void setHeaderFontStyle(int style) throws NotesApiException;
 
-	public abstract void setFontItalic(boolean arg0) throws NotesApiException;
-
-	public abstract void setFontUnderline(boolean arg0)
+	public abstract void setSecondaryResortColumnIndex(int index)
 			throws NotesApiException;
 
-	public abstract void setFontStrikethrough(boolean arg0)
+	public abstract void setFontBold(boolean flag) throws NotesApiException;
+
+	public abstract void setFontItalic(boolean flag) throws NotesApiException;
+
+	public abstract void setFontUnderline(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setHeaderFontBold(boolean arg0)
+	public abstract void setFontStrikethrough(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setHeaderFontItalic(boolean arg0)
+	public abstract void setHeaderFontBold(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setHeaderFontUnderline(boolean arg0)
+	public abstract void setHeaderFontItalic(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setHeaderFontStrikethrough(boolean arg0)
+	public abstract void setHeaderFontUnderline(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setNumberAttribParens(boolean arg0)
+	public abstract void setHeaderFontStrikethrough(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setNumberAttribPunctuated(boolean arg0)
+	public abstract void setNumberAttribParens(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setNumberAttribPercent(boolean arg0)
+	public abstract void setNumberAttribPunctuated(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setResortToViewName(String arg0)
+	public abstract void setNumberAttribPercent(boolean flag)
+			throws NotesApiException;
+
+	public abstract void setResortToViewName(String name)
 			throws NotesApiException;
 
 	public abstract boolean isHideFormula() throws NotesApiException;
 
-	public abstract void setHideFormula(boolean arg0) throws NotesApiException;
+	public abstract void setHideFormula(boolean flag) throws NotesApiException;
 
 	public abstract boolean isConstant() throws NotesApiException;
 

@@ -20,49 +20,49 @@ public interface NotesView extends NotesBase {
 
 	public abstract NotesViewNavigator createViewNav() throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNav(int arg0)
+	public abstract NotesViewNavigator createViewNav(int cacheSize)
 			throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavMaxLevel(int arg0)
+	public abstract NotesViewNavigator createViewNavMaxLevel(int level)
 			throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavMaxLevel(int arg0, int arg1)
+	public abstract NotesViewNavigator createViewNavMaxLevel(int level,
+			int cacheSize) throws NotesApiException;
+
+	public abstract NotesViewNavigator createViewNavFrom(Object entry)
 			throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavFrom(Object arg0)
+	public abstract NotesViewNavigator createViewNavFrom(Object entry,
+			int cacheSize) throws NotesApiException;
+
+	public abstract NotesViewNavigator createViewNavFromChildren(Object entry)
 			throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavFrom(Object arg0, int arg1)
-			throws NotesApiException;
+	public abstract NotesViewNavigator createViewNavFromChildren(Object entry,
+			int cacheSize) throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavFromChildren(Object arg0)
-			throws NotesApiException;
-
-	public abstract NotesViewNavigator createViewNavFromChildren(Object arg0,
-			int arg1) throws NotesApiException;
-
-	public abstract NotesViewNavigator createViewNavFromDescendants(Object arg0)
+	public abstract NotesViewNavigator createViewNavFromDescendants(Object entry)
 			throws NotesApiException;
 
 	public abstract NotesViewNavigator createViewNavFromDescendants(
-			Object arg0, int arg1) throws NotesApiException;
+			Object entry, int cacheSize) throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavFromCategory(String arg0)
-			throws NotesApiException;
+	public abstract NotesViewNavigator createViewNavFromCategory(
+			String categoryName) throws NotesApiException;
 
-	public abstract NotesViewNavigator createViewNavFromCategory(String arg0,
-			int arg1) throws NotesApiException;
+	public abstract NotesViewNavigator createViewNavFromCategory(
+			String categoryName, int cacheSize) throws NotesApiException;
 
-	public abstract int FTSearch(String arg0) throws NotesApiException;
+	public abstract int FTSearch(String query) throws NotesApiException;
 
-	public abstract int FTSearch(String arg0, int arg1)
+	public abstract int FTSearch(String query, int maxdocs)
 			throws NotesApiException;
 
 	public abstract Vector getAliases() throws NotesApiException;
 
 	public abstract int getBackgroundColor() throws NotesApiException;
 
-	public abstract NotesViewColumn getColumn(int arg0)
+	public abstract NotesViewColumn getColumn(int columnNumber)
 			throws NotesApiException;
 
 	public abstract Vector getColumns() throws NotesApiException;
@@ -85,7 +85,7 @@ public interface NotesView extends NotesBase {
 
 	public abstract Vector getReaders() throws NotesApiException;
 
-	public abstract void setReaders(Vector arg0) throws NotesApiException;
+	public abstract void setReaders(Vector reader) throws NotesApiException;
 
 	public abstract int getRowLines() throws NotesApiException;
 
@@ -97,81 +97,81 @@ public interface NotesView extends NotesBase {
 
 	public abstract NotesDocument getLastDocument() throws NotesApiException;
 
-	public abstract NotesDocument getNextDocument(NotesDocument arg0)
+	public abstract NotesDocument getNextDocument(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract NotesDocument getPrevDocument(NotesDocument arg0)
+	public abstract NotesDocument getPrevDocument(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract NotesDocument getNextSibling(NotesDocument arg0)
+	public abstract NotesDocument getNextSibling(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract NotesDocument getPrevSibling(NotesDocument arg0)
+	public abstract NotesDocument getPrevSibling(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract NotesDocument getParentDocument(NotesDocument arg0)
+	public abstract NotesDocument getParentDocument(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract NotesDocument getChild(NotesDocument arg0)
+	public abstract NotesDocument getChild(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract NotesDocument getNthDocument(int arg0)
+	public abstract NotesDocument getNthDocument(int n)
 			throws NotesApiException;
 
-	public abstract NotesDocument getDocumentByKey(Vector arg0)
+	public abstract NotesDocument getDocumentByKey(Vector keys)
 			throws NotesApiException;
 
-	public abstract NotesDocument getDocumentByKey(Vector arg0, boolean arg1)
+	public abstract NotesDocument getDocumentByKey(Vector keys, boolean exact)
 			throws NotesApiException;
 
-	public abstract NotesDocument getDocumentByKey(Object arg0)
+	public abstract NotesDocument getDocumentByKey(Object key)
 			throws NotesApiException;
 
-	public abstract NotesDocument getDocumentByKey(Object arg0, boolean arg1)
+	public abstract NotesDocument getDocumentByKey(Object key, boolean exact)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getEntryByKey(Vector arg0)
+	public abstract NotesViewEntry getEntryByKey(Vector keys)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getEntryByKey(Vector arg0, boolean arg1)
+	public abstract NotesViewEntry getEntryByKey(Vector keys, boolean exact)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getEntryByKey(Object arg0)
+	public abstract NotesViewEntry getEntryByKey(Object key)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getEntryByKey(Object arg0, boolean arg1)
+	public abstract NotesViewEntry getEntryByKey(Object key, boolean exact)
 			throws NotesApiException;
 
-	public abstract NotesDocumentCollection getAllDocumentsByKey(Vector arg0)
+	public abstract NotesDocumentCollection getAllDocumentsByKey(Vector keys)
 			throws NotesApiException;
 
-	public abstract NotesDocumentCollection getAllDocumentsByKey(Vector arg0,
-			boolean arg1) throws NotesApiException;
+	public abstract NotesDocumentCollection getAllDocumentsByKey(Vector keys,
+			boolean exact) throws NotesApiException;
 
-	public abstract NotesDocumentCollection getAllDocumentsByKey(Object arg0)
+	public abstract NotesDocumentCollection getAllDocumentsByKey(Object key)
 			throws NotesApiException;
 
-	public abstract NotesDocumentCollection getAllDocumentsByKey(Object arg0,
-			boolean arg1) throws NotesApiException;
+	public abstract NotesDocumentCollection getAllDocumentsByKey(Object key,
+			boolean exact) throws NotesApiException;
 
-	public abstract NotesViewEntryCollection getAllEntriesByKey(Vector arg0)
+	public abstract NotesViewEntryCollection getAllEntriesByKey(Vector keys)
 			throws NotesApiException;
 
-	public abstract NotesViewEntryCollection getAllEntriesByKey(Vector arg0,
-			boolean arg1) throws NotesApiException;
+	public abstract NotesViewEntryCollection getAllEntriesByKey(Vector keys,
+			boolean exact) throws NotesApiException;
 
-	public abstract NotesViewEntryCollection getAllEntriesByKey(Object arg0)
+	public abstract NotesViewEntryCollection getAllEntriesByKey(Object key)
 			throws NotesApiException;
 
-	public abstract NotesViewEntryCollection getAllEntriesByKey(Object arg0,
-			boolean arg1) throws NotesApiException;
+	public abstract NotesViewEntryCollection getAllEntriesByKey(Object key,
+			boolean exact) throws NotesApiException;
 
 	public abstract NotesViewEntryCollection getAllEntries()
 			throws NotesApiException;
 
 	public abstract boolean isAutoUpdate() throws NotesApiException;
 
-	public abstract void setAutoUpdate(boolean arg0) throws NotesApiException;
+	public abstract void setAutoUpdate(boolean flag) throws NotesApiException;
 
 	public abstract boolean isCalendar() throws NotesApiException;
 
@@ -193,7 +193,7 @@ public interface NotesView extends NotesBase {
 
 	public abstract boolean isProtectReaders() throws NotesApiException;
 
-	public abstract void setProtectReaders(boolean arg0)
+	public abstract void setProtectReaders(boolean flag)
 			throws NotesApiException;
 
 	public abstract void refresh() throws NotesApiException;
@@ -208,57 +208,58 @@ public interface NotesView extends NotesBase {
 
 	public abstract NotesViewColumn createColumn() throws NotesApiException;
 
-	public abstract NotesViewColumn createColumn(int arg0)
+	public abstract NotesViewColumn createColumn(int position)
 			throws NotesApiException;
 
-	public abstract NotesViewColumn createColumn(int arg0, String arg1)
+	public abstract NotesViewColumn createColumn(int position,
+			String columntitle) throws NotesApiException;
+
+	public abstract NotesViewColumn createColumn(int position,
+			String columntitle, String formula) throws NotesApiException;
+
+	public abstract NotesViewColumn copyColumn(int sourcecolumn)
 			throws NotesApiException;
 
-	public abstract NotesViewColumn createColumn(int arg0, String arg1,
-			String arg2) throws NotesApiException;
-
-	public abstract NotesViewColumn copyColumn(int arg0)
+	public abstract NotesViewColumn copyColumn(String sourcecolumn)
 			throws NotesApiException;
 
-	public abstract NotesViewColumn copyColumn(String arg0)
+	public abstract NotesViewColumn copyColumn(NotesViewColumn sourcecolumn)
 			throws NotesApiException;
 
-	public abstract NotesViewColumn copyColumn(NotesViewColumn arg0)
-			throws NotesApiException;
+	public abstract NotesViewColumn copyColumn(int sourcecolumn,
+			int destinationindex) throws NotesApiException;
 
-	public abstract NotesViewColumn copyColumn(int arg0, int arg1)
-			throws NotesApiException;
+	public abstract NotesViewColumn copyColumn(String sourcecolumn,
+			int destinationindex) throws NotesApiException;
 
-	public abstract NotesViewColumn copyColumn(String arg0, int arg1)
-			throws NotesApiException;
-
-	public abstract NotesViewColumn copyColumn(NotesViewColumn arg0, int arg1)
-			throws NotesApiException;
+	public abstract NotesViewColumn copyColumn(NotesViewColumn sourcecolumn,
+			int destinationindex) throws NotesApiException;
 
 	public abstract void removeColumn() throws NotesApiException;
 
-	public abstract void removeColumn(int arg0) throws NotesApiException;
+	public abstract void removeColumn(int columnindex) throws NotesApiException;
 
-	public abstract void removeColumn(String arg0) throws NotesApiException;
+	public abstract void removeColumn(String columntitle)
+			throws NotesApiException;
 
-	public abstract void setAliases(Vector arg0) throws NotesApiException;
+	public abstract void setAliases(Vector aliases) throws NotesApiException;
 
-	public abstract void setAliases(String arg0) throws NotesApiException;
+	public abstract void setAliases(String aliases) throws NotesApiException;
 
 	public abstract boolean isProhibitDesignRefresh() throws NotesApiException;
 
-	public abstract void setProhibitDesignRefresh(boolean arg0)
+	public abstract void setProhibitDesignRefresh(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setDefaultView(boolean arg0) throws NotesApiException;
+	public abstract void setDefaultView(boolean flag) throws NotesApiException;
 
-	public abstract void setBackgroundColor(int arg0) throws NotesApiException;
+	public abstract void setBackgroundColor(int color) throws NotesApiException;
 
-	public abstract void setSpacing(int arg0) throws NotesApiException;
+	public abstract void setSpacing(int spacing) throws NotesApiException;
 
-	public abstract void setName(String arg0) throws NotesApiException;
+	public abstract void setName(String name) throws NotesApiException;
 
-	public abstract void setSelectionFormula(String arg0)
+	public abstract void setSelectionFormula(String formula)
 			throws NotesApiException;
 
 	public abstract String getSelectionFormula() throws NotesApiException;
@@ -271,34 +272,36 @@ public interface NotesView extends NotesBase {
 
 	public abstract boolean lock() throws NotesApiException;
 
-	public abstract boolean lock(boolean arg0) throws NotesApiException;
-
-	public abstract boolean lock(String arg0) throws NotesApiException;
-
-	public abstract boolean lock(String arg0, boolean arg1)
+	public abstract boolean lock(boolean provisionalok)
 			throws NotesApiException;
 
-	public abstract boolean lock(Vector arg0) throws NotesApiException;
+	public abstract boolean lock(String name) throws NotesApiException;
 
-	public abstract boolean lock(Vector arg0, boolean arg1)
+	public abstract boolean lock(String name, boolean provisionalok)
+			throws NotesApiException;
+
+	public abstract boolean lock(Vector names) throws NotesApiException;
+
+	public abstract boolean lock(Vector names, boolean provisionalok)
 			throws NotesApiException;
 
 	public abstract boolean lockProvisional() throws NotesApiException;
 
-	public abstract boolean lockProvisional(String arg0)
+	public abstract boolean lockProvisional(String name)
 			throws NotesApiException;
 
-	public abstract boolean lockProvisional(Vector arg0)
+	public abstract boolean lockProvisional(Vector names)
 			throws NotesApiException;
 
 	public abstract void unlock() throws NotesApiException;
 
-	public abstract void markAllRead(String arg0) throws NotesApiException;
+	public abstract void markAllRead(String username) throws NotesApiException;
 
-	public abstract void markAllUnread(String arg0) throws NotesApiException;
-
-	public abstract NotesViewNavigator createViewNavFromAllUnread(String arg0)
+	public abstract void markAllUnread(String username)
 			throws NotesApiException;
+
+	public abstract NotesViewNavigator createViewNavFromAllUnread(
+			String userName) throws NotesApiException;
 
 	public abstract void markAllRead() throws NotesApiException;
 
@@ -312,10 +315,10 @@ public interface NotesView extends NotesBase {
 
 	public abstract String getSelectionQuery() throws NotesApiException;
 
-	public abstract void setSelectionQuery(String arg0)
+	public abstract void setSelectionQuery(String query)
 			throws NotesApiException;
 
-	public abstract Vector getColumnValues(int arg0) throws NotesApiException;
+	public abstract Vector getColumnValues(int n) throws NotesApiException;
 
 	public abstract void resortView(String arg0, boolean arg1)
 			throws NotesApiException;
@@ -325,12 +328,12 @@ public interface NotesView extends NotesBase {
 	public abstract NotesViewEntryCollection getAllUnreadEntries()
 			throws NotesApiException;
 
-	public abstract NotesViewEntryCollection getAllUnreadEntries(String arg0)
+	public abstract NotesViewEntryCollection getAllUnreadEntries(String userName)
 			throws NotesApiException;
 
 	public abstract NotesViewEntryCollection getAllReadEntries()
 			throws NotesApiException;
 
-	public abstract NotesViewEntryCollection getAllReadEntries(String arg0)
+	public abstract NotesViewEntryCollection getAllReadEntries(String userName)
 			throws NotesApiException;
 }

@@ -20,21 +20,21 @@ public interface NotesOutlineEntry extends NotesBase {
 	public static final int OUTLINE_CLASS_PAGE = 2196;
 	public static final int OUTLINE_CLASS_FOLDER = 2197;
 
-	public abstract boolean setNoteLink(NotesDatabase arg0)
+	public abstract boolean setNoteLink(NotesDatabase db)
 			throws NotesApiException;
 
-	public abstract boolean setNoteLink(NotesView arg0)
+	public abstract boolean setNoteLink(NotesView doc)
 			throws NotesApiException;
 
-	public abstract boolean setNoteLink(NotesDocument arg0)
+	public abstract boolean setNoteLink(NotesDocument view)
 			throws NotesApiException;
 
-	public abstract boolean setURL(String arg0) throws NotesApiException;
+	public abstract boolean setURL(String url) throws NotesApiException;
 
-	public abstract boolean setNamedElement(NotesDatabase arg0, String arg1,
-			int arg2) throws NotesApiException;
+	public abstract boolean setNamedElement(NotesDatabase db, String elementName,
+			int entryClass) throws NotesApiException;
 
-	public abstract boolean setAction(String arg0) throws NotesApiException;
+	public abstract boolean setAction(String formula) throws NotesApiException;
 
 	public abstract NotesDatabase getDatabase() throws NotesApiException;
 
@@ -82,27 +82,27 @@ public interface NotesOutlineEntry extends NotesBase {
 
 	public abstract NotesOutline getParent() throws NotesApiException;
 
-	public abstract void setHidden(boolean arg0) throws NotesApiException;
+	public abstract void setHidden(boolean value) throws NotesApiException;
 
-	public abstract void setHiddenFromNotes(boolean arg0)
+	public abstract void setHiddenFromNotes(boolean value)
 			throws NotesApiException;
 
-	public abstract void setHiddenFromWeb(boolean arg0)
+	public abstract void setHiddenFromWeb(boolean value)
 			throws NotesApiException;
 
-	public abstract void setLabel(String arg0) throws NotesApiException;
+	public abstract void setLabel(String value) throws NotesApiException;
 
-	public abstract void setAlias(String arg0) throws NotesApiException;
+	public abstract void setAlias(String value) throws NotesApiException;
 
-	public abstract void setImagesText(String arg0) throws NotesApiException;
+	public abstract void setImagesText(String value) throws NotesApiException;
 
-	public abstract void setFrameText(String arg0) throws NotesApiException;
+	public abstract void setFrameText(String value) throws NotesApiException;
 
-	public abstract void setKeepSelectionFocus(boolean arg0)
+	public abstract void setKeepSelectionFocus(boolean value)
 			throws NotesApiException;
 
-	public abstract void setUseHideFormula(boolean arg0)
+	public abstract void setUseHideFormula(boolean value)
 			throws NotesApiException;
 
-	public abstract void setHideFormula(String arg0) throws NotesApiException;
+	public abstract void setHideFormula(String value) throws NotesApiException;
 }

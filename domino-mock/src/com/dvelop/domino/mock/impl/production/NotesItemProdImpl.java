@@ -204,7 +204,18 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	@Override
 	public void setValues(Vector arg0) throws NotesApiException {
 		try {
-			item.setValues(arg0);
+			if (arg0.size() > 0){
+				if (arg0.get(0) instanceof DateTime){
+					Vector<NotesDateTime> vector = new Vector<NotesDateTime>();
+					Iterator iterator = arg0.iterator();
+					while (iterator.hasNext()){
+						vector.add(new NotesDateTimeProdImpl((DateTime)iterator.next()));
+					}
+					item.setValues(vector);
+				} else
+					item.setValues(arg0);
+			}
+			
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}

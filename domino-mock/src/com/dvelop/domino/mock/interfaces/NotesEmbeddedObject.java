@@ -12,11 +12,11 @@ public interface NotesEmbeddedObject extends NotesBase {
 	public static final int EMBED_OBJECT = 1453;
 	public static final int EMBED_ATTACHMENT = 1454;
 
-	public abstract int activate(boolean arg0) throws NotesApiException;
+	public abstract int activate(boolean show) throws NotesApiException;
 
-	public abstract void doVerb(String arg0) throws NotesApiException;
+	public abstract void doVerb(String verb) throws NotesApiException;
 
-	public abstract void extractFile(String arg0) throws NotesApiException;
+	public abstract void extractFile(String path) throws NotesApiException;
 
 	public abstract String getClassName() throws NotesApiException;
 
@@ -43,9 +43,9 @@ public interface NotesEmbeddedObject extends NotesBase {
 
 	public abstract InputStream getInputStream() throws NotesApiException;
 
-	public abstract org.w3c.dom.Document parseXML(boolean arg0)
+	public abstract org.w3c.dom.Document parseXML(boolean validate)
 			throws IOException, NotesApiException;
 
-	public abstract void transformXML(Object arg0, NotesXSLTResultTarget arg1)
+	public abstract void transformXML(Object style, NotesXSLTResultTarget result)
 			throws NotesApiException;
 }

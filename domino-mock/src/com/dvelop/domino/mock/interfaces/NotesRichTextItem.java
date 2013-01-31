@@ -21,82 +21,83 @@ public interface NotesRichTextItem extends NotesItem {
 	public static final int RTELEM_TYPE_TEXTPOSITION = 10;
 	public static final int RTELEM_TYPE_TEXTSTRING = 11;
 
-	public abstract void addNewLine(int arg0, boolean arg1)
+	public abstract void addNewLine(int count, boolean newparagraph)
 			throws NotesApiException;
 
-	public abstract void addNewLine(int arg0) throws NotesApiException;
+	public abstract void addNewLine(int count) throws NotesApiException;
 
 	public abstract void addNewLine() throws NotesApiException;
 
-	public abstract void addTab(int arg0) throws NotesApiException;
+	public abstract void addTab(int count) throws NotesApiException;
 
 	public abstract void addTab() throws NotesApiException;
 
 	public abstract void addPageBreak() throws NotesApiException;
 
-	public abstract void addPageBreak(NotesRichTextParagraphStyle arg0)
+	public abstract void addPageBreak(NotesRichTextParagraphStyle pstyle)
 			throws NotesApiException;
 
-	public abstract void appendDocLink(NotesDocument arg0, String arg1)
+	public abstract void appendDocLink(NotesDocument doc, String comment)
 			throws NotesApiException;
 
-	public abstract void appendDocLink(NotesDocument arg0)
+	public abstract void appendDocLink(NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract void appendDocLink(NotesDatabase arg0, String arg1)
+	public abstract void appendDocLink(NotesDatabase db, String comment)
 			throws NotesApiException;
 
-	public abstract void appendDocLink(NotesDatabase arg0)
+	public abstract void appendDocLink(NotesDatabase db)
 			throws NotesApiException;
 
-	public abstract void appendDocLink(NotesView arg0, String arg1)
+	public abstract void appendDocLink(NotesView vw, String comment)
 			throws NotesApiException;
 
-	public abstract void appendDocLink(NotesView arg0) throws NotesApiException;
+	public abstract void appendDocLink(NotesView vw) throws NotesApiException;
 
-	public abstract void appendDocLink(NotesDocument arg0, String arg1,
-			String arg2) throws NotesApiException;
+	public abstract void appendDocLink(NotesDocument doc, String comment,
+			String hotspottext) throws NotesApiException;
 
-	public abstract void appendDocLink(NotesDatabase arg0, String arg1,
-			String arg2) throws NotesApiException;
+	public abstract void appendDocLink(NotesDatabase db, String comment,
+			String hotspottext) throws NotesApiException;
 
-	public abstract void appendDocLink(NotesView arg0, String arg1, String arg2)
+	public abstract void appendDocLink(NotesView vw, String comment,
+			String hotspottext) throws NotesApiException;
+
+	public abstract void appendRTItem(NotesRichTextItem item)
 			throws NotesApiException;
 
-	public abstract void appendRTItem(NotesRichTextItem arg0)
+	public abstract void appendStyle(NotesRichTextStyle style)
 			throws NotesApiException;
 
-	public abstract void appendStyle(NotesRichTextStyle arg0)
+	public abstract void appendParagraphStyle(NotesRichTextParagraphStyle pstyle)
 			throws NotesApiException;
 
-	public abstract void appendParagraphStyle(NotesRichTextParagraphStyle arg0)
-			throws NotesApiException;
+	public abstract void appendText(String text) throws NotesApiException;
 
-	public abstract void appendText(String arg0) throws NotesApiException;
+	public abstract NotesEmbeddedObject embedObject(int type, String clazz,
+			String source, String name) throws NotesApiException;
 
-	public abstract NotesEmbeddedObject embedObject(int arg0, String arg1,
-			String arg2, String arg3) throws NotesApiException;
-
-	public abstract NotesEmbeddedObject getEmbeddedObject(String arg0)
+	public abstract NotesEmbeddedObject getEmbeddedObject(String name)
 			throws NotesApiException;
 
 	public abstract Vector getEmbeddedObjects() throws NotesApiException;
 
-	public abstract String getFormattedText(boolean arg0, int arg1, int arg2)
+	public abstract String getFormattedText(boolean tabstrip, int linelen,
+			int maxlen) throws NotesApiException;
+
+	public abstract void appendTable(int rows, int columns)
 			throws NotesApiException;
 
-	public abstract void appendTable(int arg0, int arg1)
+	public abstract void appendTable(int rows, int columns, Vector labels)
 			throws NotesApiException;
 
-	public abstract void appendTable(int arg0, int arg1, Vector arg2)
+	public abstract void appendTable(int rows, int columns, Vector labels,
+			int leftmargin, Vector rtpstyles) throws NotesApiException;
+
+	public abstract void beginInsert(NotesBase element)
 			throws NotesApiException;
 
-	public abstract void appendTable(int arg0, int arg1, Vector arg2, int arg3,
-			Vector arg4) throws NotesApiException;
-
-	public abstract void beginInsert(NotesBase arg0) throws NotesApiException;
-
-	public abstract void beginInsert(NotesBase arg0, boolean arg1)
+	public abstract void beginInsert(NotesBase element, boolean after)
 			throws NotesApiException;
 
 	public abstract void endInsert() throws NotesApiException;
@@ -106,16 +107,17 @@ public interface NotesRichTextItem extends NotesItem {
 
 	public abstract NotesRichTextRange createRange() throws NotesApiException;
 
-	public abstract int getNotesFont(String arg0, boolean arg1)
+	public abstract int getNotesFont(String facename, boolean addonfail)
 			throws NotesApiException;
 
-	public abstract void beginSection(String arg0) throws NotesApiException;
+	public abstract void beginSection(String title) throws NotesApiException;
 
-	public abstract void beginSection(String arg0, NotesRichTextStyle arg1)
-			throws NotesApiException;
+	public abstract void beginSection(String title,
+			NotesRichTextStyle titlestyle) throws NotesApiException;
 
-	public abstract void beginSection(String arg0, NotesRichTextStyle arg1,
-			NotesColorObject arg2, boolean arg3) throws NotesApiException;
+	public abstract void beginSection(String title,
+			NotesRichTextStyle titlestyle, NotesColorObject barcolor,
+			boolean expand) throws NotesApiException;
 
 	public abstract void endSection() throws NotesApiException;
 

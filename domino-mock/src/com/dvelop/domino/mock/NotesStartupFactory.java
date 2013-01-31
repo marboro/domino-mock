@@ -15,6 +15,6 @@ public class NotesStartupFactory {
 	}
 
 	public void setSessionFactory(NotesSessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+		NotesStartupFactory.sessionFactory = sessionFactory;
 	}
 }

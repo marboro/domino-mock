@@ -17,77 +17,78 @@ public interface NotesViewEntryCollection extends NotesBase {
 
 	public abstract NotesViewEntry getLastEntry() throws NotesApiException;
 
-	public abstract NotesViewEntry getNthEntry(int arg0)
+	public abstract NotesViewEntry getNthEntry(int n) throws NotesApiException;
+
+	public abstract NotesViewEntry getNextEntry(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getNextEntry(NotesViewEntry arg0)
+	public abstract NotesViewEntry getPrevEntry(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getPrevEntry(NotesViewEntry arg0)
+	public abstract NotesViewEntry getEntry(Object entry)
 			throws NotesApiException;
 
-	public abstract NotesViewEntry getEntry(Object arg0)
+	public abstract void addEntry(Object obj) throws NotesApiException;
+
+	public abstract void addEntry(Object obj, boolean checkDups)
 			throws NotesApiException;
 
-	public abstract void addEntry(Object arg0) throws NotesApiException;
-
-	public abstract void addEntry(Object arg0, boolean arg1)
+	public abstract void deleteEntry(NotesViewEntry entry)
 			throws NotesApiException;
 
-	public abstract void deleteEntry(NotesViewEntry arg0)
+	public abstract void FTSearch(String query) throws NotesApiException;
+
+	public abstract void FTSearch(String query, int maxDocs)
 			throws NotesApiException;
 
-	public abstract void FTSearch(String arg0) throws NotesApiException;
-
-	public abstract void FTSearch(String arg0, int arg1)
+	public abstract void putAllInFolder(String folderName)
 			throws NotesApiException;
 
-	public abstract void putAllInFolder(String arg0) throws NotesApiException;
-
-	public abstract void putAllInFolder(String arg0, boolean arg1)
+	public abstract void putAllInFolder(String folderName, boolean createonfail)
 			throws NotesApiException;
 
-	public abstract void removeAll(boolean arg0) throws NotesApiException;
+	public abstract void removeAll(boolean force) throws NotesApiException;
 
-	public abstract void removeAllFromFolder(String arg0)
+	public abstract void removeAllFromFolder(String folderName)
 			throws NotesApiException;
 
-	public abstract void stampAll(String arg0, Object arg1)
+	public abstract void stampAll(String itemName, Object value)
 			throws NotesApiException;
 
 	public abstract void updateAll() throws NotesApiException;
 
-	public abstract void markAllRead(String arg0) throws NotesApiException;
+	public abstract void markAllRead(String username) throws NotesApiException;
 
-	public abstract void markAllUnread(String arg0) throws NotesApiException;
+	public abstract void markAllUnread(String username)
+			throws NotesApiException;
 
 	public abstract void markAllRead() throws NotesApiException;
 
 	public abstract void markAllUnread() throws NotesApiException;
 
-	public abstract void intersect(int arg0) throws NotesApiException;
+	public abstract void intersect(int noteID) throws NotesApiException;
 
-	public abstract void intersect(String arg0) throws NotesApiException;
+	public abstract void intersect(String noteID) throws NotesApiException;
 
-	public abstract void intersect(NotesBase arg0) throws NotesApiException;
+	public abstract void intersect(NotesBase base) throws NotesApiException;
 
-	public abstract void merge(int arg0) throws NotesApiException;
+	public abstract void merge(int noteID) throws NotesApiException;
 
-	public abstract void merge(String arg0) throws NotesApiException;
+	public abstract void merge(String noteID) throws NotesApiException;
 
-	public abstract void merge(NotesBase arg0) throws NotesApiException;
+	public abstract void merge(NotesBase base) throws NotesApiException;
 
-	public abstract void subtract(int arg0) throws NotesApiException;
+	public abstract void subtract(int noteID) throws NotesApiException;
 
-	public abstract void subtract(String arg0) throws NotesApiException;
+	public abstract void subtract(String noteID) throws NotesApiException;
 
-	public abstract void subtract(NotesBase arg0) throws NotesApiException;
+	public abstract void subtract(NotesBase base) throws NotesApiException;
 
-	public abstract boolean contains(int arg0) throws NotesApiException;
+	public abstract boolean contains(int noteID) throws NotesApiException;
 
-	public abstract boolean contains(String arg0) throws NotesApiException;
+	public abstract boolean contains(String noteID) throws NotesApiException;
 
-	public abstract boolean contains(NotesBase arg0) throws NotesApiException;
+	public abstract boolean contains(NotesBase base) throws NotesApiException;
 
 	public abstract NotesViewEntryCollection cloneCollection()
 			throws NotesApiException;

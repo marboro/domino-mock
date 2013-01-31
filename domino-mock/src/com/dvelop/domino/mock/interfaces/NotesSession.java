@@ -16,30 +16,30 @@ public interface NotesSession extends NotesBase {
 
 	public abstract NotesDateRange createDateRange() throws NotesApiException;
 
-	public abstract NotesDateRange createDateRange(NotesDateTime arg0,
-			NotesDateTime arg1) throws NotesApiException;
+	public abstract NotesDateRange createDateRange(NotesDateTime startt,
+			NotesDateTime endt) throws NotesApiException;
 
-	public abstract NotesDateRange createDateRange(Date arg0, Date arg1)
+	public abstract NotesDateRange createDateRange(Date startt, Date endt)
 			throws NotesApiException;
 
-	public abstract NotesDateTime createDateTime(Date arg0)
+	public abstract NotesDateTime createDateTime(Date date)
 			throws NotesApiException;
 
-	public abstract NotesDateTime createDateTime(Calendar arg0)
+	public abstract NotesDateTime createDateTime(Calendar date)
 			throws NotesApiException;
 
-	public abstract NotesDateTime createDateTime(String arg0)
+	public abstract NotesDateTime createDateTime(String date)
 			throws NotesApiException;
 
-	public abstract NotesLog createLog(String arg0) throws NotesApiException;
+	public abstract NotesLog createLog(String name) throws NotesApiException;
 
-	public abstract NotesName createName(String arg0) throws NotesApiException;
+	public abstract NotesName createName(String name) throws NotesApiException;
 
-	public abstract NotesName createName(String arg0, String arg1)
+	public abstract NotesName createName(String name, String lang)
 			throws NotesApiException;
 
 	public abstract NotesNewsletter createNewsletter(
-			NotesDocumentCollection arg0) throws NotesApiException;
+			NotesDocumentCollection collection) throws NotesApiException;
 
 	public abstract NotesRegistration createRegistration()
 			throws NotesApiException;
@@ -62,15 +62,15 @@ public interface NotesSession extends NotesBase {
 			throws NotesApiException;
 
 	public abstract NotesAdministrationProcess createAdministrationProcess(
-			String arg0) throws NotesApiException;
+			String server) throws NotesApiException;
 
-	public abstract Vector evaluate(String arg0) throws NotesApiException;
+	public abstract Vector evaluate(String formula) throws NotesApiException;
 
-	public abstract Vector evaluate(String arg0, NotesDocument arg1)
+	public abstract Vector evaluate(String formula, NotesDocument doc)
 			throws NotesApiException;
 
-	public abstract Vector freeTimeSearch(NotesDateRange arg0, int arg1,
-			Object arg2, boolean arg3) throws NotesApiException;
+	public abstract Vector freeTimeSearch(NotesDateRange window, int duration,
+			Object names, boolean firstfit) throws NotesApiException;
 
 	public abstract Vector getAddressBooks() throws NotesApiException;
 
@@ -83,36 +83,36 @@ public interface NotesSession extends NotesBase {
 
 	public abstract boolean isConvertMIME() throws NotesApiException;
 
-	public abstract void setConvertMime(boolean arg0) throws NotesApiException;
+	public abstract void setConvertMime(boolean flag) throws NotesApiException;
 
-	public abstract void setConvertMIME(boolean arg0) throws NotesApiException;
+	public abstract void setConvertMIME(boolean flag) throws NotesApiException;
 
-	public abstract NotesDatabase getDatabase(String arg0, String arg1)
+	public abstract NotesDatabase getDatabase(String server, String db)
 			throws NotesApiException;
 
-	public abstract NotesDatabase getDatabase(String arg0, String arg1,
-			boolean arg2) throws NotesApiException;
+	public abstract NotesDatabase getDatabase(String server, String db,
+			boolean createonfail) throws NotesApiException;
 
-	public abstract NotesDbDirectory getDbDirectory(String arg0)
+	public abstract NotesDbDirectory getDbDirectory(String server)
 			throws NotesApiException;
 
-	public abstract String getEnvironmentString(String arg0)
+	public abstract String getEnvironmentString(String vname)
 			throws NotesApiException;
 
-	public abstract String getEnvironmentString(String arg0, boolean arg1)
+	public abstract String getEnvironmentString(String vname, boolean issystem)
 			throws NotesApiException;
 
-	public abstract Object getEnvironmentValue(String arg0)
+	public abstract Object getEnvironmentValue(String vname)
 			throws NotesApiException;
 
-	public abstract Object getEnvironmentValue(String arg0, boolean arg1)
+	public abstract Object getEnvironmentValue(String vname, boolean issystem)
 			throws NotesApiException;
 
-	public abstract void setEnvironmentVar(String arg0, Object arg1)
+	public abstract void setEnvironmentVar(String vname, Object value)
 			throws NotesApiException;
 
-	public abstract void setEnvironmentVar(String arg0, Object arg1,
-			boolean arg2) throws NotesApiException;
+	public abstract void setEnvironmentVar(String vname, Object value,
+			boolean issystem) throws NotesApiException;
 
 	public abstract NotesInternational getInternational()
 			throws NotesApiException;
@@ -133,7 +133,7 @@ public interface NotesSession extends NotesBase {
 
 	public abstract boolean isOnServer() throws NotesApiException;
 
-	public abstract NotesBase resolve(String arg0) throws NotesApiException;
+	public abstract NotesBase resolve(String url) throws NotesApiException;
 
 	public abstract Vector getUserNameList() throws NotesApiException;
 
@@ -143,7 +143,7 @@ public interface NotesSession extends NotesBase {
 
 	public abstract String getSessionToken() throws NotesApiException;
 
-	public abstract String getSessionToken(String arg0)
+	public abstract String getSessionToken(String serverName)
 			throws NotesApiException;
 
 	public abstract Object getCredentials() throws NotesApiException;
@@ -156,35 +156,38 @@ public interface NotesSession extends NotesBase {
 
 	public abstract Vector getUserGroupNameList() throws NotesApiException;
 
-	public abstract String sendConsoleCommand(String arg0, String arg1)
+	public abstract String sendConsoleCommand(String servername,
+			String consolecommand) throws NotesApiException;
+
+	public abstract NotesDocument getUserPolicySettings(String server,
+			String name, int type) throws NotesApiException;
+
+	public abstract NotesDocument getUserPolicySettings(String server,
+			String name, int type, String explicitpolicy)
 			throws NotesApiException;
 
-	public abstract NotesDocument getUserPolicySettings(String arg0,
-			String arg1, int arg2) throws NotesApiException;
-
-	public abstract NotesDocument getUserPolicySettings(String arg0,
-			String arg1, int arg2, String arg3) throws NotesApiException;
-
-	public abstract String hashPassword(String arg0) throws NotesApiException;
-
-	public abstract boolean verifyPassword(String arg0, String arg1)
+	public abstract String hashPassword(String password)
 			throws NotesApiException;
+
+	public abstract boolean verifyPassword(String password,
+			String hashedpassword) throws NotesApiException;
 
 	public abstract NotesPropertyBroker getPropertyBroker()
 			throws NotesApiException;
 
 	public abstract NotesDirectory getDirectory() throws NotesApiException;
 
-	public abstract NotesDirectory getDirectory(String arg0)
+	public abstract NotesDirectory getDirectory(String server)
 			throws NotesApiException;
 
 	public abstract boolean isTrustedSession() throws NotesApiException;
 
 	public abstract boolean isRestricted() throws NotesApiException;
 
-	public abstract boolean resetUserPassword(String arg0, String arg1,
-			String arg2) throws NotesApiException;
+	public abstract boolean resetUserPassword(String servername,
+			String username, String password) throws NotesApiException;
 
-	public abstract boolean resetUserPassword(String arg0, String arg1,
-			String arg2, int arg3) throws NotesApiException;
+	public abstract boolean resetUserPassword(String servername,
+			String username, String password, int downloadcount)
+			throws NotesApiException;
 }

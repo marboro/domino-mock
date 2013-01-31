@@ -35,39 +35,39 @@ public interface NotesRichTextStyle extends NotesBase {
 
 	public abstract int getBold() throws NotesApiException;
 
-	public abstract void setBold(int arg0) throws NotesApiException;
+	public abstract void setBold(int value) throws NotesApiException;
 
 	public abstract int getColor() throws NotesApiException;
 
-	public abstract void setColor(int arg0) throws NotesApiException;
+	public abstract void setColor(int value) throws NotesApiException;
 
 	public abstract int getEffects() throws NotesApiException;
 
-	public abstract void setEffects(int arg0) throws NotesApiException;
+	public abstract void setEffects(int value) throws NotesApiException;
 
 	public abstract int getFont() throws NotesApiException;
 
-	public abstract void setFont(int arg0) throws NotesApiException;
+	public abstract void setFont(int value) throws NotesApiException;
 
 	public abstract int getFontSize() throws NotesApiException;
 
-	public abstract void setFontSize(int arg0) throws NotesApiException;
+	public abstract void setFontSize(int value) throws NotesApiException;
 
 	public abstract int getItalic() throws NotesApiException;
 
-	public abstract void setItalic(int arg0) throws NotesApiException;
+	public abstract void setItalic(int value) throws NotesApiException;
 
 	public abstract int getStrikeThrough() throws NotesApiException;
 
-	public abstract void setStrikeThrough(int arg0) throws NotesApiException;
+	public abstract void setStrikeThrough(int value) throws NotesApiException;
 
 	public abstract int getUnderline() throws NotesApiException;
 
-	public abstract void setUnderline(int arg0) throws NotesApiException;
+	public abstract void setUnderline(int value) throws NotesApiException;
 
 	public abstract int getPassThruHTML() throws NotesApiException;
 
-	public abstract void setPassThruHTML(int arg0) throws NotesApiException;
+	public abstract void setPassThruHTML(int value) throws NotesApiException;
 
 	public abstract boolean isDefault() throws NotesApiException;
 

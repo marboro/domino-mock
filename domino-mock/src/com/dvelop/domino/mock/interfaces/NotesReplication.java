@@ -17,11 +17,11 @@ public interface NotesReplication extends NotesBase {
 
 	public abstract int clearHistory() throws NotesApiException;
 
-	public abstract NotesReplicationEntry getEntry(String arg0, String arg1)
-			throws NotesApiException;
+	public abstract NotesReplicationEntry getEntry(String source,
+			String destination) throws NotesApiException;
 
-	public abstract NotesReplicationEntry getEntry(String arg0, String arg1,
-			boolean arg2) throws NotesApiException;
+	public abstract NotesReplicationEntry getEntry(String source,
+			String destination, boolean createflag) throws NotesApiException;
 
 	public abstract long getCutoffInterval() throws NotesApiException;
 
@@ -42,23 +42,24 @@ public interface NotesReplication extends NotesBase {
 	public abstract boolean getDontSendLocalSecurityUpdates()
 			throws NotesApiException;
 
-	public abstract void setCutoffInterval(long arg0) throws NotesApiException;
-
-	public abstract void setDisabled(boolean arg0) throws NotesApiException;
-
-	public abstract void setIgnoreDeletes(boolean arg0)
+	public abstract void setCutoffInterval(long interval)
 			throws NotesApiException;
 
-	public abstract void setCutoffDelete(boolean arg0) throws NotesApiException;
+	public abstract void setDisabled(boolean flag) throws NotesApiException;
 
-	public abstract void setAbstract(boolean arg0) throws NotesApiException;
-
-	public abstract void setIgnoreDestDeletes(boolean arg0)
+	public abstract void setIgnoreDeletes(boolean flag)
 			throws NotesApiException;
 
-	public abstract void setPriority(int arg0) throws NotesApiException;
+	public abstract void setCutoffDelete(boolean flag) throws NotesApiException;
 
-	public abstract void setDontSendLocalSecurityUpdates(boolean arg0)
+	public abstract void setAbstract(boolean flag) throws NotesApiException;
+
+	public abstract void setIgnoreDestDeletes(boolean flag)
+			throws NotesApiException;
+
+	public abstract void setPriority(int priority) throws NotesApiException;
+
+	public abstract void setDontSendLocalSecurityUpdates(boolean flag)
 			throws NotesApiException;
 
 	public abstract Vector getEntries() throws NotesApiException;

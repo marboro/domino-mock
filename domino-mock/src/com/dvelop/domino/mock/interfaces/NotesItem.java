@@ -42,26 +42,26 @@ public interface NotesItem extends NotesBase {
 	public static final int MIME_PART = 25;
 	public static final int RFC822TEXT = 1282;
 
-	public abstract String abstractText(int arg0, boolean arg1, boolean arg2)
+	public abstract String abstractText(int maxLen, boolean dropVowels, boolean userDict)
 			throws NotesApiException;
 
-	public abstract void appendToTextList(Vector arg0) throws NotesApiException;
+	public abstract void appendToTextList(Vector values) throws NotesApiException;
 
-	public abstract void appendToTextList(String arg0) throws NotesApiException;
+	public abstract void appendToTextList(String value) throws NotesApiException;
 
-	public abstract boolean containsValue(Object arg0) throws NotesApiException;
+	public abstract boolean containsValue(Object value) throws NotesApiException;
 
-	public abstract NotesItem copyItemToDocument(NotesDocument arg0, String arg1)
+	public abstract NotesItem copyItemToDocument(NotesDocument doc, String newName)
 			throws NotesApiException;
 
-	public abstract NotesItem copyItemToDocument(NotesDocument arg0)
+	public abstract NotesItem copyItemToDocument(NotesDocument doc)
 			throws NotesApiException;
 
 	public abstract NotesMIMEEntity getMIMEEntity() throws NotesApiException;
 
 	public abstract NotesDateTime getDateTimeValue() throws NotesApiException;
 
-	public abstract void setDateTimeValue(NotesDateTime arg0)
+	public abstract void setDateTimeValue(NotesDateTime dt)
 			throws NotesApiException;
 
 	public abstract NotesDateTime getLastModified() throws NotesApiException;
@@ -78,73 +78,73 @@ public interface NotesItem extends NotesBase {
 
 	public abstract Vector getValues() throws NotesApiException;
 
-	public abstract void setValues(Vector arg0) throws NotesApiException;
+	public abstract void setValues(Vector values) throws NotesApiException;
 
 	public abstract String getValueString() throws NotesApiException;
 
-	public abstract void setValueString(String arg0) throws NotesApiException;
+	public abstract void setValueString(String value) throws NotesApiException;
 
 	public abstract double getValueDouble() throws NotesApiException;
 
-	public abstract void setValueDouble(double arg0) throws NotesApiException;
+	public abstract void setValueDouble(double value) throws NotesApiException;
 
 	public abstract int getValueInteger() throws NotesApiException;
 
-	public abstract void setValueInteger(int arg0) throws NotesApiException;
+	public abstract void setValueInteger(int value) throws NotesApiException;
 
 	public abstract int getValueLength() throws NotesApiException;
 
-	public abstract void setValueCustomData(String arg0, Object arg1)
+	public abstract void setValueCustomData(String dataTypeName, Object userObj)
 			throws IOException, NotesApiException;
 
-	public abstract void setValueCustomData(Object arg0) throws IOException,
+	public abstract void setValueCustomData(Object userObj) throws IOException,
 			NotesApiException;
 
-	public abstract void setValueCustomDataBytes(String arg0, byte[] arg1)
+	public abstract void setValueCustomDataBytes(String dataTypeName, byte[] byteArray)
 			throws IOException, NotesApiException;
 
-	public abstract Object getValueCustomData(String arg0) throws IOException,
+	public abstract Object getValueCustomData(String dataTypeName) throws IOException,
 			ClassNotFoundException, NotesApiException;
 
 	public abstract Object getValueCustomData() throws IOException,
 			ClassNotFoundException, NotesApiException;
 
-	public abstract byte[] getValueCustomDataBytes(String arg0)
+	public abstract byte[] getValueCustomDataBytes(String dataTypeName)
 			throws IOException, NotesApiException;
 
 	public abstract Vector getValueDateTimeArray() throws NotesApiException;
 
 	public abstract boolean isAuthors() throws NotesApiException;
 
-	public abstract void setAuthors(boolean arg0) throws NotesApiException;
+	public abstract void setAuthors(boolean flag) throws NotesApiException;
 
 	public abstract boolean isEncrypted() throws NotesApiException;
 
-	public abstract void setEncrypted(boolean arg0) throws NotesApiException;
+	public abstract void setEncrypted(boolean flag) throws NotesApiException;
 
 	public abstract boolean isNames() throws NotesApiException;
 
-	public abstract void setNames(boolean arg0) throws NotesApiException;
+	public abstract void setNames(boolean flag) throws NotesApiException;
 
 	public abstract boolean isProtected() throws NotesApiException;
 
-	public abstract void setProtected(boolean arg0) throws NotesApiException;
+	public abstract void setProtected(boolean flag) throws NotesApiException;
 
 	public abstract boolean isReaders() throws NotesApiException;
 
-	public abstract void setReaders(boolean arg0) throws NotesApiException;
+	public abstract void setReaders(boolean flag) throws NotesApiException;
 
 	public abstract boolean isSaveToDisk() throws NotesApiException;
 
-	public abstract void setSaveToDisk(boolean arg0) throws NotesApiException;
+	public abstract void setSaveToDisk(boolean flag) throws NotesApiException;
 
 	public abstract boolean isSigned() throws NotesApiException;
 
-	public abstract void setSigned(boolean arg0) throws NotesApiException;
+	public abstract void setSigned(boolean flag) throws NotesApiException;
 
 	public abstract boolean isSummary() throws NotesApiException;
 
-	public abstract void setSummary(boolean arg0) throws NotesApiException;
+	public abstract void setSummary(boolean flag) throws NotesApiException;
 
 	public abstract void remove() throws NotesApiException;
 
@@ -154,9 +154,9 @@ public interface NotesItem extends NotesBase {
 
 	public abstract InputStream getInputStream() throws NotesApiException;
 
-	public abstract Document parseXML(boolean arg0) throws IOException,
+	public abstract Document parseXML(boolean validate) throws IOException,
 			NotesApiException;
 
-	public abstract void transformXML(Object arg0, NotesXSLTResultTarget arg1)
+	public abstract void transformXML(Object style, NotesXSLTResultTarget result)
 			throws NotesApiException;
 }

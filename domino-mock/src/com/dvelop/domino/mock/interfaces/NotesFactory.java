@@ -1,5 +1,6 @@
 package com.dvelop.domino.mock.interfaces;
 
+import java.applet.Applet;
 import java.io.BufferedReader;
 import java.util.Properties;
 
@@ -17,7 +18,7 @@ public interface NotesFactory {
 	public abstract NotesSession createSessionWithFullAccess()
 			throws NotesApiException;
 
-	public abstract NotesSession createSessionWithFullAccess(String arg0)
+	public abstract NotesSession createSessionWithFullAccess(String passwd)
 			throws NotesApiException;
 
 	public abstract NotesSession createTrustedSession()
@@ -25,53 +26,53 @@ public interface NotesFactory {
 
 	public abstract NotesSession createSession() throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0)
+	public abstract NotesSession createSession(String host)
 			throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0, String arg1,
-			String arg2) throws NotesApiException;
+	public abstract NotesSession createSession(String host, String user,
+			String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0, String[] arg1,
-			String arg2, String arg3) throws NotesApiException;
+	public abstract NotesSession createSession(String host, String[] args,
+			String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0, ORB arg1,
-			String arg2, String arg3) throws NotesApiException;
+	public abstract NotesSession createSession(String host, ORB orb,
+			String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0)
+	public abstract NotesSession createSessionWithIOR(String iOR)
 			throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0, String arg1,
-			String arg2) throws NotesApiException;
+	public abstract NotesSession createSessionWithIOR(String iOR, String user,
+			String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0,
-			String[] arg1, String arg2, String arg3) throws NotesApiException;
+	public abstract NotesSession createSessionWithIOR(String iOR,
+			String[] args, String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0, ORB arg1,
-			String arg2, String arg3) throws NotesApiException;
+	public abstract NotesSession createSessionWithIOR(String iOR, ORB orb,
+			String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(java.applet.Applet arg0,
-			String arg1, String arg2) throws NotesApiException;
+	public abstract NotesSession createSession(Applet app,
+			String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(java.applet.Applet arg0,
-			ORB arg1, String arg2, String arg3) throws NotesApiException;
+	public abstract NotesSession createSession(Applet app,
+			ORB orb, String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0, Object arg1)
+	public abstract NotesSession createSession(String host, Object cookie)
 			throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0, String[] arg1,
-			Object arg2) throws NotesApiException;
+	public abstract NotesSession createSession(String host, String[] args,
+			Object cookie) throws NotesApiException;
 
-	public abstract NotesSession createSession(String arg0, ORB arg1,
-			Object arg2) throws NotesApiException;
+	public abstract NotesSession createSession(String host, ORB orb,
+			Object cookie) throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0, Object arg1)
+	public abstract NotesSession createSessionWithIOR(String iOR, Object cookie)
 			throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0,
-			String[] arg1, Object arg2) throws NotesApiException;
+	public abstract NotesSession createSessionWithIOR(String iOR,
+			String[] args, Object cookie) throws NotesApiException;
 
-	public abstract NotesSession createSessionWithIOR(String arg0, ORB arg1,
-			Object arg2) throws NotesApiException;
+	public abstract NotesSession createSessionWithIOR(String iOR, ORB orb,
+			Object cookie) throws NotesApiException;
 
 	public abstract NotesSession createSessionUP(String arg0, String arg1,
 			String[] arg2, ORB arg3, String arg4, String arg5)
@@ -82,22 +83,22 @@ public interface NotesFactory {
 
 	public abstract ORB createORB();
 
-	public abstract ORB createORB(String[] arg0);
+	public abstract ORB createORB(String[] args);
 
-	public abstract ORB createORB(Properties arg0);
+	public abstract ORB createORB(Properties props);
 
-	public abstract String getIOR(String arg0) throws NotesApiException;
+	public abstract String getIOR(String host) throws NotesApiException;
 
-	public abstract String getIOR(String arg0, String arg1, String arg2)
+	public abstract String getIOR(String host, String user, String passwd)
 			throws NotesApiException;
 
-	public abstract String getIOR(String arg0, String[] arg1)
+	public abstract String getIOR(String host, String[] args)
 			throws NotesApiException;
 
-	public abstract String getIOR(String arg0, String[] arg1, String arg2,
-			String arg3) throws NotesApiException;
+	public abstract String getIOR(String host, String[] args, String user,
+			String passwd) throws NotesApiException;
 
-	public abstract String getIOR(String arg0, String arg1, String[] arg2,
+	public abstract String getIOR(String host, String arg1, String[] arg2,
 			String arg3, String arg4) throws NotesApiException;
 
 	public abstract String requestIORUsingArgs(String arg0, String[] arg1,

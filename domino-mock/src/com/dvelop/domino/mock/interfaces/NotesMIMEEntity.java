@@ -23,7 +23,7 @@ public interface NotesMIMEEntity extends NotesBase {
 
 	public abstract NotesMIMEEntity getNextEntity() throws NotesApiException;
 
-	public abstract NotesMIMEEntity getNextEntity(int arg0)
+	public abstract NotesMIMEEntity getNextEntity(int search)
 			throws NotesApiException;
 
 	public abstract NotesMIMEEntity getNextSibling() throws NotesApiException;
@@ -35,7 +35,7 @@ public interface NotesMIMEEntity extends NotesBase {
 
 	public abstract NotesMIMEEntity getPrevEntity() throws NotesApiException;
 
-	public abstract NotesMIMEEntity getPrevEntity(int arg0)
+	public abstract NotesMIMEEntity getPrevEntity(int search)
 			throws NotesApiException;
 
 	public abstract NotesMIMEEntity getPrevSibling() throws NotesApiException;
@@ -43,7 +43,7 @@ public interface NotesMIMEEntity extends NotesBase {
 	public abstract NotesMIMEEntity createChildEntity()
 			throws NotesApiException;
 
-	public abstract NotesMIMEEntity createChildEntity(NotesMIMEEntity arg0)
+	public abstract NotesMIMEEntity createChildEntity(NotesMIMEEntity nextSibling)
 			throws NotesApiException;
 
 	public abstract NotesMIMEEntity createParentEntity()
@@ -69,13 +69,13 @@ public interface NotesMIMEEntity extends NotesBase {
 
 	public abstract Vector getHeaderObjects() throws NotesApiException;
 
-	public abstract NotesMIMEHeader getNthHeader(String arg0)
+	public abstract NotesMIMEHeader getNthHeader(String headerName)
 			throws NotesApiException;
 
-	public abstract NotesMIMEHeader getNthHeader(String arg0, int arg1)
+	public abstract NotesMIMEHeader getNthHeader(String headerName, int instance)
 			throws NotesApiException;
 
-	public abstract NotesMIMEHeader createHeader(String arg0)
+	public abstract NotesMIMEHeader createHeader(String headerName)
 			throws NotesApiException;
 
 	public abstract Reader getReader() throws NotesApiException;
@@ -84,51 +84,51 @@ public interface NotesMIMEEntity extends NotesBase {
 
 	public abstract InputStream getInputStream() throws NotesApiException;
 
-	public abstract Document parseXML(boolean arg0) throws IOException,
+	public abstract Document parseXML(boolean validate) throws IOException,
 			NotesApiException;
 
-	public abstract void transformXML(Object arg0, NotesXSLTResultTarget arg1)
+	public abstract void transformXML(Object style, NotesXSLTResultTarget result)
 			throws NotesApiException;
 
 	public abstract void decodeContent() throws NotesApiException;
 
-	public abstract void encodeContent(int arg0) throws NotesApiException;
+	public abstract void encodeContent(int encoding) throws NotesApiException;
 
-	public abstract void getEntityAsText(NotesStream arg0)
+	public abstract void getEntityAsText(NotesStream stream)
 			throws NotesApiException;
 
-	public abstract void getEntityAsText(NotesStream arg0, Vector arg1)
+	public abstract void getEntityAsText(NotesStream stream, Vector headerFilters)
 			throws NotesApiException;
 
-	public abstract void getEntityAsText(NotesStream arg0, Vector arg1,
-			boolean arg2) throws NotesApiException;
+	public abstract void getEntityAsText(NotesStream stream, Vector headerFilters,
+			boolean inclusive) throws NotesApiException;
 
-	public abstract void getContentAsBytes(NotesStream arg0)
+	public abstract void getContentAsBytes(NotesStream stream)
 			throws NotesApiException;
 
-	public abstract void getContentAsBytes(NotesStream arg0, boolean arg1)
+	public abstract void getContentAsBytes(NotesStream stream, boolean decoded)
 			throws NotesApiException;
 
-	public abstract void getContentAsText(NotesStream arg0)
+	public abstract void getContentAsText(NotesStream stream)
 			throws NotesApiException;
 
-	public abstract void getContentAsText(NotesStream arg0, boolean arg1)
+	public abstract void getContentAsText(NotesStream stream, boolean decoded)
 			throws NotesApiException;
 
 	public abstract String getSomeHeaders() throws NotesApiException;
 
-	public abstract String getSomeHeaders(Vector arg0) throws NotesApiException;
+	public abstract String getSomeHeaders(Vector headerFilters) throws NotesApiException;
 
-	public abstract String getSomeHeaders(Vector arg0, boolean arg1)
+	public abstract String getSomeHeaders(Vector headerFilters, boolean inclusive)
 			throws NotesApiException;
 
 	public abstract void remove() throws NotesApiException;
 
-	public abstract void setContentFromBytes(NotesStream arg0, String arg1,
-			int arg2) throws NotesApiException;
+	public abstract void setContentFromBytes(NotesStream stream, String contentType,
+			int encoding) throws NotesApiException;
 
-	public abstract void setContentFromText(NotesStream arg0, String arg1,
-			int arg2) throws NotesApiException;
+	public abstract void setContentFromText(NotesStream stream, String contentType,
+			int encoding) throws NotesApiException;
 
-	public abstract void setPreamble(String arg0) throws NotesApiException;
+	public abstract void setPreamble(String preamble) throws NotesApiException;
 }

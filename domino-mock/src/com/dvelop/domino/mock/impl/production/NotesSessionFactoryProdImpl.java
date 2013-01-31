@@ -23,4 +23,19 @@ public class NotesSessionFactoryProdImpl implements NotesSessionFactory {
 		}
 
 	}
+
+	@Override
+	public void returnSession(NotesSession session) throws NotesApiException {
+		try {
+			if (session instanceof NotesSessionProdImpl) {
+
+				((NotesSessionProdImpl) session).get().recycle();
+
+				NotesThread.stermThread();
+			}
+		} catch (NotesException e) {
+			throw new NotesApiException(e);
+		}
+
+	}
 }

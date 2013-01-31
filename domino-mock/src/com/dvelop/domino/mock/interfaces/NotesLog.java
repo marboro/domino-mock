@@ -26,7 +26,7 @@ public interface NotesLog extends NotesBase {
 
 	public abstract String getProgramName() throws NotesApiException;
 
-	public abstract void setProgramName(String arg0) throws NotesApiException;
+	public abstract void setProgramName(String name) throws NotesApiException;
 
 	public abstract int getNumActions() throws NotesApiException;
 
@@ -36,32 +36,32 @@ public interface NotesLog extends NotesBase {
 
 	public abstract boolean isLogActions() throws NotesApiException;
 
-	public abstract void setLogActions(boolean arg0) throws NotesApiException;
+	public abstract void setLogActions(boolean flag) throws NotesApiException;
 
 	public abstract boolean isLogErrors() throws NotesApiException;
 
-	public abstract void setLogErrors(boolean arg0) throws NotesApiException;
+	public abstract void setLogErrors(boolean flag) throws NotesApiException;
 
 	public abstract boolean isOverwriteFile() throws NotesApiException;
 
-	public abstract void setOverwriteFile(boolean arg0)
+	public abstract void setOverwriteFile(boolean flag)
 			throws NotesApiException;
 
-	public abstract void logAction(String arg0) throws NotesApiException;
+	public abstract void logAction(String action) throws NotesApiException;
 
-	public abstract void logError(int arg0, String arg1)
+	public abstract void logError(int code, String text)
 			throws NotesApiException;
 
-	public abstract void logEvent(String arg0, String arg1, int arg2, int arg3)
+	public abstract void logEvent(String text, String queue, int event, int severity)
 			throws NotesApiException;
 
 	public abstract void openAgentLog() throws NotesApiException;
 
-	public abstract void openFileLog(String arg0) throws NotesApiException;
+	public abstract void openFileLog(String filePath) throws NotesApiException;
 
-	public abstract void openMailLog(Vector arg0, String arg1)
+	public abstract void openMailLog(Vector recipients, String subject)
 			throws NotesApiException;
 
-	public abstract void openNotesLog(String arg0, String arg1)
+	public abstract void openNotesLog(String server, String database)
 			throws NotesApiException;
 }

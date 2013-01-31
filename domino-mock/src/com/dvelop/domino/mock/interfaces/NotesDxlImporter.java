@@ -17,74 +17,74 @@ public interface NotesDxlImporter extends NotesBase {
 	public static final int DXLVALIDATIONOPTION_VALIDATE_ALWAYS = 1;
 	public static final int DXLVALIDATIONOPTION_VALIDATE_AUTO = 2;
 
-	public abstract void importDxl(String arg0, NotesDatabase arg1)
+	public abstract void importDxl(String input, NotesDatabase target)
 			throws NotesApiException;
 
-	public abstract void importDxl(NotesStream arg0, NotesDatabase arg1)
+	public abstract void importDxl(NotesStream input, NotesDatabase target)
 			throws NotesApiException;
 
-	public abstract void importDxl(NotesRichTextItem arg0, NotesDatabase arg1)
+	public abstract void importDxl(NotesRichTextItem input, NotesDatabase target)
 			throws NotesApiException;
 
 	public abstract String getFirstImportedNoteID() throws NotesApiException;
 
-	public abstract String getNextImportedNoteID(String arg0)
+	public abstract String getNextImportedNoteID(String noteID)
 			throws NotesApiException;
 
 	public abstract String getLog() throws NotesApiException;
 
-	public abstract void setLogComment(String arg0) throws NotesApiException;
+	public abstract void setLogComment(String comment) throws NotesApiException;
 
 	public abstract String getLogComment() throws NotesApiException;
 
-	public abstract void setExitOnFirstFatalError(boolean arg0)
+	public abstract void setExitOnFirstFatalError(boolean flag)
 			throws NotesApiException;
 
 	public abstract boolean getExitOnFirstFatalError() throws NotesApiException;
 
 	public abstract int getImportedNoteCount() throws NotesApiException;
 
-	public abstract void setInputValidationOption(int arg0)
+	public abstract void setInputValidationOption(int option)
 			throws NotesApiException;
 
 	public abstract int getInputValidationOption() throws NotesApiException;
 
-	public abstract void setAclImportOption(int arg0) throws NotesApiException;
+	public abstract void setAclImportOption(int option) throws NotesApiException;
 
 	public abstract int getAclImportOption() throws NotesApiException;
 
-	public abstract void setDesignImportOption(int arg0)
+	public abstract void setDesignImportOption(int option)
 			throws NotesApiException;
 
 	public abstract int getDesignImportOption() throws NotesApiException;
 
-	public abstract void setDocumentImportOption(int arg0)
+	public abstract void setDocumentImportOption(int option)
 			throws NotesApiException;
 
 	public abstract int getDocumentImportOption() throws NotesApiException;
 
-	public abstract void setUnknownTokenLogOption(int arg0)
+	public abstract void setUnknownTokenLogOption(int option)
 			throws NotesApiException;
 
 	public abstract int getUnknownTokenLogOption() throws NotesApiException;
 
-	public abstract void setReplaceDbProperties(boolean arg0)
+	public abstract void setReplaceDbProperties(boolean flag)
 			throws NotesApiException;
 
 	public abstract boolean getReplaceDbProperties() throws NotesApiException;
 
-	public abstract void setCreateFTIndex(boolean arg0)
+	public abstract void setCreateFTIndex(boolean flag)
 			throws NotesApiException;
 
 	public abstract boolean getCreateFTIndex() throws NotesApiException;
 
-	public abstract void setReplicaRequiredForReplaceOrUpdate(boolean arg0)
+	public abstract void setReplicaRequiredForReplaceOrUpdate(boolean flag)
 			throws NotesApiException;
 
 	public abstract boolean getReplicaRequiredForReplaceOrUpdate()
 			throws NotesApiException;
 
-	public abstract void setCompileLotusScript(boolean arg0)
+	public abstract void setCompileLotusScript(boolean flag)
 			throws NotesApiException;
 
 	public abstract boolean getCompileLotusScript() throws NotesApiException;

@@ -3,23 +3,23 @@ package com.dvelop.domino.mock.interfaces;
 import com.dvelop.domino.mock.Exception.NotesApiException;
 
 public interface NotesRichTextRange extends NotesBase {
-	public abstract void setStyle(NotesRichTextStyle arg0)
+	public abstract void setStyle(NotesRichTextStyle style)
 			throws NotesApiException;
 
 	public abstract void remove() throws NotesApiException;
 
-	public abstract void setBegin(NotesBase arg0) throws NotesApiException;
+	public abstract void setBegin(NotesBase element) throws NotesApiException;
 
-	public abstract void setEnd(NotesBase arg0) throws NotesApiException;
+	public abstract void setEnd(NotesBase element) throws NotesApiException;
 
-	public abstract void reset(boolean arg0, boolean arg1)
+	public abstract void reset(boolean begin, boolean end)
 			throws NotesApiException;
 
-	public abstract int findandReplace(String arg0, String arg1)
+	public abstract int findandReplace(String target, String replacement)
 			throws NotesApiException;
 
-	public abstract int findandReplace(String arg0, String arg1, long arg2)
-			throws NotesApiException;
+	public abstract int findandReplace(String target, String replacement,
+			long options) throws NotesApiException;
 
 	public abstract NotesRichTextRange Clone() throws NotesApiException;
 

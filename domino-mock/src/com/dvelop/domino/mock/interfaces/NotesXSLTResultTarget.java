@@ -76,7 +76,7 @@ public interface NotesXSLTResultTarget {
 	// 1 invokespecial java.lang.Object() [8]
 	// 4 return
 
-	public void NotesXSLTResultTarget(String arg0);
+	public void NotesXSLTResultTarget(String str);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial java.lang.Object() [8]
@@ -86,7 +86,7 @@ public interface NotesXSLTResultTarget {
 	// lotus.domino.XSLTResultTarget.setFileName(java.lang.String) : void [9]
 	// 9 return
 
-	public void NotesXSLTResultTarget(OutputStream arg0);
+	public void NotesXSLTResultTarget(OutputStream bytestream);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial java.lang.Object() [8]
@@ -97,7 +97,7 @@ public interface NotesXSLTResultTarget {
 	// [10]
 	// 9 return
 
-	public void NotesXSLTResultTarget(Writer arg0);
+	public void NotesXSLTResultTarget(Writer charstream);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial java.lang.Object() [8]
@@ -108,7 +108,7 @@ public interface NotesXSLTResultTarget {
 	// [11]
 	// 9 return
 
-	public void NotesXSLTResultTarget(Node arg0);
+	public void NotesXSLTResultTarget(Node node);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial java.lang.Object() [8]
@@ -118,7 +118,7 @@ public interface NotesXSLTResultTarget {
 	// void [12]
 	// 9 return
 
-	public void setFileName(String arg0);
+	public void setFileName(String filename);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial lotus.domino.XSLTResultTarget.setStream() : void [13]
@@ -148,7 +148,7 @@ public interface NotesXSLTResultTarget {
 	// 15 aconst_null
 	// 16 areturn
 
-	public void setByteStream(OutputStream arg0);
+	public void setByteStream(OutputStream bytestream);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial lotus.domino.XSLTResultTarget.setStream() : void [13]
@@ -181,7 +181,7 @@ public interface NotesXSLTResultTarget {
 	// 0 aconst_null
 	// 1 areturn
 
-	public void setCharacterStream(Writer arg0);
+	public void setCharacterStream(Writer charstream);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial lotus.domino.XSLTResultTarget.setStream() : void [13]
@@ -208,7 +208,7 @@ public interface NotesXSLTResultTarget {
 	// 15 aconst_null
 	// 16 areturn
 
-	public void setNode(Node arg0);
+	public void setNode(Node node);
 
 	// 0 aload_0 [this]
 	// 1 invokespecial lotus.domino.XSLTResultTarget.setDOM() : void [23]

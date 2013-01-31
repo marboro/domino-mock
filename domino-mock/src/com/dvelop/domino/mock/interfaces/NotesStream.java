@@ -22,9 +22,9 @@ public interface NotesStream extends NotesBase {
 
 	public abstract String getCharset() throws NotesApiException;
 
-	public abstract void getContents(Writer arg0) throws NotesApiException;
+	public abstract void getContents(Writer stream) throws NotesApiException;
 
-	public abstract void getContents(OutputStream arg0)
+	public abstract void getContents(OutputStream stream)
 			throws NotesApiException;
 
 	public abstract int getPosition() throws NotesApiException;
@@ -33,35 +33,36 @@ public interface NotesStream extends NotesBase {
 
 	public abstract boolean isReadOnly() throws NotesApiException;
 
-	public abstract boolean open(String arg0) throws NotesApiException;
+	public abstract boolean open(String pathname) throws NotesApiException;
 
-	public abstract boolean open(String arg0, String arg1)
+	public abstract boolean open(String pathname, String charset)
 			throws NotesApiException;
 
 	public abstract byte[] read() throws NotesApiException;
 
-	public abstract byte[] read(int arg0) throws NotesApiException;
+	public abstract byte[] read(int length) throws NotesApiException;
 
 	public abstract String readText() throws NotesApiException;
 
-	public abstract String readText(int arg0) throws NotesApiException;
+	public abstract String readText(int contant) throws NotesApiException;
 
-	public abstract String readText(int arg0, int arg1)
+	public abstract String readText(int constant, int eolConstant)
 			throws NotesApiException;
 
-	public abstract void setContents(Reader arg0) throws NotesApiException;
+	public abstract void setContents(Reader stream) throws NotesApiException;
 
-	public abstract void setContents(InputStream arg0) throws NotesApiException;
+	public abstract void setContents(InputStream stream)
+			throws NotesApiException;
 
-	public abstract void setPosition(int arg0) throws NotesApiException;
+	public abstract void setPosition(int position) throws NotesApiException;
 
 	public abstract void truncate() throws NotesApiException;
 
-	public abstract int write(byte[] arg0) throws NotesApiException;
+	public abstract int write(byte[] buffer) throws NotesApiException;
 
-	public abstract int writeText(String arg0) throws NotesApiException;
+	public abstract int writeText(String text) throws NotesApiException;
 
-	public abstract int writeText(String arg0, int arg1)
+	public abstract int writeText(String text, int endOfLine)
 			throws NotesApiException;
 
 }

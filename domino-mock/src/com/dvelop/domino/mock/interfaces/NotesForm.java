@@ -11,7 +11,7 @@ public interface NotesForm extends NotesBase {
 
 	public abstract Vector getFormUsers() throws NotesApiException;
 
-	public abstract void setFormUsers(Vector arg0) throws NotesApiException;
+	public abstract void setFormUsers(Vector users) throws NotesApiException;
 
 	public abstract String getName() throws NotesApiException;
 
@@ -25,12 +25,12 @@ public interface NotesForm extends NotesBase {
 
 	public abstract boolean isProtectReaders() throws NotesApiException;
 
-	public abstract void setProtectReaders(boolean arg0)
+	public abstract void setProtectReaders(boolean flag)
 			throws NotesApiException;
 
 	public abstract boolean isProtectUsers() throws NotesApiException;
 
-	public abstract void setProtectUsers(boolean arg0) throws NotesApiException;
+	public abstract void setProtectUsers(boolean readers) throws NotesApiException;
 
 	public abstract void remove() throws NotesApiException;
 
@@ -40,30 +40,30 @@ public interface NotesForm extends NotesBase {
 
 	public abstract String getHttpURL() throws NotesApiException;
 
-	public abstract int getFieldType(String arg0) throws NotesApiException;
+	public abstract int getFieldType(String name) throws NotesApiException;
 
 	public abstract Vector getLockHolders() throws NotesApiException;
 
 	public abstract boolean lock() throws NotesApiException;
 
-	public abstract boolean lock(boolean arg0) throws NotesApiException;
+	public abstract boolean lock(boolean provisonalOk) throws NotesApiException;
 
-	public abstract boolean lock(String arg0) throws NotesApiException;
+	public abstract boolean lock(String name) throws NotesApiException;
 
-	public abstract boolean lock(String arg0, boolean arg1)
+	public abstract boolean lock(String name, boolean provisonalOk)
 			throws NotesApiException;
 
-	public abstract boolean lock(Vector arg0) throws NotesApiException;
+	public abstract boolean lock(Vector names) throws NotesApiException;
 
-	public abstract boolean lock(Vector arg0, boolean arg1)
+	public abstract boolean lock(Vector names, boolean provisonalOk)
 			throws NotesApiException;
 
 	public abstract boolean lockProvisional() throws NotesApiException;
 
-	public abstract boolean lockProvisional(String arg0)
+	public abstract boolean lockProvisional(String name)
 			throws NotesApiException;
 
-	public abstract boolean lockProvisional(Vector arg0)
+	public abstract boolean lockProvisional(Vector names)
 			throws NotesApiException;
 
 	public abstract void unlock() throws NotesApiException;
