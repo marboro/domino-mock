@@ -1,5 +1,7 @@
 package com.dvelop.domino.mock.impl.mock;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import com.dvelop.domino.mock.Exception.NotesApiException;
@@ -8,24 +10,36 @@ import com.dvelop.domino.mock.interfaces.NotesACLEntry;
 import com.dvelop.domino.mock.interfaces.NotesName;
 
 public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
-		NotesACLEntry {
+		NotesACLEntry, Comparable<NotesACLEntryMockImpl> {
+
+	private final String entryName;
+	private final int entryLevel;
+	private final NotesACLMockImpl parent;
+	private List<String> roles;
+
+	public NotesACLEntryMockImpl(String entryName, int entryLevel,
+			NotesACLMockImpl parent) {
+		this.entryName = entryName;
+		this.entryLevel = entryLevel;
+		this.parent = parent;
+		roles = new ArrayList<String>();
+	}
 
 	@Override
-	public void enableRole(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void enableRole(String name) throws NotesApiException {
+		roles.add(name);
 
 	}
 
 	@Override
-	public void disableRole(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void disableRole(String name) throws NotesApiException {
+		roles.remove(name);
 
 	}
 
 	@Override
-	public boolean isRoleEnabled(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isRoleEnabled(String name) throws NotesApiException {
+		return roles.contains(name);
 	}
 
 	@Override
@@ -47,7 +61,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setName(String arg0) throws NotesApiException {
+	public void setName(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -59,7 +73,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setName(NotesName arg0) throws NotesApiException {
+	public void setName(NotesName name) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -71,7 +85,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setLevel(int arg0) throws NotesApiException {
+	public void setLevel(int level) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -83,7 +97,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setUserType(int arg0) throws NotesApiException {
+	public void setUserType(int userType) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -95,7 +109,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanCreatePersonalAgent(boolean arg0)
+	public void setCanCreatePersonalAgent(boolean flag)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 
@@ -108,7 +122,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanCreatePersonalFolder(boolean arg0)
+	public void setCanCreatePersonalFolder(boolean flag)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 
@@ -121,7 +135,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanCreateDocuments(boolean arg0) throws NotesApiException {
+	public void setCanCreateDocuments(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -133,15 +147,14 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanDeleteDocuments(boolean arg0) throws NotesApiException {
+	public void setCanDeleteDocuments(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public NotesACL getParent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
 	}
 
 	@Override
@@ -151,7 +164,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setPublicReader(boolean arg0) throws NotesApiException {
+	public void setPublicReader(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -163,7 +176,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setPublicWriter(boolean arg0) throws NotesApiException {
+	public void setPublicWriter(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -175,7 +188,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanCreateLSOrJavaAgent(boolean arg0)
+	public void setCanCreateLSOrJavaAgent(boolean flag)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 
@@ -188,7 +201,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setServer(boolean arg0) throws NotesApiException {
+	public void setServer(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -200,7 +213,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setPerson(boolean arg0) throws NotesApiException {
+	public void setPerson(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -212,7 +225,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setGroup(boolean arg0) throws NotesApiException {
+	public void setGroup(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -224,7 +237,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanCreateSharedFolder(boolean arg0) throws NotesApiException {
+	public void setCanCreateSharedFolder(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -236,7 +249,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setAdminReaderAuthor(boolean arg0) throws NotesApiException {
+	public void setAdminReaderAuthor(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -248,7 +261,7 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setAdminServer(boolean arg0) throws NotesApiException {
+	public void setAdminServer(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -260,9 +273,15 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCanReplicateOrCopyDocuments(boolean arg0)
+	public void setCanReplicateOrCopyDocuments(boolean flag)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public int compareTo(NotesACLEntryMockImpl aclEntry) {
+		return this.entryName.compareTo(aclEntry.entryName);
+	}
+
 }

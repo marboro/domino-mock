@@ -1,5 +1,8 @@
 package com.dvelop.domino.mock.impl.mock;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 import com.dvelop.domino.mock.Exception.NotesApiException;
@@ -9,149 +12,212 @@ import com.dvelop.domino.mock.interfaces.NotesDatabase;
 
 public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 
+	private List<NotesACLEntryMockImpl> aclEntries;
+	private int currentEntry;
+	private int internLevel;
+	private List<String> roles;
+	private final NotesDatabaseMockImpl parent;
+	private boolean uniformAccess;
+	private boolean extendedAccess;
+	private boolean adminReaderAuthor;
+	private boolean adminNames;
+	private String administrationServerName;
+
+	public NotesACLMockImpl(NotesDatabaseMockImpl parent) {
+		this.parent = parent;
+		aclEntries = new ArrayList<NotesACLEntryMockImpl>();
+		roles = new ArrayList<String>();
+	}
+
 	@Override
 	public NotesACLEntry getFirstEntry() throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (aclEntries.size() > 0) {
+			currentEntry = 0;
+			return aclEntries.get(0);
+		}
 		return null;
 	}
 
 	@Override
-	public NotesACLEntry getNextEntry(NotesACLEntry arg0)
+	public NotesACLEntry getNextEntry(NotesACLEntry entry)
 			throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (aclEntries.contains(aclEntries)) {
+			int indexOf = aclEntries.indexOf(aclEntries);
+			return aclEntries.get(indexOf);
+		}
 		return null;
 	}
 
 	@Override
 	public NotesACLEntry getNextEntry() throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (aclEntries.size() > currentEntry + 1) {
+			currentEntry++;
+			return aclEntries.get(currentEntry);
+		}
 		return null;
 	}
 
 	@Override
-	public NotesACLEntry getEntry(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public NotesACLEntry getEntry(String name) throws NotesApiException {
+		if ("".equals(name)) {
+			throw new NotesApiException(new IllegalArgumentException(
+					"No Name given"));
+		}
+		for (NotesACLEntryMockImpl aclEntry : aclEntries) {
+			if (aclEntry.getName().compareTo(name) == 0) {
+				return aclEntry;
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public int getInternetLevel() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return internLevel;
 	}
 
 	@Override
-	public void setInternetLevel(int arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setInternetLevel(int internLevel) throws NotesApiException {
+		this.internLevel = internLevel;
 
 	}
 
 	@Override
 	public void save() throws NotesApiException {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void renameRole(String arg0, String arg1) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void addRole(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteRole(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public NotesACLEntry createACLEntry(String arg0, int arg1)
+	public void renameRole(String oldName, String newName)
 			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		roles.remove(oldName);
+		roles.add(newName);
+		Collections.sort(roles);
+		for (NotesACLEntryMockImpl aclEntry : aclEntries) {
+			if (aclEntry.isRoleEnabled(oldName)) {
+				aclEntry.disableRole(oldName);
+				aclEntry.enableRole(newName);
+			}
+		}
+
+	}
+
+	@Override
+	public void addRole(String name) throws NotesApiException {
+		roles.add(name);
+		Collections.sort(roles);
+	}
+
+	@Override
+	public void deleteRole(String name) throws NotesApiException {
+		roles.remove(name);
+		Collections.sort(roles);
+		for (NotesACLEntryMockImpl aclEntry : aclEntries) {
+			if (aclEntry.isRoleEnabled(name)) {
+				aclEntry.disableRole(name);
+			}
+		}
+	}
+
+	@Override
+	public NotesACLEntry createACLEntry(String name, int level)
+			throws NotesApiException {
+		NotesACLEntryMockImpl aclEntry = new NotesACLEntryMockImpl(name, level,
+				this);
+		aclEntries.add(aclEntry);
+		Collections.sort(aclEntries);
+		return aclEntry;
+
 	}
 
 	@Override
 	public Vector getRoles() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		Vector<String> vector = new Vector<String>();
+		for (String role : roles) {
+			vector.add(role);
+		}
+		return vector;
 	}
 
 	@Override
 	public NotesDatabase getParent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
+
 	}
 
 	@Override
 	public boolean isUniformAccess() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setUniformAccess(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+		return uniformAccess;
 
 	}
 
 	@Override
-	public void removeACLEntry(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setUniformAccess(boolean uniformAccess)
+			throws NotesApiException {
+		this.uniformAccess = uniformAccess;
+	}
+
+	@Override
+	public void removeACLEntry(String name) throws NotesApiException {
+		if ("".equals(name)) {
+			throw new NotesApiException(new IllegalArgumentException(
+					"No Name given"));
+		}
+		for (NotesACLEntryMockImpl aclEntry : aclEntries) {
+			if (aclEntry.getName().compareTo(name) == 0) {
+				aclEntries.remove(aclEntry);
+				break;
+			}
+		}
 
 	}
 
 	@Override
 	public boolean isExtendedAccess() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return extendedAccess;
+
 	}
 
 	@Override
-	public void setExtendedAccess(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setExtendedAccess(boolean extendedAccess)
+			throws NotesApiException {
+		this.extendedAccess = extendedAccess;
 
 	}
 
 	@Override
 	public boolean isAdminReaderAuthor() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return adminReaderAuthor;
+
 	}
 
 	@Override
-	public void setAdminReaderAuthor(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setAdminReaderAuthor(boolean adminReaderAuthor)
+			throws NotesApiException {
+		this.adminReaderAuthor = adminReaderAuthor;
 
 	}
 
 	@Override
 	public boolean isAdminNames() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return adminNames;
 	}
 
 	@Override
-	public void setAdminNames(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setAdminNames(boolean adminNames) throws NotesApiException {
+		this.adminNames = adminNames;
 
 	}
 
 	@Override
 	public String getAdministrationServer() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return administrationServerName;
 	}
 
 	@Override
-	public void setAdministrationServer(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setAdministrationServer(String administrationServerName)
+			throws NotesApiException {
+		this.administrationServerName = administrationServerName;
 	}
+
 }
