@@ -1,5 +1,6 @@
 package com.dvelop.domino.mock.impl.mock;
 
+import java.util.Date;
 import java.util.Vector;
 
 import com.dvelop.domino.mock.Exception.NotesApiException;
@@ -9,27 +10,64 @@ import com.dvelop.domino.mock.interfaces.NotesDateTime;
 
 public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent {
 
-	@Override
-	public void run() throws NotesApiException {
-		// TODO Auto-generated method stub
+	private NotesDateTimeMockImpl lastRun;
+	private String noteID;
+	private NotesDatabase parent;
+	private String agentName;
+	private String owner;
+	private boolean enabled;
+	private String serverName;
+	private String query;
+	private String comment;
+	private boolean isPublic;
+	private String commonOwner;
+	private int trigger;
+	private int target;
+	private boolean isNotesAgent;
+	private boolean isWebAgent;
+	private String url;
+	private String notesURL;
+	private String httpURL;
+	private boolean isActivateable;
+
+	public NotesAgentMockImpl(String agentName, NotesDatabase parent) {
+		this.agentName = agentName;
+		this.parent = parent;
+	}
+
+	public NotesAgentMockImpl(String agentName) {
+		this.agentName = agentName;
+
+	}
+
+	public void setParent(NotesDatabase parent) {
+		this.parent = parent;
 
 	}
 
 	@Override
-	public void run(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void run() throws NotesApiException {
+		lastRun = new NotesDateTimeMockImpl(new Date());
+
+	}
+
+	@Override
+	public void run(String noteID) throws NotesApiException {
+		this.noteID = noteID;
+		lastRun = new NotesDateTimeMockImpl(new Date());
 
 	}
 
 	@Override
 	public int runOnServer() throws NotesApiException {
-		// TODO Auto-generated method stub
+		lastRun = new NotesDateTimeMockImpl(new Date());
 		return 0;
 	}
 
 	@Override
-	public int runOnServer(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public int runOnServer(String noteID) throws NotesApiException {
+		this.noteID = noteID;
+		lastRun = new NotesDateTimeMockImpl(new Date());
 		return 0;
 	}
 
@@ -47,128 +85,172 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	@Override
 	public String getName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return agentName;
 	}
 
 	@Override
 	public String getOwner() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return owner;
 	}
 
 	@Override
 	public NotesDateTime getLastRun() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lastRun;
+
 	}
 
 	@Override
 	public boolean isEnabled() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return enabled;
 	}
 
 	@Override
-	public void setEnabled(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setEnabled(boolean enabled) throws NotesApiException {
+		this.enabled = enabled;
 	}
 
 	@Override
 	public String getServerName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return serverName;
 	}
 
 	@Override
-	public void setServerName(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setServerName(String serverName) throws NotesApiException {
+		this.serverName = serverName;
+	}
 
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 	@Override
 	public String getQuery() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return query;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+
 	}
 
 	@Override
 	public String getComment() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return comment;
 	}
 
 	@Override
 	public NotesDatabase getParent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
+	}
+
+	public void setIsPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 
 	@Override
 	public boolean isPublic() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isPublic;
+	}
+
+	public void setCommonOwner(String commonOwner) {
+		this.commonOwner = commonOwner;
 	}
 
 	@Override
 	public String getCommonOwner() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return commonOwner;
+	}
+
+	public void setTrigger(int trigger) {
+		this.trigger = trigger;
+
 	}
 
 	@Override
 	public int getTrigger() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return trigger;
+
+	}
+
+	public void setTarget(int target) {
+		this.target = target;
+
 	}
 
 	@Override
 	public int getTarget() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return target;
+
+	}
+
+	public void setIsNotesAgent(boolean isNotesAgent) {
+		this.isNotesAgent = isNotesAgent;
+
 	}
 
 	@Override
 	public boolean isNotesAgent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isNotesAgent;
+
+	}
+
+	public void setIsWebAgent(boolean isWebAgent) {
+		this.isWebAgent = isWebAgent;
+
 	}
 
 	@Override
 	public boolean isWebAgent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isWebAgent;
+
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+
 	}
 
 	@Override
 	public String getURL() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return url;
+
+	}
+
+	public void setNotesURL(String notesURL) {
+		this.notesURL = notesURL;
 	}
 
 	@Override
 	public String getNotesURL() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return notesURL;
+
+	}
+
+	public void setHttpURL(String httpURL) {
+		this.httpURL = httpURL;
+
 	}
 
 	@Override
 	public String getHttpURL() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return httpURL;
+
 	}
 
 	@Override
 	public String getParameterDocID() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return noteID;
+	}
+
+	public void setIsActivatable(boolean isActivateable) {
+		this.isActivateable = isActivateable;
+
 	}
 
 	@Override
 	public boolean isActivatable() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isActivateable;
+
 	}
 
 	@Override
@@ -190,31 +272,31 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public boolean lock(boolean arg0) throws NotesApiException {
+	public boolean lock(boolean provisionalok) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean lock(String arg0) throws NotesApiException {
+	public boolean lock(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean lock(String arg0, boolean arg1) throws NotesApiException {
+	public boolean lock(String name, boolean provisionalok) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean lock(Vector arg0) throws NotesApiException {
+	public boolean lock(Vector names) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean lock(Vector arg0, boolean arg1) throws NotesApiException {
+	public boolean lock(Vector names, boolean provisionalok) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -226,13 +308,13 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public boolean lockProvisional(String arg0) throws NotesApiException {
+	public boolean lockProvisional(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean lockProvisional(Vector arg0) throws NotesApiException {
+	public boolean lockProvisional(Vector names) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -250,8 +332,9 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public void setProhibitDesignUpdate(boolean arg0) throws NotesApiException {
+	public void setProhibitDesignUpdate(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
+
 }

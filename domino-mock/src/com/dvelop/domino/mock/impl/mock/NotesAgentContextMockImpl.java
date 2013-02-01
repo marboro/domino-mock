@@ -11,93 +11,144 @@ import com.dvelop.domino.mock.interfaces.NotesDocumentCollection;
 public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
 		NotesAgentContext {
 
-	@Override
-	public void updateProcessedDoc(NotesDocument arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	private NotesAgent currentAgent;
+	private NotesDatabase currentDatabase;
+	private NotesDocument documentContext;
+	private int lastExitStatus;
+	private NotesDateTime lastRun;
+	private NotesDocument savedData;
+	private NotesDocumentCollection unprocessedDocuments;
+	private NotesDocument processedDoc;
+	private NotesDocumentCollection unprocessedFTSearch;
+	private NotesDocumentCollection unprocessedSearch;
+	private String effectiveUserName;
 
+	@Override
+	public void updateProcessedDoc(NotesDocument processedDoc)
+			throws NotesApiException {
+		this.processedDoc = processedDoc;
+	}
+
+	public void setUnprocessedFTSearch(
+			NotesDocumentCollection unprocessedFTSearch) {
+		this.unprocessedFTSearch = unprocessedFTSearch;
 	}
 
 	@Override
 	public NotesDocumentCollection unprocessedFTSearch(String arg0, int arg1)
 			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return unprocessedFTSearch;
+
 	}
 
 	@Override
 	public NotesDocumentCollection unprocessedFTSearch(String arg0, int arg1,
 			int arg2, int arg3) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return unprocessedFTSearch;
 	}
 
 	@Override
 	public NotesDocumentCollection unprocessedFTSearchRange(String arg0,
 			int arg1, int arg2) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return unprocessedFTSearch;
 	}
 
 	@Override
 	public NotesDocumentCollection unprocessedFTSearchRange(String arg0,
 			int arg1, int arg2, int arg3, int arg4) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return unprocessedFTSearch;
+	}
+
+	public void setUnprocessedSearch(NotesDocumentCollection unprocessedSearch) {
+		this.unprocessedSearch = unprocessedSearch;
 	}
 
 	@Override
 	public NotesDocumentCollection unprocessedSearch(String arg0,
 			NotesDateTime arg1, int arg2) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return unprocessedSearch;
+	}
+
+	public void setEffectiveUserName(String effectiveUserName) {
+		this.effectiveUserName = effectiveUserName;
+
 	}
 
 	@Override
 	public String getEffectiveUserName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return effectiveUserName;
+	}
+
+	public void setCurrentAgent(NotesAgent currentAgent) {
+		this.currentAgent = currentAgent;
 	}
 
 	@Override
 	public NotesAgent getCurrentAgent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return currentAgent;
+	}
+
+	public void setCurrentDatabase(NotesDatabase currentDatabase) {
+		this.currentDatabase = currentDatabase;
 	}
 
 	@Override
 	public NotesDatabase getCurrentDatabase() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return currentDatabase;
+	}
+
+	public void setDocumentContext(NotesDocument documentContext) {
+		this.documentContext = documentContext;
+
 	}
 
 	@Override
 	public NotesDocument getDocumentContext() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return documentContext;
+
+	}
+
+	public void setLastExitStatus(int lastExitStatus) {
+		this.lastExitStatus = lastExitStatus;
+
 	}
 
 	@Override
 	public int getLastExitStatus() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return lastExitStatus;
+
+	}
+
+	public void setLastRun(NotesDateTime lastRun) {
+		this.lastRun = lastRun;
 	}
 
 	@Override
 	public NotesDateTime getLastRun() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lastRun;
+
+	}
+
+	public void setSavedData(NotesDocument savedData) {
+		this.savedData = savedData;
+
 	}
 
 	@Override
 	public NotesDocument getSavedData() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return savedData;
+
+	}
+
+	public void setUnprocessedDocuments(
+			NotesDocumentCollection unprocessedDocuments) {
+		this.unprocessedDocuments = unprocessedDocuments;
+
 	}
 
 	@Override
 	public NotesDocumentCollection getUnprocessedDocuments()
 			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return unprocessedDocuments;
 	}
 }

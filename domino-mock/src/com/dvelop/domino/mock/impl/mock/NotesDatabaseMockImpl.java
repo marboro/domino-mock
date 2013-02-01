@@ -1,5 +1,7 @@
 package com.dvelop.domino.mock.impl.mock;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 import com.dvelop.domino.mock.Exception.NotesApiException;
@@ -16,8 +18,13 @@ import com.dvelop.domino.mock.interfaces.NotesReplication;
 import com.dvelop.domino.mock.interfaces.NotesSession;
 import com.dvelop.domino.mock.interfaces.NotesView;
 
-public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
-		NotesDatabase {
+public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDatabase {
+
+	private Map<String, NotesAgent> agents;
+
+	public NotesDatabaseMockImpl() {
+		agents = new HashMap<String, NotesAgent>();
+	}
 
 	@Override
 	public boolean open() throws NotesApiException {
@@ -26,22 +33,19 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean openByReplicaID(String arg0, String arg1)
-			throws NotesApiException {
+	public boolean openByReplicaID(String server, String replicaID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean openIfModified(String arg0, String arg1, NotesDateTime arg2)
-			throws NotesApiException {
+	public boolean openIfModified(String server, String dbFile, NotesDateTime modifiedSince) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean openWithFailover(String arg0, String arg1)
-			throws NotesApiException {
+	public boolean openWithFailover(String server, String dbFile) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -53,34 +57,31 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public int compactWithOptions(String arg0) throws NotesApiException {
+	public int compactWithOptions(String options) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int compactWithOptions(int arg0) throws NotesApiException {
+	public int compactWithOptions(int options) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int compactWithOptions(int arg0, String arg1)
-			throws NotesApiException {
+	public int compactWithOptions(int options, String spaceThreshold) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public NotesDatabase createCopy(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesDatabase createCopy(String server, String dbFile) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDatabase createCopy(String arg0, String arg1, int arg2)
-			throws NotesApiException {
+	public NotesDatabase createCopy(String server, String dbFile, int maxSize) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -92,56 +93,49 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDatabase createFromTemplate(String arg0, String arg1,
-			boolean arg2) throws NotesApiException {
+	public NotesDatabase createFromTemplate(String server, String dbFile, boolean inherit) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDatabase createFromTemplate(String arg0, String arg1,
-			boolean arg2, int arg3) throws NotesApiException {
+	public NotesDatabase createFromTemplate(String server, String dbFile, boolean inherit, int maxSize) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void createFTIndex(int arg0, boolean arg1) throws NotesApiException {
+	public void createFTIndex(int options, boolean recreate) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public NotesDatabase createReplica(String arg0, String arg1)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesDocumentCollection FTSearch(String arg0, int arg1)
-			throws NotesApiException {
+	public NotesDatabase createReplica(String server, String dbFile) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearch(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection FTSearch(String query, int sortOpt) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearch(String arg0, int arg1, int arg2,
-			int arg3) throws NotesApiException {
+	public NotesDocumentCollection FTSearch(String query) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearchRange(String arg0, int arg1,
-			int arg2, int arg3, int arg4) throws NotesApiException {
+	public NotesDocumentCollection FTSearch(String query, int max, int sortOpt, int otherOpt) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NotesDocumentCollection FTSearchRange(String query, int max, int sortOpt, int otherOpt, int start) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -164,16 +158,22 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 		return null;
 	}
 
+	public void addAgent(NotesAgent agent) {
+		try {
+			agents.put(agent.getName(), agent);
+		} catch (NotesApiException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
-	public NotesAgent getAgent(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesAgent getAgent(String name) throws NotesApiException {
+		return agents.get(name);
 	}
 
 	@Override
 	public Vector getAgents() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector<NotesAgent>(agents.values());
 	}
 
 	@Override
@@ -183,7 +183,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setCategories(String arg0) throws NotesApiException {
+	public void setCategories(String categories) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -207,43 +207,38 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocument getDocumentByID(String arg0) throws NotesApiException {
+	public NotesDocument getDocumentByID(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getDocumentByUNID(String arg0)
-			throws NotesApiException {
+	public NotesDocument getDocumentByUNID(String unid) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getDocumentByURL(String arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesDocument getDocumentByURL(String url, boolean reload) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getDocumentByURL(String arg0, boolean arg1,
-			boolean arg2, boolean arg3, String arg4, String arg5, String arg6,
-			String arg7, String arg8, boolean arg9) throws NotesApiException {
+	public NotesDocument getDocumentByURL(String url, boolean reload, boolean relIfMod, boolean urlList, String charset, String webUser, String webPasswd, String proxyUser, String proxyPasswd,
+			boolean returnImmediately) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getProfileDocCollection(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getProfileDocCollection(String profileName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesNoteCollection createNoteCollection(boolean arg0)
-			throws NotesApiException {
+	public NotesNoteCollection createNoteCollection(boolean selectAllFlag) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -267,14 +262,13 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setFolderReferencesEnabled(boolean arg0)
-			throws NotesApiException {
+	public void setFolderReferencesEnabled(boolean bEnable) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public NotesForm getForm(String arg0) throws NotesApiException {
+	public NotesForm getForm(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -322,8 +316,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocument getProfileDocument(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesDocument getProfileDocument(String profile, String profileKey) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -353,7 +346,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setSizeQuota(int arg0) throws NotesApiException {
+	public void setSizeQuota(int quota) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -383,14 +376,13 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public String getURLHeaderInfo(String arg0, String arg1, String arg2,
-			String arg3, String arg4, String arg5) throws NotesApiException {
+	public String getURLHeaderInfo(String url, String header, String webUser, String webPasswd, String proxyUser, String proxyPasswd) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView getView(String arg0) throws NotesApiException {
+	public NotesView getView(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -402,7 +394,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void grantAccess(String arg0, int arg1) throws NotesApiException {
+	public void grantAccess(String name, int level) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -414,7 +406,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setDelayUpdates(boolean arg0) throws NotesApiException {
+	public void setDelayUpdates(boolean delay) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -462,13 +454,13 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public int queryAccess(String arg0) throws NotesApiException {
+	public int queryAccess(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int queryAccessPrivileges(String arg0) throws NotesApiException {
+	public int queryAccessPrivileges(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -480,7 +472,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean replicate(String arg0) throws NotesApiException {
+	public boolean replicate(String server) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -492,51 +484,49 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void revokeAccess(String arg0) throws NotesApiException {
+	public void revokeAccess(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public NotesDocumentCollection search(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesDocumentCollection search(String arg0, NotesDateTime arg1)
-			throws NotesApiException {
+	public NotesDocumentCollection search(String formula) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection search(String arg0, NotesDateTime arg1,
-			int arg2) throws NotesApiException {
+	public NotesDocumentCollection search(String formula, NotesDateTime dt) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setFTIndexFrequency(int arg0) throws NotesApiException {
+	public NotesDocumentCollection search(String formula, NotesDateTime dt, int max) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setFTIndexFrequency(int frequency) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setInMultiDbIndexing(boolean arg0) throws NotesApiException {
+	public void setInMultiDbIndexing(boolean indexing) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setTitle(String arg0) throws NotesApiException {
+	public void setTitle(String title) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void updateFTIndex(boolean arg0) throws NotesApiException {
+	public void updateFTIndex(boolean create) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -548,33 +538,31 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocument FTDomainSearch(String arg0, int arg1, int arg2,
-			int arg3, int arg4, int arg5, String arg6) throws NotesApiException {
+	public NotesDocument FTDomainSearch(String query, int max, int sortOpt, int otherOpt, int start, int count, String entryForm) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesOutline getOutline(String arg0) throws NotesApiException {
+	public NotesOutline getOutline(String outlineName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesOutline createOutline(String arg0) throws NotesApiException {
+	public NotesOutline createOutline(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesOutline createOutline(String arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesOutline createOutline(String name, boolean defaultOutline) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void enableFolder(String arg0) throws NotesApiException {
+	public void enableFolder(String folder) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -598,7 +586,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Vector queryAccessRoles(String arg0) throws NotesApiException {
+	public Vector queryAccessRoles(String name) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -610,28 +598,25 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesView createView(String arg0) throws NotesApiException {
+	public NotesView createView(String viewName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView createView(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesView createView(String viewName, String viewSelectionFormula) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView createView(String arg0, String arg1, NotesView arg2)
-			throws NotesApiException {
+	public NotesView createView(String viewName, String viewSelectionFormula, NotesView templateView) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView createView(String arg0, String arg1, NotesView arg2,
-			boolean arg3) throws NotesApiException {
+	public NotesView createView(String viewName, String viewSelectionFormula, NotesView templateView, boolean prohibitDesignRefreshModifications) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -643,7 +628,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void fixup(int arg0) throws NotesApiException {
+	public void fixup(int options) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -661,7 +646,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setInService(boolean arg0) throws NotesApiException {
+	public void setInService(boolean inService) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -679,8 +664,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setDocumentLockingEnabled(boolean arg0)
-			throws NotesApiException {
+	public void setDocumentLockingEnabled(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -692,7 +676,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setDesignLockingEnabled(boolean arg0) throws NotesApiException {
+	public void setDesignLockingEnabled(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -704,27 +688,25 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void sign(int arg0) throws NotesApiException {
+	public void sign(int documentType) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void sign(int arg0, boolean arg1) throws NotesApiException {
+	public void sign(int documentType, boolean existingSigsOnly) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void sign(int arg0, boolean arg1, String arg2)
-			throws NotesApiException {
+	public void sign(int documentType, boolean existingSigsOnly, String nameStr) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void sign(int arg0, boolean arg1, String arg2, boolean arg3)
-			throws NotesApiException {
+	public void sign(int documentType, boolean existingSigsOnly, String nameStr, boolean nameStrIsNoteid) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -742,7 +724,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setSizeWarning(int arg0) throws NotesApiException {
+	public void setSizeWarning(int warning) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -778,13 +760,13 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setOption(int arg0, boolean arg1) throws NotesApiException {
+	public void setOption(int optionName, boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public boolean getOption(int arg0) throws NotesApiException {
+	public boolean getOption(int optionName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -802,7 +784,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setLimitRevisions(double arg0) throws NotesApiException {
+	public void setLimitRevisions(double revisions) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -814,7 +796,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setLimitUpdatedBy(double arg0) throws NotesApiException {
+	public void setLimitUpdatedBy(double updateBy) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -826,7 +808,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setListInDbCatalog(boolean arg0) throws NotesApiException {
+	public void setListInDbCatalog(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -838,28 +820,25 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setUndeleteExpireTime(int arg0) throws NotesApiException {
+	public void setUndeleteExpireTime(int hours) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public NotesDocumentCollection getModifiedDocuments(NotesDateTime arg0,
-			int arg1) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesDocumentCollection getModifiedDocuments(NotesDateTime arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getModifiedDocuments(NotesDateTime since, int noteClass) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getModifiedDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getModifiedDocuments(NotesDateTime since) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NotesDocumentCollection getModifiedDocuments() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -877,58 +856,51 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection getAllUnreadDocuments(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getAllUnreadDocuments(String userID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllReadDocuments(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getAllReadDocuments(String userID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllUnreadDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getAllUnreadDocuments() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllReadDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getAllReadDocuments() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection createDocumentCollection()
-			throws NotesApiException {
+	public NotesDocumentCollection createDocumentCollection() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView createQueryView(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesView createQueryView(String viewName, String formula) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView createQueryView(String arg0, String arg1, NotesView arg2)
-			throws NotesApiException {
+	public NotesView createQueryView(String viewName, String formula, NotesView templateView) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesView createQueryView(String arg0, String arg1, NotesView arg2,
-			boolean arg3) throws NotesApiException {
+	public NotesView createQueryView(String viewName, String formula, NotesView templateView, boolean prohibitDesignRefreshModifications) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

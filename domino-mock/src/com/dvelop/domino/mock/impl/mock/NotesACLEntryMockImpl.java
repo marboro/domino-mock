@@ -12,10 +12,26 @@ import com.dvelop.domino.mock.interfaces.NotesName;
 public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 		NotesACLEntry, Comparable<NotesACLEntryMockImpl> {
 
-	private final String entryName;
-	private final int entryLevel;
+	private String entryName;
+	private int entryLevel;
 	private final NotesACLMockImpl parent;
 	private List<String> roles;
+	private NotesName nameObject;
+	private int userType;
+	private boolean canCreatePersonalAgent;
+	private boolean canCreatePersonalFolder;
+	private boolean canCreateDocuments;
+	private boolean canDeleteDocuments;
+	private boolean publicReader;
+	private boolean publicWriter;
+	private boolean canCreateLSOrJavaAgent;
+	private boolean isServer;
+	private boolean isPerson;
+	private boolean isGroup;
+	private boolean canCreateSharedFolder;
+	private boolean adminReaderAuthor;
+	private boolean adminServer;
+	private boolean canReplicateOrCopyDocuments;
 
 	public NotesACLEntryMockImpl(String entryName, int entryLevel,
 			NotesACLMockImpl parent) {
@@ -44,112 +60,101 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 
 	@Override
 	public void remove() throws NotesApiException {
-		// TODO Auto-generated method stub
+		parent.removeACLEntry(entryName);
 
 	}
 
 	@Override
 	public Vector getRoles() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector(roles);
 	}
 
 	@Override
 	public String getName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return entryName;
 	}
 
 	@Override
 	public void setName(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.entryName = name;
 
 	}
 
 	@Override
 	public NotesName getNameObject() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return nameObject;
 	}
 
 	@Override
-	public void setName(NotesName name) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setName(NotesName nameObject) throws NotesApiException {
+		this.nameObject = nameObject;
 	}
 
 	@Override
 	public int getLevel() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return entryLevel;
 	}
 
 	@Override
 	public void setLevel(int level) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.entryLevel = level;
 
 	}
 
 	@Override
 	public int getUserType() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return userType;
+
 	}
 
 	@Override
 	public void setUserType(int userType) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.userType = userType;
 
 	}
 
 	@Override
 	public boolean isCanCreatePersonalAgent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canCreatePersonalAgent;
 	}
 
 	@Override
-	public void setCanCreatePersonalAgent(boolean flag)
+	public void setCanCreatePersonalAgent(boolean canCreatePersonalAgent)
 			throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.canCreatePersonalAgent = canCreatePersonalAgent;
 	}
 
 	@Override
 	public boolean isCanCreatePersonalFolder() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canCreatePersonalFolder;
 	}
 
 	@Override
-	public void setCanCreatePersonalFolder(boolean flag)
+	public void setCanCreatePersonalFolder(boolean canCreatePersonalFolder)
 			throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.canCreatePersonalFolder = canCreatePersonalFolder;
 	}
 
 	@Override
 	public boolean isCanCreateDocuments() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canCreateDocuments;
 	}
 
 	@Override
-	public void setCanCreateDocuments(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setCanCreateDocuments(boolean canCreateDocuments)
+			throws NotesApiException {
+		this.canCreateDocuments = canCreateDocuments;
 	}
 
 	@Override
 	public boolean isCanDeleteDocuments() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canDeleteDocuments;
 	}
 
 	@Override
-	public void setCanDeleteDocuments(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setCanDeleteDocuments(boolean canDeleteDocuments)
+			throws NotesApiException {
+		this.canDeleteDocuments = canDeleteDocuments;
 	}
 
 	@Override
@@ -159,124 +164,106 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
 
 	@Override
 	public boolean isPublicReader() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return publicReader;
 	}
 
 	@Override
-	public void setPublicReader(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setPublicReader(boolean publicReader) throws NotesApiException {
+		this.publicReader = publicReader;
 	}
 
 	@Override
 	public boolean isPublicWriter() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return publicWriter;
 	}
 
 	@Override
-	public void setPublicWriter(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setPublicWriter(boolean publicWriter) throws NotesApiException {
+		this.publicWriter = publicWriter;
 	}
 
 	@Override
 	public boolean isCanCreateLSOrJavaAgent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canCreateLSOrJavaAgent;
 	}
 
 	@Override
-	public void setCanCreateLSOrJavaAgent(boolean flag)
+	public void setCanCreateLSOrJavaAgent(boolean canCreateLSOrJavaAgent)
 			throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.canCreateLSOrJavaAgent = canCreateLSOrJavaAgent;
 	}
 
 	@Override
 	public boolean isServer() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isServer;
 	}
 
 	@Override
-	public void setServer(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setServer(boolean isServer) throws NotesApiException {
+		this.isServer = isServer;
 	}
 
 	@Override
 	public boolean isPerson() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isPerson;
 	}
 
 	@Override
-	public void setPerson(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setPerson(boolean isPerson) throws NotesApiException {
+		this.isPerson = isPerson;
 	}
 
 	@Override
 	public boolean isGroup() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isGroup;
 	}
 
 	@Override
-	public void setGroup(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setGroup(boolean isGroup) throws NotesApiException {
+		this.isGroup = isGroup;
 	}
 
 	@Override
 	public boolean isCanCreateSharedFolder() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canCreateSharedFolder;
 	}
 
 	@Override
-	public void setCanCreateSharedFolder(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setCanCreateSharedFolder(boolean canCreateSharedFolder)
+			throws NotesApiException {
+		this.canCreateSharedFolder = canCreateSharedFolder;
 	}
 
 	@Override
 	public boolean isAdminReaderAuthor() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return adminReaderAuthor;
 	}
 
 	@Override
-	public void setAdminReaderAuthor(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setAdminReaderAuthor(boolean adminReaderAuthor)
+			throws NotesApiException {
+		this.adminReaderAuthor = adminReaderAuthor;
 	}
 
 	@Override
 	public boolean isAdminServer() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return adminServer;
 	}
 
 	@Override
-	public void setAdminServer(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setAdminServer(boolean adminServer) throws NotesApiException {
+		this.adminServer = adminServer;
 	}
 
 	@Override
 	public boolean isCanReplicateOrCopyDocuments() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return canReplicateOrCopyDocuments;
 	}
 
 	@Override
-	public void setCanReplicateOrCopyDocuments(boolean flag)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setCanReplicateOrCopyDocuments(
+			boolean canReplicateOrCopyDocuments) throws NotesApiException {
+		this.canReplicateOrCopyDocuments = canReplicateOrCopyDocuments;
 	}
 
 	@Override

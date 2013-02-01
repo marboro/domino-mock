@@ -132,11 +132,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 
 	@Override
 	public Vector getRoles() throws NotesApiException {
-		Vector<String> vector = new Vector<String>();
-		for (String role : roles) {
-			vector.add(role);
-		}
-		return vector;
+		return new Vector(roles);
 	}
 
 	@Override

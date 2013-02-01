@@ -7,8 +7,13 @@ import com.dvelop.domino.mock.Exception.NotesApiException;
 import com.dvelop.domino.mock.interfaces.NotesDateTime;
 import com.dvelop.domino.mock.interfaces.NotesSession;
 
-public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements
-		NotesDateTime {
+public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDateTime {
+
+	private final Date date;
+
+	public NotesDateTimeMockImpl(Date date) {
+		this.date = date;
+	}
 
 	@Override
 	public void adjustHour(int arg0) throws NotesApiException {
@@ -113,29 +118,25 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public double timeDifferenceDouble(NotesDateTime arg0)
-			throws NotesApiException {
+	public double timeDifferenceDouble(NotesDateTime arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void setLocalDate(int arg0, int arg1, int arg2)
-			throws NotesApiException {
+	public void setLocalDate(int arg0, int arg1, int arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setLocalDate(int arg0, int arg1, int arg2, boolean arg3)
-			throws NotesApiException {
+	public void setLocalDate(int arg0, int arg1, int arg2, boolean arg3) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setLocalTime(int arg0, int arg1, int arg2, int arg3)
-			throws NotesApiException {
+	public void setLocalTime(int arg0, int arg1, int arg2, int arg3) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
