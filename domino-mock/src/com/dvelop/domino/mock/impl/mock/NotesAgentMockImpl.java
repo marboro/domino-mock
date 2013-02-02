@@ -29,6 +29,8 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	private String notesURL;
 	private String httpURL;
 	private boolean isActivateable;
+	private String onBehalfOf;
+	private boolean prohibitDesignUpdate;
 
 	public NotesAgentMockImpl(String agentName, NotesDatabase parent) {
 		this.agentName = agentName;
@@ -253,10 +255,14 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	}
 
+	public void setOnBehalfOf(String onBehalfOf) {
+		this.onBehalfOf = onBehalfOf;
+
+	}
+
 	@Override
 	public String getOnBehalfOf() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return onBehalfOf;
 	}
 
 	@Override
@@ -284,7 +290,8 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public boolean lock(String name, boolean provisionalok) throws NotesApiException {
+	public boolean lock(String name, boolean provisionalok)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -296,7 +303,8 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public boolean lock(Vector names, boolean provisionalok) throws NotesApiException {
+	public boolean lock(Vector names, boolean provisionalok)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -327,14 +335,13 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	@Override
 	public boolean isProhibitDesignUpdate() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return prohibitDesignUpdate;
 	}
 
 	@Override
-	public void setProhibitDesignUpdate(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setProhibitDesignUpdate(boolean prohibitDesignUpdate)
+			throws NotesApiException {
+		this.prohibitDesignUpdate = prohibitDesignUpdate;
 	}
 
 }

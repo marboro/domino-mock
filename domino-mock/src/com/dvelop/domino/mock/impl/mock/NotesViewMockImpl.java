@@ -15,6 +15,24 @@ import com.dvelop.domino.mock.interfaces.NotesViewNavigator;
 
 public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 
+	private final String viewName;
+	private final String formula;
+	private final NotesView templateView;
+	private final boolean prohibitDesignRefreshModifications;
+	private final NotesDatabase parent;
+	private boolean isFolder;
+
+	public NotesViewMockImpl(String viewName, String formula,
+			NotesView templateView, boolean prohibitDesignRefreshModifications,
+			NotesDatabase parent) {
+		this.viewName = viewName;
+		this.formula = formula;
+		this.templateView = templateView;
+		this.prohibitDesignRefreshModifications = prohibitDesignRefreshModifications;
+		this.parent = parent;
+		this.isFolder = false;
+	}
+
 	@Override
 	public void clear() throws NotesApiException {
 		// TODO Auto-generated method stub
@@ -177,8 +195,7 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 
 	@Override
 	public NotesDatabase getParent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
 	}
 
 	@Override
@@ -821,5 +838,9 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setIsFolder(boolean isFolder) {
+		this.isFolder = isFolder;
 	}
 }

@@ -8,6 +8,14 @@ import com.dvelop.domino.mock.interfaces.NotesOutlineEntry;
 public class NotesOutlineMockImpl extends NotesBaseMockImpl implements
 		NotesOutline {
 
+	private final String outlineName;
+	private final boolean defaultOutline;
+
+	public NotesOutlineMockImpl(String name, boolean defaultOutline) {
+		this.outlineName = name;
+		this.defaultOutline = defaultOutline;
+	}
+
 	@Override
 	public int save() throws NotesApiException {
 		// TODO Auto-generated method stub
