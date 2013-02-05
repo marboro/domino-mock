@@ -39,8 +39,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public NotesACLEntry getNextEntry(NotesACLEntry entry)
-			throws NotesApiException {
+	public NotesACLEntry getNextEntry(NotesACLEntry entry) throws NotesApiException {
 		if (aclEntries.contains(aclEntries)) {
 			int indexOf = aclEntries.indexOf(aclEntries);
 			return aclEntries.get(indexOf);
@@ -60,8 +59,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	@Override
 	public NotesACLEntry getEntry(String name) throws NotesApiException {
 		if ("".equals(name)) {
-			throw new NotesApiException(new IllegalArgumentException(
-					"No Name given"));
+			throw new NotesApiException(new IllegalArgumentException("No Name given"));
 		}
 		for (NotesACLEntryMockImpl aclEntry : aclEntries) {
 			if (aclEntry.getName().compareTo(name) == 0) {
@@ -88,8 +86,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public void renameRole(String oldName, String newName)
-			throws NotesApiException {
+	public void renameRole(String oldName, String newName) throws NotesApiException {
 		roles.remove(oldName);
 		roles.add(newName);
 		Collections.sort(roles);
@@ -120,10 +117,19 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public NotesACLEntry createACLEntry(String name, int level)
-			throws NotesApiException {
-		NotesACLEntryMockImpl aclEntry = new NotesACLEntryMockImpl(name, level,
-				this);
+	public NotesACLEntry createACLEntry(String name, int level) throws NotesApiException {
+		NotesACLEntryMockImpl aclEntry = null;
+		for (NotesACLEntry entry : aclEntries) {
+			NotesACLEntryMockImpl current = (NotesACLEntryMockImpl) entry;
+			if (current.getName().compareTo(name) == 0) {
+				aclEntry = current;
+			}
+		}
+		if (aclEntry != null) {
+			aclEntries.remove(aclEntry);
+			aclEntry.setLevel(level);
+		} else
+			aclEntry = new NotesACLEntryMockImpl(name, level, this);
 		aclEntries.add(aclEntry);
 		Collections.sort(aclEntries);
 		return aclEntry;
@@ -148,16 +154,14 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public void setUniformAccess(boolean uniformAccess)
-			throws NotesApiException {
+	public void setUniformAccess(boolean uniformAccess) throws NotesApiException {
 		this.uniformAccess = uniformAccess;
 	}
 
 	@Override
 	public void removeACLEntry(String name) throws NotesApiException {
 		if ("".equals(name)) {
-			throw new NotesApiException(new IllegalArgumentException(
-					"No Name given"));
+			throw new NotesApiException(new IllegalArgumentException("No Name given"));
 		}
 		for (NotesACLEntryMockImpl aclEntry : aclEntries) {
 			if (aclEntry.getName().compareTo(name) == 0) {
@@ -175,8 +179,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public void setExtendedAccess(boolean extendedAccess)
-			throws NotesApiException {
+	public void setExtendedAccess(boolean extendedAccess) throws NotesApiException {
 		this.extendedAccess = extendedAccess;
 
 	}
@@ -188,8 +191,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public void setAdminReaderAuthor(boolean adminReaderAuthor)
-			throws NotesApiException {
+	public void setAdminReaderAuthor(boolean adminReaderAuthor) throws NotesApiException {
 		this.adminReaderAuthor = adminReaderAuthor;
 
 	}
@@ -211,8 +213,7 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	}
 
 	@Override
-	public void setAdministrationServer(String administrationServerName)
-			throws NotesApiException {
+	public void setAdministrationServer(String administrationServerName) throws NotesApiException {
 		this.administrationServerName = administrationServerName;
 	}
 

@@ -6,13 +6,28 @@ import com.dvelop.domino.mock.Exception.NotesApiException;
 import com.dvelop.domino.mock.interfaces.NotesDirectory;
 import com.dvelop.domino.mock.interfaces.NotesDirectoryNavigator;
 
-public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements
-		NotesDirectory {
+public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDirectory {
+
+	private final String server;
+	private boolean searchAllDirectories;
+	private boolean trustedOnly;
+	private boolean groupAuthorizationOnly;
+	private boolean useContextServer;
+	private boolean limitMatches;
+	private boolean partialMatches;
+	private boolean errorOnMultipleMatches;
+
+	public NotesDirectoryMockImpl() {
+		this("");
+	}
+
+	public NotesDirectoryMockImpl(String server) {
+		this.server = server;
+	}
 
 	@Override
 	public String getServer() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return server;
 	}
 
 	@Override
@@ -40,98 +55,38 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setSearchAllDirectories(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean isTrustedOnly() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void setTrustedOnly(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public boolean isGroupAuthorizationOnly() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setGroupAuthorizationOnly(boolean arg0)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return groupAuthorizationOnly;
 	}
 
 	@Override
 	public boolean isUseContextServer() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return useContextServer;
 	}
 
-	@Override
-	public void setUseContextServer(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setPartialMatches(boolean partialMatches) {
+		this.partialMatches = partialMatches;
 	}
 
 	@Override
 	public boolean isPartialMatches() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return partialMatches;
 	}
 
 	@Override
 	public boolean isLimitMatches() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setLimitMatches(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public NotesDirectoryNavigator lookupNames(String arg0, String arg1,
-			String arg2) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesDirectoryNavigator lookupNames(String arg0, Vector arg1,
-			Vector arg2, boolean arg3) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesDirectoryNavigator lookupAllNames(String arg0, String arg1)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesDirectoryNavigator lookupAllNames(String arg0, Vector arg1)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return limitMatches;
 	}
 
 	@Override
 	public NotesDirectoryNavigator createNavigator() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return new NotesDirectoryNavigatorMockImpl();
 	}
 
 	@Override
@@ -141,14 +96,64 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Vector getMailInfo(String arg0) throws NotesApiException {
+	public void setSearchAllDirectories(boolean searchAllDirectories) throws NotesApiException {
+		this.searchAllDirectories = searchAllDirectories;
+	}
+
+	@Override
+	public void setTrustedOnly(boolean trustedOnly) throws NotesApiException {
+		this.trustedOnly = trustedOnly;
+	}
+
+	@Override
+	public void setGroupAuthorizationOnly(boolean groupAuthorizationOnly) throws NotesApiException {
+		this.groupAuthorizationOnly = groupAuthorizationOnly;
+	}
+
+	@Override
+	public void setUseContextServer(boolean useContextServer) throws NotesApiException {
+		this.useContextServer = useContextServer;
+	}
+
+	@Override
+	public void setLimitMatches(boolean limitMatches) throws NotesApiException {
+		this.limitMatches = limitMatches;
+	}
+
+	@Override
+	public NotesDirectoryNavigator lookupNames(String view, String name, String item) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Vector getMailInfo(String arg0, boolean arg1, boolean arg2)
-			throws NotesApiException {
+	public NotesDirectoryNavigator lookupNames(String view, Vector names, Vector items, boolean partialMatches) throws NotesApiException {
+		this.partialMatches = partialMatches;
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NotesDirectoryNavigator lookupAllNames(String view, String item) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NotesDirectoryNavigator lookupAllNames(String view, Vector items) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector getMailInfo(String userName) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Vector getMailInfo(String userName, boolean getVer, boolean errorOnMultipleMatches) throws NotesApiException {
+		this.errorOnMultipleMatches = errorOnMultipleMatches;
 		// TODO Auto-generated method stub
 		return null;
 	}

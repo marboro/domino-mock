@@ -17,12 +17,10 @@ import com.dvelop.domino.mock.interfaces.NotesRichTextItem;
 import com.dvelop.domino.mock.interfaces.NotesView;
 import com.dvelop.domino.mock.interfaces.NotesXSLTResultTarget;
 
-public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
-		NotesDocument {
+public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDocument {
 
 	@Override
-	public NotesItem appendItemValue(String arg0, Object arg1)
-			throws NotesApiException {
+	public NotesItem appendItemValue(String arg0, Object arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -34,15 +32,13 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesItem appendItemValue(String arg0, int arg1)
-			throws NotesApiException {
+	public NotesItem appendItemValue(String arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem appendItemValue(String arg0, double arg1)
-			throws NotesApiException {
+	public NotesItem appendItemValue(String arg0, double arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,29 +56,25 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean closeMIMEEntities(boolean arg0, String arg1)
-			throws NotesApiException {
+	public boolean closeMIMEEntities(boolean arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean computeWithForm(boolean arg0, boolean arg1)
-			throws NotesApiException {
+	public boolean computeWithForm(boolean arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public void copyAllItems(NotesDocument arg0, boolean arg1)
-			throws NotesApiException {
+	public void copyAllItems(NotesDocument arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public NotesItem copyItem(NotesItem arg0, String arg1)
-			throws NotesApiException {
+	public NotesItem copyItem(NotesItem arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -94,8 +86,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocument copyToDatabase(NotesDatabase arg0)
-			throws NotesApiException {
+	public NotesDocument copyToDatabase(NotesDatabase arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -107,22 +98,19 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesMIMEEntity createMIMEEntity(String arg0)
-			throws NotesApiException {
+	public NotesMIMEEntity createMIMEEntity(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesRichTextItem createRichTextItem(String arg0)
-			throws NotesApiException {
+	public NotesRichTextItem createRichTextItem(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument createReplyMessage(boolean arg0)
-			throws NotesApiException {
+	public NotesDocument createReplyMessage(boolean arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -134,8 +122,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesEmbeddedObject getAttachment(String arg0)
-			throws NotesApiException {
+	public NotesEmbeddedObject getAttachment(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -249,29 +236,25 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Object getItemValueCustomData(String arg0, String arg1)
-			throws IOException, ClassNotFoundException, NotesApiException {
+	public Object getItemValueCustomData(String arg0, String arg1) throws IOException, ClassNotFoundException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object getItemValueCustomData(String arg0) throws IOException,
-			ClassNotFoundException, NotesApiException {
+	public Object getItemValueCustomData(String arg0) throws IOException, ClassNotFoundException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public byte[] getItemValueCustomDataBytes(String arg0, String arg1)
-			throws IOException, NotesApiException {
+	public byte[] getItemValueCustomDataBytes(String arg0, String arg1) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Vector getItemValueDateTimeArray(String arg0)
-			throws NotesApiException {
+	public Vector getItemValueDateTimeArray(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -487,43 +470,37 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean renderToRTItem(NotesRichTextItem arg0)
-			throws NotesApiException {
+	public boolean renderToRTItem(NotesRichTextItem arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public NotesItem replaceItemValue(String arg0, Object arg1)
-			throws NotesApiException {
+	public NotesItem replaceItemValue(String arg0, Object arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomData(String arg0, String arg1,
-			Object arg2) throws IOException, NotesApiException {
+	public NotesItem replaceItemValueCustomData(String arg0, String arg1, Object arg2) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomData(String arg0, Object arg1)
-			throws IOException, NotesApiException {
+	public NotesItem replaceItemValueCustomData(String arg0, Object arg1) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomDataBytes(String arg0, String arg1,
-			byte[] arg2) throws IOException, NotesApiException {
+	public NotesItem replaceItemValueCustomDataBytes(String arg0, String arg1, byte[] arg2) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean save(boolean arg0, boolean arg1, boolean arg2)
-			throws NotesApiException {
+	public boolean save(boolean arg0, boolean arg1, boolean arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -619,8 +596,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void generateXML(Object arg0, NotesXSLTResultTarget arg1)
-			throws IOException, NotesApiException {
+	public void generateXML(Object arg0, NotesXSLTResultTarget arg1) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -728,8 +704,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void attachVCard(NotesBase arg0, String arg1)
-			throws NotesApiException {
+	public void attachVCard(NotesBase arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -762,5 +737,11 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	public void convertToMIME(int arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String toString() {
+		// TODO getUniversalID
+		return super.toString();
 	}
 }

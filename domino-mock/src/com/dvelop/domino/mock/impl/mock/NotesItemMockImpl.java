@@ -18,8 +18,7 @@ import com.dvelop.domino.mock.interfaces.NotesXSLTResultTarget;
 public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
 	@Override
-	public String abstractText(int arg0, boolean arg1, boolean arg2)
-			throws NotesApiException {
+	public String abstractText(int arg0, boolean arg1, boolean arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -43,15 +42,13 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public NotesItem copyItemToDocument(NotesDocument arg0, String arg1)
-			throws NotesApiException {
+	public NotesItem copyItemToDocument(NotesDocument arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem copyItemToDocument(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesItem copyItemToDocument(NotesDocument arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -165,43 +162,37 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public void setValueCustomData(String arg0, Object arg1)
-			throws IOException, NotesApiException {
+	public void setValueCustomData(String arg0, Object arg1) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setValueCustomData(Object arg0) throws IOException,
-			NotesApiException {
+	public void setValueCustomData(Object arg0) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setValueCustomDataBytes(String arg0, byte[] arg1)
-			throws IOException, NotesApiException {
+	public void setValueCustomDataBytes(String arg0, byte[] arg1) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public Object getValueCustomData(String arg0) throws IOException,
-			ClassNotFoundException, NotesApiException {
+	public Object getValueCustomData(String arg0) throws IOException, ClassNotFoundException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Object getValueCustomData() throws IOException,
-			ClassNotFoundException, NotesApiException {
+	public Object getValueCustomData() throws IOException, ClassNotFoundException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public byte[] getValueCustomDataBytes(String arg0) throws IOException,
-			NotesApiException {
+	public byte[] getValueCustomDataBytes(String arg0) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -333,16 +324,20 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public Document parseXML(boolean arg0) throws IOException,
-			NotesApiException {
+	public Document parseXML(boolean arg0) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void transformXML(Object arg0, NotesXSLTResultTarget arg1)
-			throws NotesApiException {
+	public void transformXML(Object arg0, NotesXSLTResultTarget arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String toString() {
+		// TODO getName
+		return super.toString();
 	}
 }

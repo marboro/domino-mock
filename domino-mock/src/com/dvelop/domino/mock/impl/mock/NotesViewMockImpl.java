@@ -22,9 +22,7 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	private final NotesDatabase parent;
 	private boolean isFolder;
 
-	public NotesViewMockImpl(String viewName, String formula,
-			NotesView templateView, boolean prohibitDesignRefreshModifications,
-			NotesDatabase parent) {
+	public NotesViewMockImpl(String viewName, String formula, NotesView templateView, boolean prohibitDesignRefreshModifications, NotesDatabase parent) {
 		this.viewName = viewName;
 		this.formula = formula;
 		this.templateView = templateView;
@@ -52,71 +50,61 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavMaxLevel(int arg0)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavMaxLevel(int arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavMaxLevel(int arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavMaxLevel(int arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFrom(Object arg0)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFrom(Object arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFrom(Object arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFrom(Object arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromChildren(Object arg0)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromChildren(Object arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromChildren(Object arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromChildren(Object arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromDescendants(Object arg0)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromDescendants(Object arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromDescendants(Object arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromDescendants(Object arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromCategory(String arg0)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromCategory(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromCategory(String arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromCategory(String arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -247,36 +235,31 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesDocument getNextDocument(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesDocument getNextDocument(NotesDocument arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getPrevDocument(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesDocument getPrevDocument(NotesDocument arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getNextSibling(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesDocument getNextSibling(NotesDocument arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getPrevSibling(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesDocument getPrevSibling(NotesDocument arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getParentDocument(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesDocument getParentDocument(NotesDocument arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -300,8 +283,7 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesDocument getDocumentByKey(Vector arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesDocument getDocumentByKey(Vector arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -313,8 +295,7 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesDocument getDocumentByKey(Object arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesDocument getDocumentByKey(Object arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -326,8 +307,7 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewEntry getEntryByKey(Vector arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesViewEntry getEntryByKey(Vector arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -339,64 +319,55 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewEntry getEntryByKey(Object arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesViewEntry getEntryByKey(Object arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllDocumentsByKey(Vector arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getAllDocumentsByKey(Vector arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllDocumentsByKey(Vector arg0,
-			boolean arg1) throws NotesApiException {
+	public NotesDocumentCollection getAllDocumentsByKey(Vector arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllDocumentsByKey(Object arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getAllDocumentsByKey(Object arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocumentCollection getAllDocumentsByKey(Object arg0,
-			boolean arg1) throws NotesApiException {
+	public NotesDocumentCollection getAllDocumentsByKey(Object arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllEntriesByKey(Vector arg0)
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllEntriesByKey(Vector arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllEntriesByKey(Vector arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllEntriesByKey(Vector arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllEntriesByKey(Object arg0)
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllEntriesByKey(Object arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllEntriesByKey(Object arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllEntriesByKey(Object arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -528,15 +499,13 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewColumn createColumn(int arg0, String arg1)
-			throws NotesApiException {
+	public NotesViewColumn createColumn(int arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewColumn createColumn(int arg0, String arg1, String arg2)
-			throws NotesApiException {
+	public NotesViewColumn createColumn(int arg0, String arg1, String arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -554,29 +523,25 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewColumn copyColumn(NotesViewColumn arg0)
-			throws NotesApiException {
+	public NotesViewColumn copyColumn(NotesViewColumn arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewColumn copyColumn(int arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewColumn copyColumn(int arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewColumn copyColumn(String arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewColumn copyColumn(String arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewColumn copyColumn(NotesViewColumn arg0, int arg1)
-			throws NotesApiException {
+	public NotesViewColumn copyColumn(NotesViewColumn arg0, int arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -750,8 +715,7 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromAllUnread(String arg0)
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromAllUnread(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -769,15 +733,13 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewNavigator createViewNavFromAllUnread()
-			throws NotesApiException {
+	public NotesViewNavigator createViewNavFromAllUnread() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection createViewEntryCollection()
-			throws NotesApiException {
+	public NotesViewEntryCollection createViewEntryCollection() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -813,34 +775,36 @@ public class NotesViewMockImpl extends NotesBaseMockImpl implements NotesView {
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllUnreadEntries()
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllUnreadEntries() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllUnreadEntries(String arg0)
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllUnreadEntries(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllReadEntries()
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllReadEntries() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesViewEntryCollection getAllReadEntries(String arg0)
-			throws NotesApiException {
+	public NotesViewEntryCollection getAllReadEntries(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public void setIsFolder(boolean isFolder) {
 		this.isFolder = isFolder;
+	}
+
+	@Override
+	public String toString() {
+		// TODO getName
+		return super.toString();
 	}
 }

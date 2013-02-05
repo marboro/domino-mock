@@ -290,8 +290,7 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public boolean lock(String name, boolean provisionalok)
-			throws NotesApiException {
+	public boolean lock(String name, boolean provisionalok) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -303,8 +302,7 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public boolean lock(Vector names, boolean provisionalok)
-			throws NotesApiException {
+	public boolean lock(Vector names, boolean provisionalok) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -339,9 +337,13 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public void setProhibitDesignUpdate(boolean prohibitDesignUpdate)
-			throws NotesApiException {
+	public void setProhibitDesignUpdate(boolean prohibitDesignUpdate) throws NotesApiException {
 		this.prohibitDesignUpdate = prohibitDesignUpdate;
+	}
+
+	@Override
+	public String toString() {
+		return agentName;
 	}
 
 }

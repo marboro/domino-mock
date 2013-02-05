@@ -181,4 +181,10 @@ public class NotesFormMockImpl extends NotesBaseMockImpl implements NotesForm {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public String toString() {
+		// TODO getName
+		return super.toString();
+	}
 }

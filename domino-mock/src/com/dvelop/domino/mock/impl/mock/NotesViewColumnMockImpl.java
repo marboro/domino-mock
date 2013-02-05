@@ -4,8 +4,7 @@ import com.dvelop.domino.mock.Exception.NotesApiException;
 import com.dvelop.domino.mock.interfaces.NotesView;
 import com.dvelop.domino.mock.interfaces.NotesViewColumn;
 
-public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements
-		NotesViewColumn {
+public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements NotesViewColumn {
 
 	@Override
 	public boolean isField() throws NotesApiException {
@@ -440,8 +439,7 @@ public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setSecondaryResortDescending(boolean arg0)
-			throws NotesApiException {
+	public void setSecondaryResortDescending(boolean arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -549,8 +547,7 @@ public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setSecondaryResortColumnIndex(int arg0)
-			throws NotesApiException {
+	public void setSecondaryResortColumnIndex(int arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -598,8 +595,7 @@ public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setHeaderFontStrikethrough(boolean arg0)
-			throws NotesApiException {
+	public void setHeaderFontStrikethrough(boolean arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -611,8 +607,7 @@ public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setNumberAttribPunctuated(boolean arg0)
-			throws NotesApiException {
+	public void setNumberAttribPunctuated(boolean arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -651,5 +646,11 @@ public class NotesViewColumnMockImpl extends NotesBaseMockImpl implements
 	public int getColumnValuesIndex() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String toString() {
+		// TODO getTitle
+		return super.toString();
 	}
 }

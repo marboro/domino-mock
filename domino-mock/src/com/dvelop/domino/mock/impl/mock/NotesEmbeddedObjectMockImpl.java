@@ -13,8 +13,7 @@ import com.dvelop.domino.mock.interfaces.NotesEmbeddedObject;
 import com.dvelop.domino.mock.interfaces.NotesRichTextItem;
 import com.dvelop.domino.mock.interfaces.NotesXSLTResultTarget;
 
-public class NotesEmbeddedObjectMockImpl extends NotesBaseMockImpl implements
-		NotesEmbeddedObject {
+public class NotesEmbeddedObjectMockImpl extends NotesBaseMockImpl implements NotesEmbeddedObject {
 
 	@Override
 	public int activate(boolean arg0) throws NotesApiException {
@@ -107,16 +106,20 @@ public class NotesEmbeddedObjectMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Document parseXML(boolean arg0) throws IOException,
-			NotesApiException {
+	public Document parseXML(boolean arg0) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void transformXML(Object arg0, NotesXSLTResultTarget arg1)
-			throws NotesApiException {
+	public void transformXML(Object arg0, NotesXSLTResultTarget arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String toString() {
+		// TODO getName
+		return super.toString();
 	}
 }

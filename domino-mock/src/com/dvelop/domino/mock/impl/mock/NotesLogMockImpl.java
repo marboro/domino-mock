@@ -93,8 +93,7 @@ public class NotesLogMockImpl extends NotesBaseMockImpl implements NotesLog {
 	}
 
 	@Override
-	public void logEvent(String arg0, String arg1, int arg2, int arg3)
-			throws NotesApiException {
+	public void logEvent(String arg0, String arg1, int arg2, int arg3) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -121,5 +120,11 @@ public class NotesLogMockImpl extends NotesBaseMockImpl implements NotesLog {
 	public void openNotesLog(String arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public String toString() {
+		// TODO getProgramName
+		return super.toString();
 	}
 }

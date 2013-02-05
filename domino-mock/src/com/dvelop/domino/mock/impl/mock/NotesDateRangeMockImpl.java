@@ -5,48 +5,51 @@ import com.dvelop.domino.mock.interfaces.NotesDateRange;
 import com.dvelop.domino.mock.interfaces.NotesDateTime;
 import com.dvelop.domino.mock.interfaces.NotesSession;
 
-public class NotesDateRangeMockImpl extends NotesBaseMockImpl implements
-		NotesDateRange {
+public class NotesDateRangeMockImpl extends NotesBaseMockImpl implements NotesDateRange {
+
+	private NotesDateTime start;
+	private NotesDateTime end;
+	private NotesSession parent;
+	private String text;
 
 	@Override
 	public NotesDateTime getStartDateTime() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return start;
 	}
 
 	@Override
-	public void setStartDateTime(NotesDateTime arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setStartDateTime(NotesDateTime start) throws NotesApiException {
+		this.start = start;
 	}
 
 	@Override
 	public NotesDateTime getEndDateTime() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return end;
 	}
 
 	@Override
-	public void setEndDateTime(NotesDateTime arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setEndDateTime(NotesDateTime end) throws NotesApiException {
+		this.end = end;
 	}
 
 	@Override
 	public NotesSession getParent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
 	}
 
 	@Override
 	public String getText() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return text;
 	}
 
 	@Override
-	public void setText(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setText(String text) throws NotesApiException {
+		this.text = text;
 	}
+
+	@Override
+	public String toString() {
+		return text;
+	}
+
 }

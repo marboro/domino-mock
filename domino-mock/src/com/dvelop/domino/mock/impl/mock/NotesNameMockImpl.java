@@ -155,4 +155,10 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		// TODO getCanonical
+		return super.toString();
+	}
 }

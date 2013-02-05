@@ -8,8 +8,7 @@ import com.dvelop.domino.mock.interfaces.NotesDateTime;
 import com.dvelop.domino.mock.interfaces.NotesDocument;
 import com.dvelop.domino.mock.interfaces.NotesDocumentCollection;
 
-public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
-		NotesAgentContext {
+public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements NotesAgentContext {
 
 	private NotesAgent currentAgent;
 	private NotesDatabase currentDatabase;
@@ -24,38 +23,32 @@ public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
 	private String effectiveUserName;
 
 	@Override
-	public void updateProcessedDoc(NotesDocument processedDoc)
-			throws NotesApiException {
+	public void updateProcessedDoc(NotesDocument processedDoc) throws NotesApiException {
 		this.processedDoc = processedDoc;
 	}
 
-	public void setUnprocessedFTSearch(
-			NotesDocumentCollection unprocessedFTSearch) {
+	public void setUnprocessedFTSearch(NotesDocumentCollection unprocessedFTSearch) {
 		this.unprocessedFTSearch = unprocessedFTSearch;
 	}
 
 	@Override
-	public NotesDocumentCollection unprocessedFTSearch(String arg0, int arg1)
-			throws NotesApiException {
+	public NotesDocumentCollection unprocessedFTSearch(String arg0, int arg1) throws NotesApiException {
 		return unprocessedFTSearch;
 
 	}
 
 	@Override
-	public NotesDocumentCollection unprocessedFTSearch(String arg0, int arg1,
-			int arg2, int arg3) throws NotesApiException {
+	public NotesDocumentCollection unprocessedFTSearch(String arg0, int arg1, int arg2, int arg3) throws NotesApiException {
 		return unprocessedFTSearch;
 	}
 
 	@Override
-	public NotesDocumentCollection unprocessedFTSearchRange(String arg0,
-			int arg1, int arg2) throws NotesApiException {
+	public NotesDocumentCollection unprocessedFTSearchRange(String arg0, int arg1, int arg2) throws NotesApiException {
 		return unprocessedFTSearch;
 	}
 
 	@Override
-	public NotesDocumentCollection unprocessedFTSearchRange(String arg0,
-			int arg1, int arg2, int arg3, int arg4) throws NotesApiException {
+	public NotesDocumentCollection unprocessedFTSearchRange(String arg0, int arg1, int arg2, int arg3, int arg4) throws NotesApiException {
 		return unprocessedFTSearch;
 	}
 
@@ -64,8 +57,7 @@ public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection unprocessedSearch(String arg0,
-			NotesDateTime arg1, int arg2) throws NotesApiException {
+	public NotesDocumentCollection unprocessedSearch(String arg0, NotesDateTime arg1, int arg2) throws NotesApiException {
 		return unprocessedSearch;
 	}
 
@@ -140,15 +132,18 @@ public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
 
 	}
 
-	public void setUnprocessedDocuments(
-			NotesDocumentCollection unprocessedDocuments) {
+	public void setUnprocessedDocuments(NotesDocumentCollection unprocessedDocuments) {
 		this.unprocessedDocuments = unprocessedDocuments;
 
 	}
 
 	@Override
-	public NotesDocumentCollection getUnprocessedDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getUnprocessedDocuments() throws NotesApiException {
 		return unprocessedDocuments;
+	}
+
+	@Override
+	public String toString() {
+		return effectiveUserName;
 	}
 }
