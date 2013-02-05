@@ -2,6 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Program Files/IBM/Lotus/Domino/jvm/lib/ext/Notes.jar"/>
+=======
+	<classpathentry kind="lib" path="C:/Dokumente und Einstellungen/Marboro/Eigene Dateien/Notes.jar"/>
+>>>>>>> 8c8a506c270c8c09d24a79a9acfe72531ae23b64
 	<classpathentry kind="output" path="bin"/>
 </classpath>

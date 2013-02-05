@@ -35,8 +35,11 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 	private final String replicaID;
 	private List<NotesView> views;
 	private List<NotesView> folders;
+<<<<<<< HEAD
 	private NotesACL acl;
 	private Vector aclActivityLog;
+=======
+>>>>>>> 8c8a506c270c8c09d24a79a9acfe72531ae23b64
 
 	public NotesDatabaseMockImpl() {
 		this("", "", 0, UUID.randomUUID().toString());
@@ -57,7 +60,10 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 		outlines = new ArrayList<NotesOutline>();
 		views = new ArrayList<NotesView>();
 		folders = new ArrayList<NotesView>();
+<<<<<<< HEAD
 		aclActivityLog = new Vector();
+=======
+>>>>>>> 8c8a506c270c8c09d24a79a9acfe72531ae23b64
 	}
 
 	public void addView(NotesView view) {
@@ -197,6 +203,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 		return null;
 	}
 
+<<<<<<< HEAD
 	public void setACL(NotesACL acl) {
 		this.acl = acl;
 	}
@@ -208,20 +215,36 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements
 
 	public void aclActivityLogAddEntry(String entry) {
 		aclActivityLog.add(entry);
+=======
+	@Override
+	public NotesACL getACL() throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 8c8a506c270c8c09d24a79a9acfe72531ae23b64
 	}
 
 	@Override
 	public Vector getACLActivityLog() throws NotesApiException {
+<<<<<<< HEAD
 		return aclActivityLog;
+=======
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 8c8a506c270c8c09d24a79a9acfe72531ae23b64
 	}
 
 	@Override
 	public NotesDocumentCollection getAllDocuments() throws NotesApiException {
+<<<<<<< HEAD
 		NotesDocumentCollectionMockImpl docCol = new NotesDocumentCollectionMockImpl();
 		for (NotesDocument doc : documents) {
 			docCol.addDocument((NotesDocumentMockImpl) doc);
 		}
 		return docCol;
+=======
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 8c8a506c270c8c09d24a79a9acfe72531ae23b64
 	}
 
 	public void addAgent(NotesAgent agent) {
