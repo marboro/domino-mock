@@ -15,8 +15,14 @@ import com.dvelop.domino.mock.interfaces.NotesRichTextRange;
 import com.dvelop.domino.mock.interfaces.NotesRichTextStyle;
 import com.dvelop.domino.mock.interfaces.NotesView;
 
-public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
-		NotesRichTextItem {
+public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements NotesRichTextItem {
+
+	private final String name;
+
+	public NotesRichTextItemMockImpl(String name) {
+		super(name);
+		this.name = name;
+	}
 
 	@Override
 	public void addNewLine(int arg0, boolean arg1) throws NotesApiException {
@@ -55,15 +61,13 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void addPageBreak(NotesRichTextParagraphStyle arg0)
-			throws NotesApiException {
+	public void addPageBreak(NotesRichTextParagraphStyle arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void appendDocLink(NotesDocument arg0, String arg1)
-			throws NotesApiException {
+	public void appendDocLink(NotesDocument arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -75,8 +79,7 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void appendDocLink(NotesDatabase arg0, String arg1)
-			throws NotesApiException {
+	public void appendDocLink(NotesDatabase arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -88,8 +91,7 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void appendDocLink(NotesView arg0, String arg1)
-			throws NotesApiException {
+	public void appendDocLink(NotesView arg0, String arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -101,22 +103,19 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void appendDocLink(NotesDocument arg0, String arg1, String arg2)
-			throws NotesApiException {
+	public void appendDocLink(NotesDocument arg0, String arg1, String arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void appendDocLink(NotesDatabase arg0, String arg1, String arg2)
-			throws NotesApiException {
+	public void appendDocLink(NotesDatabase arg0, String arg1, String arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void appendDocLink(NotesView arg0, String arg1, String arg2)
-			throws NotesApiException {
+	public void appendDocLink(NotesView arg0, String arg1, String arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -134,8 +133,7 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void appendParagraphStyle(NotesRichTextParagraphStyle arg0)
-			throws NotesApiException {
+	public void appendParagraphStyle(NotesRichTextParagraphStyle arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -147,15 +145,13 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public NotesEmbeddedObject embedObject(int arg0, String arg1, String arg2,
-			String arg3) throws NotesApiException {
+	public NotesEmbeddedObject embedObject(int arg0, String arg1, String arg2, String arg3) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesEmbeddedObject getEmbeddedObject(String arg0)
-			throws NotesApiException {
+	public NotesEmbeddedObject getEmbeddedObject(String arg0) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -167,8 +163,7 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public String getFormattedText(boolean arg0, int arg1, int arg2)
-			throws NotesApiException {
+	public String getFormattedText(boolean arg0, int arg1, int arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -180,15 +175,13 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void appendTable(int arg0, int arg1, Vector arg2)
-			throws NotesApiException {
+	public void appendTable(int arg0, int arg1, Vector arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void appendTable(int arg0, int arg1, Vector arg2, int arg3,
-			Vector arg4) throws NotesApiException {
+	public void appendTable(int arg0, int arg1, Vector arg2, int arg3, Vector arg4) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -200,8 +193,7 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void beginInsert(NotesBase arg0, boolean arg1)
-			throws NotesApiException {
+	public void beginInsert(NotesBase arg0, boolean arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -237,15 +229,13 @@ public class NotesRichTextItemMockImpl extends NotesItemMockImpl implements
 	}
 
 	@Override
-	public void beginSection(String arg0, NotesRichTextStyle arg1)
-			throws NotesApiException {
+	public void beginSection(String arg0, NotesRichTextStyle arg1) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void beginSection(String arg0, NotesRichTextStyle arg1,
-			NotesColorObject arg2, boolean arg3) throws NotesApiException {
+	public void beginSection(String arg0, NotesRichTextStyle arg1, NotesColorObject arg2, boolean arg3) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}

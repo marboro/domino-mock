@@ -17,6 +17,12 @@ import com.dvelop.domino.mock.interfaces.NotesXSLTResultTarget;
 
 public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
+	private final String name;
+
+	public NotesItemMockImpl(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String abstractText(int arg0, boolean arg1, boolean arg2) throws NotesApiException {
 		// TODO Auto-generated method stub
