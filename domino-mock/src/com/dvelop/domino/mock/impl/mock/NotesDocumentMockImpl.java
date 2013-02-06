@@ -22,6 +22,18 @@ import com.dvelop.domino.mock.interfaces.NotesXSLTResultTarget;
 public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDocument {
 
 	private Map<String, NotesItem> items;
+	private boolean encrypted;
+	private Vector encryptionKeys;
+	private boolean encryptOnSend;
+	private boolean newNote;
+	private boolean isProfile;
+	private boolean isResponse;
+	private boolean isSigned;
+	private boolean isValid;
+	private boolean saveMessageOnSend;
+	private boolean isSentByAgent;
+	private boolean isSignedOnSend;
+	private boolean isDeleted;
 
 	public NotesDocumentMockImpl() {
 		items = new HashMap<String, NotesItem>();
@@ -151,8 +163,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public void encrypt() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		encrypted = true;
 	}
 
 	@Override
@@ -192,8 +203,8 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public void setEncryptionKeys(Vector keys) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setEncryptionKeys(Vector encryptionKeys) throws NotesApiException {
+		this.encryptionKeys = encryptionKeys;
 
 	}
 
@@ -379,86 +390,74 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public boolean isEncrypted() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return encrypted;
+
 	}
 
 	@Override
 	public boolean isEncryptOnSend() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return encryptOnSend;
+
 	}
 
 	@Override
-	public void setEncryptOnSend(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setEncryptOnSend(boolean encryptOnSend) throws NotesApiException {
+		this.encryptOnSend = encryptOnSend;
 	}
 
 	@Override
 	public boolean isNewNote() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return newNote;
 	}
 
 	@Override
 	public boolean isProfile() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isProfile;
 	}
 
 	@Override
 	public boolean isResponse() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isResponse;
 	}
 
 	@Override
 	public boolean isSigned() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isSigned;
 	}
 
 	@Override
 	public boolean isValid() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isValid;
 	}
 
 	@Override
 	public boolean isSaveMessageOnSend() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return saveMessageOnSend;
 	}
 
 	@Override
-	public void setSaveMessageOnSend(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setSaveMessageOnSend(boolean saveMessageOnSend) throws NotesApiException {
+		this.saveMessageOnSend = saveMessageOnSend;
 	}
 
 	@Override
 	public boolean isSentByAgent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isSentByAgent;
 	}
 
 	@Override
 	public boolean isSignOnSend() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isSignedOnSend;
 	}
 
 	@Override
-	public void setSignOnSend(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void setSignOnSend(boolean isSignedOnSend) throws NotesApiException {
+		this.isSignedOnSend = isSignedOnSend;
 	}
 
 	@Override
 	public boolean isDeleted() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isDeleted;
 	}
 
 	@Override
@@ -481,8 +480,9 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public boolean remove(boolean force) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		// TODO what to do on force?
+		isDeleted = true;
+		return isDeleted;
 	}
 
 	@Override
