@@ -1,5 +1,3 @@
 com.dvelop.domino.mock
 com.dvelop.domino.mock.Exception
-com.dvelop.domino.mock.impl.mock
-com.dvelop.domino.mock.impl.production
 com.dvelop.domino.mock.interfaces
