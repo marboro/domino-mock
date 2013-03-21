@@ -10,6 +10,21 @@ import com.dvelop.domino.mock.Exception.NotesApiException;
  * 
  * @author Sven Dreher
  * @see lotus.domino.ACLEntry
+ * 
+ * @access To create a new ACLEntry object, use
+ *         {@link NotesACL#createACLEntry(String, int)} in ACL.
+ * 
+ *         The ACL class provides three ways to access an existing ACLEntry:
+ * 
+ *         {@literal
+ * 	To access an entry in an ACL when you know its name, use getEntry. 
+ * 	To access the first entry in the ACL, use getFirstEntry. 
+ * 	To access entries after the first one, use getNextEntry. 
+ * }
+ * 
+ *         After modifying an ACL entry, you must call the save method on the
+ *         ACL if you want the modified ACL to be saved to disk.
+ * 
  */
 public interface NotesACLEntry extends NotesBase {
 	/**
