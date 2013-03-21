@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Program Files\IBM\Lotus\Domino\jvm\lib\ext\Notes.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.dvelop.domino.mock.interfaces,com.dvelop.domino.mock.impl.production,com.dvelop.domino.mock.impl.mock,com.dvelop.domino.mock.Exception,com.dvelop.domino.mock" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

@@ -7,15 +7,20 @@ import com.dvelop.domino.mock.interfaces.NotesBase;
 
 public class NotesBaseMockImpl implements NotesBase {
 
+	private boolean isRecycled;
+
 	@Override
 	public void recycle() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.isRecycled = true;
 	}
 
 	@Override
 	public void recycle(Vector arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+		for (Object object : arg0) {
+			if (object instanceof NotesBase) {
+				((NotesBase) object).recycle();
+			}
+		}
 
 	}
 }

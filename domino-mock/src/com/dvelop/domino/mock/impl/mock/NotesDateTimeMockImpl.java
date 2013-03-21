@@ -7,13 +7,25 @@ import com.dvelop.domino.mock.Exception.NotesApiException;
 import com.dvelop.domino.mock.interfaces.NotesDateTime;
 import com.dvelop.domino.mock.interfaces.NotesSession;
 
-public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDateTime {
+public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements
+		NotesDateTime {
 
 	private Calendar calendar;
+	private NotesSession parent;
 
 	public NotesDateTimeMockImpl(Date date) {
 		calendar = Calendar.getInstance();
 		calendar.setTime(date);
+	}
+
+	public NotesDateTimeMockImpl(Date date, NotesSession parent) {
+		this(date);
+		this.parent = parent;
+
+	}
+
+	public void setParent(NotesSession parent) {
+		this.parent = parent;
 	}
 
 	@Override
@@ -23,7 +35,8 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public void adjustHour(int n, boolean preserveLocalTime) throws NotesApiException {
+	public void adjustHour(int n, boolean preserveLocalTime)
+			throws NotesApiException {
 		calendar.roll(Calendar.HOUR_OF_DAY, n);
 
 	}
@@ -35,7 +48,8 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public void adjustMinute(int n, boolean preserveLocalTime) throws NotesApiException {
+	public void adjustMinute(int n, boolean preserveLocalTime)
+			throws NotesApiException {
 		calendar.roll(Calendar.MINUTE, n);
 
 	}
@@ -46,7 +60,8 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public void adjustSecond(int n, boolean preserveLocalTime) throws NotesApiException {
+	public void adjustSecond(int n, boolean preserveLocalTime)
+			throws NotesApiException {
 		calendar.roll(Calendar.SECOND, n);
 	}
 
@@ -56,7 +71,8 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public void adjustDay(int n, boolean preserveLocalTime) throws NotesApiException {
+	public void adjustDay(int n, boolean preserveLocalTime)
+			throws NotesApiException {
 		calendar.roll(Calendar.DAY_OF_MONTH, n);
 	}
 
@@ -66,7 +82,8 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public void adjustMonth(int n, boolean preserveLocalTime) throws NotesApiException {
+	public void adjustMonth(int n, boolean preserveLocalTime)
+			throws NotesApiException {
 		calendar.roll(Calendar.MONTH, n);
 	}
 
@@ -76,7 +93,8 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public void adjustYear(int n, boolean preserveLocalTime) throws NotesApiException {
+	public void adjustYear(int n, boolean preserveLocalTime)
+			throws NotesApiException {
 		calendar.roll(Calendar.YEAR, n);
 	}
 
@@ -110,25 +128,29 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 	}
 
 	@Override
-	public double timeDifferenceDouble(NotesDateTime dt) throws NotesApiException {
+	public double timeDifferenceDouble(NotesDateTime dt)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void setLocalDate(int year, int month, int day) throws NotesApiException {
+	public void setLocalDate(int year, int month, int day)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setLocalDate(int year, int month, int day, boolean preserveLocalTime) throws NotesApiException {
+	public void setLocalDate(int year, int month, int day,
+			boolean preserveLocalTime) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setLocalTime(int hour, int minute, int second, int hundreth) throws NotesApiException {
+	public void setLocalTime(int hour, int minute, int second, int hundreth)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -189,8 +211,7 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 
 	@Override
 	public NotesSession getParent() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parent;
 	}
 
 	@Override
@@ -201,8 +222,7 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements NotesDat
 
 	@Override
 	public Date toJavaDate() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return calendar.getTime();
 	}
 
 }

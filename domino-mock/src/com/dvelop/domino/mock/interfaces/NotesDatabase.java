@@ -484,4 +484,5 @@ public interface NotesDatabase extends NotesBase {
 	public abstract NotesView createQueryView(String viewName, String formula,
 			NotesView templateView, boolean prohibitDesignRefreshModifications)
 			throws NotesApiException;
+
 }

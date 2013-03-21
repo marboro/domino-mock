@@ -2,7 +2,10 @@ package com.dvelop.domino.mock.impl.mock;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -13,13 +16,15 @@ import com.dvelop.domino.mock.interfaces.NotesDateTime;
 import com.dvelop.domino.mock.interfaces.NotesDocument;
 import com.dvelop.domino.mock.interfaces.NotesDocumentCollection;
 import com.dvelop.domino.mock.interfaces.NotesEmbeddedObject;
+import com.dvelop.domino.mock.interfaces.NotesForm;
 import com.dvelop.domino.mock.interfaces.NotesItem;
 import com.dvelop.domino.mock.interfaces.NotesMIMEEntity;
 import com.dvelop.domino.mock.interfaces.NotesRichTextItem;
 import com.dvelop.domino.mock.interfaces.NotesView;
 import com.dvelop.domino.mock.interfaces.NotesXSLTResultTarget;
 
-public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDocument {
+public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
+		NotesDocument {
 
 	private Map<String, NotesItem> items;
 	private boolean encrypted;
@@ -34,21 +39,65 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	private boolean isSentByAgent;
 	private boolean isSignedOnSend;
 	private boolean isDeleted;
+	private Vector authors;
+	private NotesDateTime created;
+	private Map<String, NotesEmbeddedObject> embeddedObjects;
+	private NotesDateTime lastAccessed;
+	private NotesDateTime lastModified;
+	private Vector folderReferences;
+	private String key;
+	private String profileName;
+	private String noteID;
+	private NotesDatabase parentDatabase;
+	private NotesDocument parentDocument;
+	private NotesView parentView;
+	private String signer;
+	private int size;
+	private String universalID;
+	private String verifier;
+	private String formName;
+	private NotesForm form;
+	private boolean isSend;
+	private String url;
+	private String notesURL;
+	private String httpURL;
+	private List<String> readBy;
+	private boolean provisionalok;
+	private Vector lockedBy;
 
 	public NotesDocumentMockImpl() {
 		items = new HashMap<String, NotesItem>();
+		readBy = new ArrayList<String>();
+		lockedBy = new Vector();
+		this.created = new NotesDateTimeMockImpl(new Date());
+	}
+
+	public NotesDocumentMockImpl(NotesDocument doc) throws NotesApiException {
+		this();
+		this.encrypted = doc.isEncrypted();
+		this.encryptionKeys = doc.getEncryptionKeys();
+		this.encryptOnSend = doc.isEncryptOnSend();
+		this.isDeleted = doc.isDeleted();
+		this.isProfile = doc.isProfile();
+		this.isResponse = doc.isResponse();
+		this.isSentByAgent = doc.isSentByAgent();
+		this.isSigned = doc.isSigned();
+		this.isSignedOnSend = doc.isSignOnSend();
+		this.isValid = doc.isValid();
+		this.newNote = doc.isNewNote();
+		this.saveMessageOnSend = doc.isSaveMessageOnSend();
+		doc.copyAllItems(this, true);
 	}
 
 	@Override
-	public NotesItem appendItemValue(String name, Object value) throws NotesApiException {
+	public NotesItem appendItemValue(String name, Object value)
+			throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(name);
 		try {
 			item.setValueCustomData(value);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NotesApiException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		items.put(name, item);
@@ -63,12 +112,12 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public NotesItem appendItemValue(String name, int value) throws NotesApiException {
+	public NotesItem appendItemValue(String name, int value)
+			throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(name);
 		try {
 			item.setValueInteger(value);
 		} catch (NotesApiException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		items.put(name, item);
@@ -76,12 +125,12 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public NotesItem appendItemValue(String name, double value) throws NotesApiException {
+	public NotesItem appendItemValue(String name, double value)
+			throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(name);
 		try {
 			item.setValueDouble(value);
 		} catch (NotesApiException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		items.put(name, item);
@@ -90,75 +139,93 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public boolean closeMIMEEntities() throws NotesApiException {
+		return closeMIMEEntities(false, "Body");
+	}
+
+	@Override
+	public boolean closeMIMEEntities(boolean saveChanges)
+			throws NotesApiException {
+		return closeMIMEEntities(saveChanges, "Body");
+	}
+
+	@Override
+	public boolean closeMIMEEntities(boolean saveChanges, String entityItemName)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean closeMIMEEntities(boolean saveChanges) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean computeWithForm(boolean doDataTypes, boolean raiseError)
+			throws NotesApiException {
+		// TODO Validate
+		return isValid;
 	}
 
 	@Override
-	public boolean closeMIMEEntities(boolean saveChanges, String entityItemName) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean computeWithForm(boolean doDataTypes, boolean raiseError) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void copyAllItems(NotesDocument doc, boolean replace) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void copyAllItems(NotesDocument doc, boolean replace)
+			throws NotesApiException {
+		for (NotesItem item : items.values()) {
+			if (!doc.hasItem(item.getName()) || replace) {
+				doc.copyItem(item);
+			}
+		}
 
 	}
 
 	@Override
-	public NotesItem copyItem(NotesItem item, String newName) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesItem copyItem(NotesItem item, String newName)
+			throws NotesApiException {
+		NotesItemMockImpl newItem = new NotesItemMockImpl(item);
+		newItem.setName(newName);
+		items.put(newName, newItem);
+		return items.get(newName);
 	}
 
 	@Override
 	public NotesItem copyItem(NotesItem item) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		NotesItemMockImpl newItem = new NotesItemMockImpl(item);
+		items.put(item.getName(), newItem);
+		return items.get(item.getName());
 	}
 
 	@Override
-	public NotesDocument copyToDatabase(NotesDatabase db) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesDocument copyToDatabase(NotesDatabase db)
+			throws NotesApiException {
+		return (NotesDocumentMockImpl) ((NotesDatabaseMockImpl) db)
+				.addDocument(this);
 	}
 
 	@Override
 	public NotesMIMEEntity createMIMEEntity() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return createMIMEEntity("Body");
 	}
 
 	@Override
-	public NotesMIMEEntity createMIMEEntity(String itemName) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesMIMEEntity createMIMEEntity(String itemName)
+			throws NotesApiException {
+		NotesItemMockImpl item = new NotesItemMockImpl(itemName);
+		item.setType(NotesItem.MIME_PART);
+		return item.getMIMEEntity();
 	}
 
 	@Override
-	public NotesRichTextItem createRichTextItem(String name) throws NotesApiException {
+	public NotesRichTextItem createRichTextItem(String name)
+			throws NotesApiException {
 		NotesRichTextItemMockImpl rtItem = new NotesRichTextItemMockImpl(name);
 		items.put(name, rtItem);
 		return rtItem;
 	}
 
 	@Override
-	public NotesDocument createReplyMessage(boolean toAll) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesDocument createReplyMessage(boolean toAll)
+			throws NotesApiException {
+		NotesDocumentMockImpl doc = new NotesDocumentMockImpl();
+		doc.copyItem(items.get("From"), "SendTo");
+		doc.appendItemValue("SendTo", items.get("SendTo").getValues());
+		doc.copyItem(items.get("CopyTo"));
+		doc.copyItem(items.get("BlindCopyTo"));
+		return doc;
 	}
 
 	@Override
@@ -167,15 +234,14 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public NotesEmbeddedObject getAttachment(String filename) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesEmbeddedObject getAttachment(String filename)
+			throws NotesApiException {
+		return embeddedObjects.get(filename);
 	}
 
 	@Override
 	public Vector getAuthors() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return authors;
 	}
 
 	@Override
@@ -186,32 +252,29 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public NotesDateTime getCreated() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return created;
 	}
 
 	@Override
 	public Vector getEmbeddedObjects() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector(embeddedObjects.values());
 	}
 
 	@Override
 	public Vector getEncryptionKeys() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return encryptionKeys;
 	}
 
 	@Override
-	public void setEncryptionKeys(Vector encryptionKeys) throws NotesApiException {
+	public void setEncryptionKeys(Vector encryptionKeys)
+			throws NotesApiException {
 		this.encryptionKeys = encryptionKeys;
 
 	}
 
 	@Override
 	public NotesItem getFirstItem(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return items.get(name);
 	}
 
 	@Override
@@ -222,122 +285,113 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public NotesDateTime getLastAccessed() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lastAccessed;
 	}
 
 	@Override
 	public NotesDateTime getLastModified() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lastModified;
 	}
 
 	@Override
 	public Vector getFolderReferences() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return folderReferences;
 	}
 
 	@Override
 	public NotesMIMEEntity getMIMEEntity() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return getMIMEEntity("Body");
 	}
 
 	@Override
-	public NotesMIMEEntity getMIMEEntity(String itemName) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesMIMEEntity getMIMEEntity(String itemName)
+			throws NotesApiException {
+		return items.get(itemName).getMIMEEntity();
 	}
 
 	@Override
 	public Vector getItems() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return new Vector(items.values());
 	}
 
 	@Override
 	public Vector getItemValue(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return items.get(name).getValues();
 	}
 
 	@Override
 	public String getItemValueString(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return items.get(name).getValueString();
 	}
 
 	@Override
 	public int getItemValueInteger(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return items.get(name).getValueInteger();
 	}
 
 	@Override
 	public double getItemValueDouble(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return items.get(name).getValueDouble();
 	}
 
 	@Override
-	public Object getItemValueCustomData(String itemName, String dataTypeName) throws IOException, ClassNotFoundException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public Object getItemValueCustomData(String itemName, String dataTypeName)
+			throws IOException, ClassNotFoundException, NotesApiException {
+		return items.get(itemName).getValueCustomData(dataTypeName);
 	}
 
 	@Override
-	public Object getItemValueCustomData(String itemName) throws IOException, ClassNotFoundException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public Object getItemValueCustomData(String itemName) throws IOException,
+			ClassNotFoundException, NotesApiException {
+		return getItemValueCustomData(itemName, "");
 	}
 
 	@Override
-	public byte[] getItemValueCustomDataBytes(String itemName, String dataTypeName) throws IOException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public byte[] getItemValueCustomDataBytes(String itemName,
+			String dataTypeName) throws IOException, NotesApiException {
+		return items.get(itemName).getValueCustomDataBytes(dataTypeName);
 	}
 
 	@Override
-	public Vector getItemValueDateTimeArray(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector getItemValueDateTimeArray(String name)
+			throws NotesApiException {
+		return items.get(name).getValueDateTimeArray();
 	}
 
 	@Override
 	public String getKey() throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (isProfile) {
+			return key;
+		}
 		return null;
 	}
 
 	@Override
 	public String getNameOfProfile() throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (isProfile) {
+			return profileName;
+		}
 		return null;
 	}
 
 	@Override
 	public String getNoteID() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return noteID;
 	}
 
 	@Override
 	public NotesDatabase getParentDatabase() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parentDatabase;
 	}
 
 	@Override
 	public String getParentDocumentUNID() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parentDocument.getUniversalID();
 	}
 
 	@Override
 	public NotesView getParentView() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return parentView;
 	}
 
 	@Override
@@ -348,43 +402,42 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public String getSigner() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return signer;
 	}
 
 	@Override
 	public int getSize() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public String getUniversalID() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return universalID;
 	}
 
 	@Override
 	public void setUniversalID(String unid) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.universalID = unid;
 	}
 
 	@Override
 	public String getVerifier() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return verifier;
 	}
 
 	@Override
 	public boolean hasEmbedded() throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (!embeddedObjects.isEmpty()) {
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean hasItem(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (items.containsKey(name)) {
+			return true;
+		}
 		return false;
 	}
 
@@ -401,7 +454,8 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public void setEncryptOnSend(boolean encryptOnSend) throws NotesApiException {
+	public void setEncryptOnSend(boolean encryptOnSend)
+			throws NotesApiException {
 		this.encryptOnSend = encryptOnSend;
 	}
 
@@ -436,7 +490,8 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public void setSaveMessageOnSend(boolean saveMessageOnSend) throws NotesApiException {
+	public void setSaveMessageOnSend(boolean saveMessageOnSend)
+			throws NotesApiException {
 		this.saveMessageOnSend = saveMessageOnSend;
 	}
 
@@ -468,13 +523,23 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public void putInFolder(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		putInFolder(name, true);
 	}
 
 	@Override
-	public void putInFolder(String name, boolean createOnFail) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void putInFolder(String name, boolean createOnFail)
+			throws NotesApiException {
+		if (parentDatabase.getView(name) == null) {
+			if (createOnFail) {
+				NotesViewMockImpl folder = (NotesViewMockImpl) parentDatabase
+						.createView(name);
+				folder.setIsFolder(true);
+			} else {
+				throw new NotesApiException(new IllegalArgumentException(
+						"Folder does not exist"));
+			}
+		}
+		folderReferences.add(name);
 
 	}
 
@@ -493,128 +558,189 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public void removeFromFolder(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		folderReferences.removeElement(name);
 	}
 
 	@Override
 	public void removeItem(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		items.remove(name);
 	}
 
 	@Override
-	public boolean renderToRTItem(NotesRichTextItem rtItem) throws NotesApiException {
+	public boolean renderToRTItem(NotesRichTextItem rtItem)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public NotesItem replaceItemValue(String itemName, Object value) throws NotesApiException {
+	public NotesItem replaceItemValue(String itemName, Object value)
+			throws NotesApiException {
+		NotesItemMockImpl newItem = (NotesItemMockImpl) items.get(itemName);
+		if (newItem == null) {
+			newItem = new NotesItemMockImpl(itemName);
+			items.put(itemName, newItem);
+		}
+		if (value instanceof String) {
+			newItem.setValueString((String) value);
+		} else if (value instanceof Integer) {
+			newItem.setValueInteger((Integer) value);
+		} else if (value instanceof Double) {
+			newItem.setValueDouble((Double) value);
+		} else if (value instanceof NotesDateTime) {
+			newItem.setDateTimeValue((NotesDateTime) value);
+		} else if (value instanceof Vector) {
+			newItem.setValues((Vector) value);
+		} else if (value instanceof NotesItem) {
+			newItem.setValues(((NotesItem) value).getValues());
+		}
+		return newItem;
+	}
+
+	@Override
+	public NotesItem replaceItemValueCustomData(String itemName,
+			String dataTypeName, Object userObj) throws IOException,
+			NotesApiException {
+		NotesItemMockImpl newItem = (NotesItemMockImpl) items.get(itemName);
+		if (newItem == null) {
+			newItem = new NotesItemMockImpl(itemName);
+			items.put(itemName, newItem);
+		}
+		newItem.setValueCustomData(dataTypeName, userObj);
+		return newItem;
+	}
+
+	@Override
+	public NotesItem replaceItemValueCustomData(String itemName, Object userObj)
+			throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomData(String itemName, String dataTypeName, Object userObj) throws IOException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesItem replaceItemValueCustomDataBytes(String itemName,
+			String dataTypeName, byte[] byteArray) throws IOException,
+			NotesApiException {
+		NotesItemMockImpl newItem = (NotesItemMockImpl) items.get(itemName);
+		if (newItem == null) {
+			newItem = new NotesItemMockImpl(itemName);
+			items.put(itemName, newItem);
+		}
+		newItem.setValueCustomDataBytes(dataTypeName, byteArray);
+		return newItem;
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomData(String itemName, Object userObj) throws IOException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public boolean save(boolean force, boolean makeRespoonse, boolean markRead)
+			throws NotesApiException {
+		// TODO save changes
+		// boolean forceIf true, the document is saved even if someone else
+		// edits and saves the document while the program is running. The last
+		// version of the document that was saved wins; the earlier version is
+		// discarded.
+		//
+		// If false, and someone else edits the document while the program is
+		// running, the makeresponse argument determines what happens.
+		//
+		// boolean makeresponseIf true, the current document becomes a response
+		// to the original document (this is what the replicator does when
+		// there's a replication conflict). If false, the save is canceled. If
+		// the force parameter is true, the makeresponse parameter has no
+		// effect.
+		//
+		// boolean markreadIf true, the document is marked as read on behalf of
+		// the current user ID. If false (default), the document is not marked
+		// as read.
+		//
+		// Note If the database does not track unread marks, all documents are
+		// considered read, and this parameter has no effect.
 
-	@Override
-	public NotesItem replaceItemValueCustomDataBytes(String itemName, String dataTypeName, byte[] byteArray) throws IOException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean save(boolean force, boolean makeRespoonse, boolean markRead) throws NotesApiException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean save(boolean force, boolean makeResponse) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean save(boolean force, boolean makeResponse)
+			throws NotesApiException {
+		return save(force, makeResponse, false);
 	}
 
 	@Override
 	public boolean save(boolean force) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return save(force, false, false);
 	}
 
 	@Override
 	public boolean save() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return save(false, false, false);
 	}
 
 	@Override
-	public void send(boolean attachForm, Vector recipients) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void send(boolean attachForm, Vector recipients)
+			throws NotesApiException {
+		if (!hasItem("SendTo")) {
+			replaceItemValue("SendTo", recipients);
+		}
+		if (attachForm) {
+			form = parentDatabase.getForm(this.formName);
+		}
+		appendItemValue("$AssistMail", 1);
+		replaceItemValue("From", parentDatabase.getParent().getUserName());
+		isSend = true;
 	}
 
 	@Override
 	public void send(Vector recipients) throws NotesApiException {
-		// TODO Auto-generated method stub
+		send(false, recipients);
 
 	}
 
 	@Override
-	public void send(boolean attachForm, String recipient) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void send(boolean attachForm, String recipient)
+			throws NotesApiException {
+		Vector recipients = new Vector();
+		if (!"".equalsIgnoreCase(recipient))
+			recipients.add(recipient);
+		send(attachForm, recipients);
 
 	}
 
 	@Override
 	public void send(String recipient) throws NotesApiException {
-		// TODO Auto-generated method stub
+		send(false, recipient);
 
 	}
 
 	@Override
 	public void send(boolean attachForm) throws NotesApiException {
-		// TODO Auto-generated method stub
+		send(attachForm, "");
 
 	}
 
 	@Override
 	public void send() throws NotesApiException {
-		// TODO Auto-generated method stub
+		send(false, "");
 
 	}
 
 	@Override
 	public void sign() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		signer = parentDatabase.getParent().getUserName();
+		isSigned = true;
 	}
 
 	@Override
 	public String getURL() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return url;
 	}
 
 	@Override
 	public String getNotesURL() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return notesURL;
 	}
 
 	@Override
 	public String getHttpURL() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return httpURL;
 	}
 
 	@Override
@@ -624,13 +750,15 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public void generateXML(Writer writer) throws NotesApiException, IOException {
+	public void generateXML(Writer writer) throws NotesApiException,
+			IOException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void generateXML(Object style, NotesXSLTResultTarget result) throws IOException, NotesApiException {
+	public void generateXML(Object style, NotesXSLTResultTarget result)
+			throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -643,91 +771,95 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 
 	@Override
 	public Vector getLockHolders() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lockedBy;
 	}
 
 	@Override
 	public boolean lock() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(false);
 	}
 
 	@Override
-	public boolean lock(boolean provisionalOk) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean lock(boolean provisionalok) throws NotesApiException {
+		return lock(parentDatabase.getParent().getUserName(), provisionalok);
 	}
 
 	@Override
 	public boolean lock(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(name, false);
 	}
 
 	@Override
-	public boolean lock(String name, boolean provisionalOk) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean lock(String name, boolean provisionalok)
+			throws NotesApiException {
+		Vector vector = new Vector();
+		vector.add(name);
+		return lock(vector, provisionalok);
 	}
 
 	@Override
 	public boolean lock(Vector names) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(names, false);
 	}
 
 	@Override
-	public boolean lock(Vector names, boolean provisionalOk) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public boolean lock(Vector names, boolean provisionalok)
+			throws NotesApiException {
+		if (names.isEmpty()
+				|| "".equalsIgnoreCase((String) names.firstElement())) {
+			return false;
+		}
+
+		if (lockedBy.isEmpty() || lockedBy.containsAll(names)) {
+			lockedBy.addAll(names);
+			this.provisionalok = provisionalok;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean lockProvisional() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(true);
 	}
 
 	@Override
 	public boolean lockProvisional(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(name, true);
 	}
 
 	@Override
 	public boolean lockProvisional(Vector names) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(names, true);
 	}
 
 	@Override
 	public void unlock() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.provisionalok = false;
+		lockedBy.removeAllElements();
 	}
 
 	@Override
 	public void markUnread() throws NotesApiException {
-		// TODO Auto-generated method stub
+		markUnread(parentDatabase.getParent().getUserName());
 
 	}
 
 	@Override
 	public void markUnread(String userName) throws NotesApiException {
-		// TODO Auto-generated method stub
+		readBy.remove(userName);
 
 	}
 
 	@Override
 	public void markRead() throws NotesApiException {
-		// TODO Auto-generated method stub
+		markRead(parentDatabase.getParent().getUserName());
 
 	}
 
 	@Override
 	public void markRead(String userName) throws NotesApiException {
-		// TODO Auto-generated method stub
+		readBy.add(userName);
 
 	}
 
@@ -738,37 +870,35 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDoc
 	}
 
 	@Override
-	public void attachVCard(NotesBase document, String fileName) throws NotesApiException {
+	public void attachVCard(NotesBase document, String fileName)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public boolean getRead() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return getRead(parentDatabase.getParent().getUserName());
 	}
 
 	@Override
 	public boolean getRead(String userName) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return readBy.contains(userName);
 	}
 
 	@Override
 	public void convertToMIME() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		convertToMIME(CVT_RT_TO_PLAINTEXT_AND_HTML, 0);
 	}
 
 	@Override
 	public void convertToMIME(int conversionType) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		convertToMIME(conversionType, 0);
 	}
 
 	@Override
-	public void convertToMIME(int conversionType, int options) throws NotesApiException {
+	public void convertToMIME(int conversionType, int options)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}

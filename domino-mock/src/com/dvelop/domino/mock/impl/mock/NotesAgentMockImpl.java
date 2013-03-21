@@ -16,7 +16,9 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	private String agentName;
 	private String owner;
 	private boolean enabled;
+	private boolean newEnabled;
 	private String serverName;
+	private String newServerName;
 	private String query;
 	private String comment;
 	private boolean isPublic;
@@ -31,6 +33,12 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	private boolean isActivateable;
 	private String onBehalfOf;
 	private boolean prohibitDesignUpdate;
+	private Vector lockedBy;
+	private boolean provisionalok;
+
+	public NotesAgentMockImpl() {
+		lockedBy = new Vector();
+	}
 
 	public NotesAgentMockImpl(String agentName, NotesDatabase parent) {
 		this.agentName = agentName;
@@ -39,12 +47,10 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	public NotesAgentMockImpl(String agentName) {
 		this.agentName = agentName;
-
 	}
 
 	public void setParent(NotesDatabase parent) {
 		this.parent = parent;
-
 	}
 
 	@Override
@@ -75,14 +81,16 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	@Override
 	public void remove() throws NotesApiException {
-		// TODO Auto-generated method stub
+		((NotesDatabaseMockImpl) parent).removeAgent(agentName);
 
 	}
 
 	@Override
 	public void save() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		if (!"".equalsIgnoreCase(newServerName)) {
+			serverName = newServerName;
+		}
+		enabled = newEnabled;
 	}
 
 	@Override
@@ -108,7 +116,7 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	@Override
 	public void setEnabled(boolean enabled) throws NotesApiException {
-		this.enabled = enabled;
+		this.newEnabled = enabled;
 	}
 
 	@Override
@@ -118,7 +126,7 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	@Override
 	public void setServerName(String serverName) throws NotesApiException {
-		this.serverName = serverName;
+		this.newServerName = serverName;
 	}
 
 	public void setQuery(String query) {
@@ -267,68 +275,72 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 
 	@Override
 	public Vector getLockHolders() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lockedBy;
 	}
 
 	@Override
 	public boolean lock() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(false);
 	}
 
 	@Override
 	public boolean lock(boolean provisionalok) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(parent.getParent().getUserName(), provisionalok);
 	}
 
 	@Override
 	public boolean lock(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(name, false);
 	}
 
 	@Override
-	public boolean lock(String name, boolean provisionalok) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean lock(String name, boolean provisionalok)
+			throws NotesApiException {
+		Vector vector = new Vector();
+		vector.add(name);
+		return lock(vector, provisionalok);
 	}
 
 	@Override
 	public boolean lock(Vector names) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(names, false);
 	}
 
 	@Override
-	public boolean lock(Vector names, boolean provisionalok) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public boolean lock(Vector names, boolean provisionalok)
+			throws NotesApiException {
+		if (names.isEmpty()
+				|| "".equalsIgnoreCase((String) names.firstElement())) {
+			return false;
+		}
+
+		if (lockedBy.isEmpty() || lockedBy.containsAll(names)) {
+			lockedBy.addAll(names);
+			this.provisionalok = provisionalok;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean lockProvisional() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(true);
 	}
 
 	@Override
 	public boolean lockProvisional(String name) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(name, true);
 	}
 
 	@Override
 	public boolean lockProvisional(Vector names) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return lock(names, true);
 	}
 
 	@Override
 	public void unlock() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		this.provisionalok = false;
+		lockedBy.removeAllElements();
 	}
 
 	@Override
@@ -337,7 +349,8 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public void setProhibitDesignUpdate(boolean prohibitDesignUpdate) throws NotesApiException {
+	public void setProhibitDesignUpdate(boolean prohibitDesignUpdate)
+			throws NotesApiException {
 		this.prohibitDesignUpdate = prohibitDesignUpdate;
 	}
 
