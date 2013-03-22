@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
     <target name="javadoc">
-        <javadoc access="public" additionalparam=" -tag access:a:&quot;Access:&quot; -tag usage:a:&quot;Usage:&quot; -tag example:a:&quot;Example:&quot; -windowtitle &quot;Domino Mock Documentation&quot;" author="true" classpath="C:\Program Files\IBM\Lotus\Domino\jvm\lib\ext\Notes.jar" destdir="doc" doctitle="Domino Mock" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.dvelop.domino.mock.interfaces,com.dvelop.domino.mock.Exception,com.dvelop.domino.mock" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
+        <javadoc access="public" additionalparam=" -tag access:a:&quot;Access:&quot; -tag usage:a:&quot;Usage:&quot; -tag example:a:&quot;Example:&quot; -windowtitle &quot;Domino Mock Documentation&quot;" author="true" classpath="C:\Program Files\IBM\Lotus\Domino\jvm\lib\ext\Notes.jar" destdir="doc" doctitle="Domino Mock" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="org.openntf.domino.mock,org.openntf.domino.mock.Exception,org.openntf.domino.mock.interfaces" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
     </target>
 </project>
