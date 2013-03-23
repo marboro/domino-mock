@@ -10,7 +10,6 @@ import org.openntf.domino.mock.interfaces.NotesAdministrationProcess;
 import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-
 public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 		implements NotesAdministrationProcess {
 
@@ -27,6 +26,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	public NotesAdministrationProcessMockImpl() {
 		groups = new HashMap<String, Vector>();
 		groupNoteIDs = new HashMap<String, Integer>();
+		NotesACl
 	}
 
 	@Override

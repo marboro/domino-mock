@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
 
-
 /**
  * Represents the access control list (ACL) of a database.
  * 
@@ -285,11 +284,18 @@ public interface NotesACL extends NotesBase {
 	 * The maximum Internet access level for this database.
 	 * 
 	 * @return The maximum Internet access level for this database.
-	 *         ACL.LEVEL_NOACCESS, ACL.LEVEL_DEPOSITOR, ACL.LEVEL_READER
-	 *         ACL.LEVEL_AUTHOR, ACL.LEVEL_EDITOR, ACL.LEVEL_DESIGNER,
-	 *         ACL.LEVEL_MANAGER
 	 * 
 	 * @throws NotesApiException
+	 * 
+	 * @legalValues <ul>
+	 *              <li>ACL.LEVEL_NOACCESS</li>
+	 *              <li>ACL.LEVEL_DEPOSITOR</li>
+	 *              <li>ACL.LEVEL_READER</li>
+	 *              <li>ACL.LEVEL_AUTHOR</li>
+	 *              <li>ACL.LEVEL_EDITOR</li>
+	 *              <li>ACL.LEVEL_DESIGNER</li>
+	 *              <li>ACL.LEVEL_MANAGER</li>
+	 *              </ul>
 	 * 
 	 * @usage You must call {@link #save()} on the ACL if you want the modified
 	 *        ACL to be saved to disk
@@ -350,10 +356,72 @@ public interface NotesACL extends NotesBase {
 	 * The maximum Internet access level for this database.
 	 * 
 	 * @param level
-	 *            ACL.LEVEL_NOACCESS, ACL.LEVEL_DEPOSITOR, ACL.LEVEL_READER
-	 *            ACL.LEVEL_AUTHOR, ACL.LEVEL_EDITOR, ACL.LEVEL_DESIGNER,
-	 *            ACL.LEVEL_MANAGER
+	 *            The maximum Internet access level for this database.
+	 * 
+	 * @legalValues <ul>
+	 *              <li>ACL.LEVEL_NOACCESS</li>
+	 *              <li>ACL.LEVEL_DEPOSITOR</li>
+	 *              <li>ACL.LEVEL_READER</li>
+	 *              <li>ACL.LEVEL_AUTHOR</li>
+	 *              <li>ACL.LEVEL_EDITOR</li>
+	 *              <li>ACL.LEVEL_DESIGNER</li>
+	 *              <li>ACL.LEVEL_MANAGER</li>
+	 *              </ul>
+	 * 
 	 * @throws NotesApiException
+	 * 
+	 * @usage You must call {@link #save()} on the ACL if you want the modified
+	 *        ACL to be saved to disk
+	 * 
+	 * @example This agent prints the maximum Internet level for the current
+	 *          database.
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			ACL acl = db.getACL();
+	 * 			String lev = null;
+	 * 			int ilev = acl.getInternetLevel();
+	 * 			if (ilev &lt; ACL.LEVEL_DESIGNER)
+	 * 				acl.setInternetLevel(ilev + 1);
+	 * 			acl.save();
+	 * 			switch (acl.getInternetLevel()) {
+	 * 			case ACL.LEVEL_NOACCESS:
+	 * 				lev = &quot;no&quot;;
+	 * 				break;
+	 * 			case ACL.LEVEL_DEPOSITOR:
+	 * 				lev = &quot;depositor&quot;;
+	 * 				break;
+	 * 			case ACL.LEVEL_READER:
+	 * 				lev = &quot;reader&quot;;
+	 * 				break;
+	 * 			case ACL.LEVEL_AUTHOR:
+	 * 				lev = &quot;author&quot;;
+	 * 				break;
+	 * 			case ACL.LEVEL_EDITOR:
+	 * 				lev = &quot;editor&quot;;
+	 * 				break;
+	 * 			case ACL.LEVEL_DESIGNER:
+	 * 				lev = &quot;designer&quot;;
+	 * 				break;
+	 * 			case ACL.LEVEL_MANAGER:
+	 * 				lev = &quot;manager&quot;;
+	 * 				break;
+	 * 			}
+	 * 			System.out.println(&quot;Maximum internet access is &quot; + lev + &quot; access&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setInternetLevel(int level) throws NotesApiException;
 

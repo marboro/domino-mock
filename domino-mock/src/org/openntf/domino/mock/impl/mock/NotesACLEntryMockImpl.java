@@ -9,8 +9,8 @@ import org.openntf.domino.mock.interfaces.NotesACL;
 import org.openntf.domino.mock.interfaces.NotesACLEntry;
 import org.openntf.domino.mock.interfaces.NotesName;
 
-
-public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACLEntry, Comparable<NotesACLEntryMockImpl> {
+public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements
+		NotesACLEntry, Comparable<NotesACLEntryMockImpl> {
 
 	private String entryName;
 	private int entryLevel;
@@ -33,7 +33,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	private boolean adminServer;
 	private boolean canReplicateOrCopyDocuments;
 
-	public NotesACLEntryMockImpl(String entryName, int entryLevel, NotesACLMockImpl parent) {
+	public NotesACLEntryMockImpl(String entryName, int entryLevel,
+			NotesACLMockImpl parent) {
 		this.entryName = entryName;
 		this.entryLevel = entryLevel;
 		this.parent = parent;
@@ -64,8 +65,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public Vector getRoles() throws NotesApiException {
-		return new Vector(roles);
+	public Vector<String> getRoles() throws NotesApiException {
+		return new Vector<String>(roles);
 	}
 
 	@Override
@@ -118,7 +119,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanCreatePersonalAgent(boolean canCreatePersonalAgent) throws NotesApiException {
+	public void setCanCreatePersonalAgent(boolean canCreatePersonalAgent)
+			throws NotesApiException {
 		this.canCreatePersonalAgent = canCreatePersonalAgent;
 	}
 
@@ -128,7 +130,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanCreatePersonalFolder(boolean canCreatePersonalFolder) throws NotesApiException {
+	public void setCanCreatePersonalFolder(boolean canCreatePersonalFolder)
+			throws NotesApiException {
 		this.canCreatePersonalFolder = canCreatePersonalFolder;
 	}
 
@@ -138,7 +141,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanCreateDocuments(boolean canCreateDocuments) throws NotesApiException {
+	public void setCanCreateDocuments(boolean canCreateDocuments)
+			throws NotesApiException {
 		this.canCreateDocuments = canCreateDocuments;
 	}
 
@@ -148,7 +152,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanDeleteDocuments(boolean canDeleteDocuments) throws NotesApiException {
+	public void setCanDeleteDocuments(boolean canDeleteDocuments)
+			throws NotesApiException {
 		this.canDeleteDocuments = canDeleteDocuments;
 	}
 
@@ -183,7 +188,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanCreateLSOrJavaAgent(boolean canCreateLSOrJavaAgent) throws NotesApiException {
+	public void setCanCreateLSOrJavaAgent(boolean canCreateLSOrJavaAgent)
+			throws NotesApiException {
 		this.canCreateLSOrJavaAgent = canCreateLSOrJavaAgent;
 	}
 
@@ -223,7 +229,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanCreateSharedFolder(boolean canCreateSharedFolder) throws NotesApiException {
+	public void setCanCreateSharedFolder(boolean canCreateSharedFolder)
+			throws NotesApiException {
 		this.canCreateSharedFolder = canCreateSharedFolder;
 	}
 
@@ -233,7 +240,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setAdminReaderAuthor(boolean adminReaderAuthor) throws NotesApiException {
+	public void setAdminReaderAuthor(boolean adminReaderAuthor)
+			throws NotesApiException {
 		this.adminReaderAuthor = adminReaderAuthor;
 	}
 
@@ -253,7 +261,8 @@ public class NotesACLEntryMockImpl extends NotesBaseMockImpl implements NotesACL
 	}
 
 	@Override
-	public void setCanReplicateOrCopyDocuments(boolean canReplicateOrCopyDocuments) throws NotesApiException {
+	public void setCanReplicateOrCopyDocuments(
+			boolean canReplicateOrCopyDocuments) throws NotesApiException {
 		this.canReplicateOrCopyDocuments = canReplicateOrCopyDocuments;
 	}
 
