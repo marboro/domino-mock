@@ -3,6 +3,12 @@ package org.openntf.domino.mock;
 import org.openntf.domino.mock.impl.production.NotesSessionFactoryProdImpl;
 import org.openntf.domino.mock.interfaces.NotesSessionFactory;
 
+/**
+ * Mal sehen ob das tut...
+ * 
+ * @author Sven Dreher
+ * 
+ */
 public class NotesStartupFactory {
 
 	private static NotesSessionFactory sessionFactory = null;
