@@ -7,42 +7,40 @@ import org.openntf.domino.mock.interfaces.NotesOutline;
 import org.openntf.domino.mock.interfaces.NotesOutlineEntry;
 import org.openntf.domino.mock.interfaces.NotesView;
 
-public class NotesOutlineEntryMockImpl extends NotesBaseMockImpl implements
-		NotesOutlineEntry {
+public class NotesOutlineEntryMockImpl extends NotesBaseMockImpl implements NotesOutlineEntry {
 
 	@Override
-	public boolean setNoteLink(NotesDatabase arg0) throws NotesApiException {
+	public boolean setNoteLink(NotesDatabase db) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setNoteLink(NotesView arg0) throws NotesApiException {
+	public boolean setNoteLink(NotesView doc) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setNoteLink(NotesDocument arg0) throws NotesApiException {
+	public boolean setNoteLink(NotesDocument view) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setURL(String arg0) throws NotesApiException {
+	public boolean setURL(String url) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setNamedElement(NotesDatabase arg0, String arg1, int arg2)
-			throws NotesApiException {
+	public boolean setNamedElement(NotesDatabase db, String elementName, int entryClass) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean setAction(String arg0) throws NotesApiException {
+	public boolean setAction(String formula) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -186,62 +184,63 @@ public class NotesOutlineEntryMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setHidden(boolean arg0) throws NotesApiException {
+	public void setHidden(boolean value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setHiddenFromNotes(boolean arg0) throws NotesApiException {
+	public void setHiddenFromNotes(boolean value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setHiddenFromWeb(boolean arg0) throws NotesApiException {
+	public void setHiddenFromWeb(boolean value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setLabel(String arg0) throws NotesApiException {
+	public void setLabel(String value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setAlias(String arg0) throws NotesApiException {
+	public void setAlias(String value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setImagesText(String arg0) throws NotesApiException {
+	public void setImagesText(String value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setFrameText(String arg0) throws NotesApiException {
+	public void setFrameText(String value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setKeepSelectionFocus(boolean arg0) throws NotesApiException {
+	public void setKeepSelectionFocus(boolean value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setUseHideFormula(boolean arg0) throws NotesApiException {
+	public void setUseHideFormula(boolean value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setHideFormula(String arg0) throws NotesApiException {
+	public void setHideFormula(String value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
+
 }
