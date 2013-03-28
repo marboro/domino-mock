@@ -7,6 +7,13 @@ import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesSession;
 import org.openntf.domino.mock.interfaces.NotesSessionFactory;
 
+/**
+ * Mock-Implementation for NotesSessionFactory
+ * 
+ * @author Sven Dreher
+ * @see NotesSessionFactory
+ * 
+ */
 public class NotesSessionFactoryMockImpl implements NotesSessionFactory {
 
 	private List<NotesSession> sessionList;

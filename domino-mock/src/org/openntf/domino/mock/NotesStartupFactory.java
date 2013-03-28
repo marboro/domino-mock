@@ -4,8 +4,6 @@ import org.openntf.domino.mock.impl.production.NotesSessionFactoryProdImpl;
 import org.openntf.domino.mock.interfaces.NotesSessionFactory;
 
 /**
- * Mal sehen ob das tut...
- * 
  * @author Sven Dreher
  * 
  */

@@ -6,11 +6,17 @@ import java.io.Reader;
 import java.io.Writer;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
+import org.openntf.domino.mock.interfaces.NotesSession;
 import org.openntf.domino.mock.interfaces.NotesStream;
-
 
 public class NotesStreamMockImpl extends NotesBaseMockImpl implements
 		NotesStream {
+
+	private final NotesSession parent;
+
+	public NotesStreamMockImpl(NotesSession parent) {
+		this.parent = parent;
+	}
 
 	@Override
 	public void close() throws NotesApiException {

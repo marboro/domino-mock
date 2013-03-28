@@ -7,7 +7,6 @@ import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-
 public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements
 		NotesDateTime {
 
@@ -23,6 +22,11 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements
 		this(date);
 		this.parent = parent;
 
+	}
+
+	public NotesDateTimeMockImpl(Calendar date, NotesSessionMockImpl parent) {
+		this.calendar = date;
+		this.parent = this.parent;
 	}
 
 	public void setParent(NotesSession parent) {

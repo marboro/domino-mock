@@ -4,10 +4,16 @@ import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesRichTextParagraphStyle;
-
+import org.openntf.domino.mock.interfaces.NotesSession;
 
 public class NotesRichTextParagraphStyleMockImpl extends NotesBaseMockImpl
 		implements NotesRichTextParagraphStyle {
+
+	private final NotesSession parent;
+
+	public NotesRichTextParagraphStyleMockImpl(NotesSession parent) {
+		this.parent = parent;
+	}
 
 	@Override
 	public int getAlignment() throws NotesApiException {

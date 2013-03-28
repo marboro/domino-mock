@@ -6,6 +6,18 @@ import org.openntf.domino.mock.interfaces.NotesSession;
 
 public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 
+	private String name;
+	private String lang = "";
+	private final NotesSession parent;
+
+	public NotesNameMockImpl(String name, String lang, NotesSession parent) {
+		this.name = name;
+		this.parent = parent;
+		if (lang != null)
+			this.lang = lang;
+
+	}
+
 	@Override
 	public String getADMD() throws NotesApiException {
 		// TODO Auto-generated method stub

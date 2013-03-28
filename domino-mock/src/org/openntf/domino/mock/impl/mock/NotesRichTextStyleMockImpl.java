@@ -7,6 +7,12 @@ import org.openntf.domino.mock.interfaces.NotesSession;
 public class NotesRichTextStyleMockImpl extends NotesBaseMockImpl implements
 		NotesRichTextStyle {
 
+	private final NotesSession parent;
+
+	public NotesRichTextStyleMockImpl(NotesSession parent) {
+		this.parent = parent;
+	}
+
 	@Override
 	public int getBold() throws NotesApiException {
 		// TODO Auto-generated method stub

@@ -3,11 +3,22 @@ package org.openntf.domino.mock.impl.mock;
 import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesDatabase;
 import org.openntf.domino.mock.interfaces.NotesDocument;
+import org.openntf.domino.mock.interfaces.NotesDocumentCollection;
 import org.openntf.domino.mock.interfaces.NotesNewsletter;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
 public class NotesNewsletterMockImpl extends NotesBaseMockImpl implements
 		NotesNewsletter {
+
+	private NotesDocumentCollection collection;
+	private final NotesSession parent;
+
+	public NotesNewsletterMockImpl(NotesDocumentCollection collection,
+			NotesSession parent) {
+		this.collection = collection;
+		this.parent = parent;
+
+	}
 
 	@Override
 	public NotesDocument formatMsgWithDoclinks(NotesDatabase arg0)

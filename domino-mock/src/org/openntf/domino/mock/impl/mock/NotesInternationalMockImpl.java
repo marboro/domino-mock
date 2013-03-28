@@ -7,6 +7,12 @@ import org.openntf.domino.mock.interfaces.NotesSession;
 public class NotesInternationalMockImpl extends NotesBaseMockImpl implements
 		NotesInternational {
 
+	private final NotesSession parent;
+
+	public NotesInternationalMockImpl(NotesSession parent) {
+		this.parent = parent;
+	}
+
 	@Override
 	public String getAMString() throws NotesApiException {
 		// TODO Auto-generated method stub

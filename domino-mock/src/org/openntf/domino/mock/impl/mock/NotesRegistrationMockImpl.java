@@ -7,9 +7,14 @@ import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesRegistration;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-
 public class NotesRegistrationMockImpl extends NotesBaseMockImpl implements
 		NotesRegistration {
+
+	private final NotesSession parent;
+
+	public NotesRegistrationMockImpl(NotesSession parent) {
+		this.parent = parent;
+	}
 
 	@Override
 	public NotesSession getParent() throws NotesApiException {

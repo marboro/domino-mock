@@ -5,12 +5,35 @@ import org.openntf.domino.mock.interfaces.NotesDateRange;
 import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-public class NotesDateRangeMockImpl extends NotesBaseMockImpl implements NotesDateRange {
+/**
+ * Mock-Implementation of NotesDateRange
+ * 
+ * @author Sven Dreher
+ * @see NotesDateRange
+ * 
+ */
+public class NotesDateRangeMockImpl extends NotesBaseMockImpl implements
+		NotesDateRange {
 
 	private NotesDateTime start;
 	private NotesDateTime end;
 	private NotesSession parent;
 	private String text;
+
+	/**
+	 * @param startt
+	 *            Start-Time
+	 * @param endt
+	 *            End-Time
+	 * @param parent
+	 *            Parent session
+	 */
+	public NotesDateRangeMockImpl(NotesDateTime startt, NotesDateTime endt,
+			NotesSession parent) {
+		this.start = startt;
+		this.end = endt;
+		this.parent = parent;
+	}
 
 	@Override
 	public NotesDateTime getStartDateTime() throws NotesApiException {

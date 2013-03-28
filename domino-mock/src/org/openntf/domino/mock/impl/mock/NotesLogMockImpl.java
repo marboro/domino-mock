@@ -6,8 +6,16 @@ import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesLog;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-
 public class NotesLogMockImpl extends NotesBaseMockImpl implements NotesLog {
+
+	private String name;
+	private final NotesSession parent;
+
+	public NotesLogMockImpl(String name, NotesSession parent) {
+		this.name = name;
+		this.parent = parent;
+
+	}
 
 	@Override
 	public void close() throws NotesApiException {
@@ -94,7 +102,8 @@ public class NotesLogMockImpl extends NotesBaseMockImpl implements NotesLog {
 	}
 
 	@Override
-	public void logEvent(String arg0, String arg1, int arg2, int arg3) throws NotesApiException {
+	public void logEvent(String arg0, String arg1, int arg2, int arg3)
+			throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
