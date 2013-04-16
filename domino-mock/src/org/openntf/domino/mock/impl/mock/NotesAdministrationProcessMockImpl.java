@@ -10,8 +10,13 @@ import org.openntf.domino.mock.interfaces.NotesAdministrationProcess;
 import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
-		implements NotesAdministrationProcess {
+/**
+ * Mock-Implementation for {@link NotesAdministrationProcess}
+ * 
+ * @author Sven Dreher
+ * 
+ */
+public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl implements NotesAdministrationProcess {
 
 	private String certificateAuthorityOrg;
 	private NotesDateTime certificateExpiration;
@@ -24,11 +29,20 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	private Map<String, Integer> groupNoteIDs;
 	private String server;
 
+	/**
+	 * Default-Constructor
+	 */
 	public NotesAdministrationProcessMockImpl() {
 		groups = new HashMap<String, Vector>();
 		groupNoteIDs = new HashMap<String, Integer>();
 	}
 
+	/**
+	 * @param server
+	 *            The Server for the AdministrationProcess
+	 * @param parent
+	 *            The parent Session
+	 */
 	public NotesAdministrationProcessMockImpl(String server, NotesSession parent) {
 		this();
 		this.server = server;
@@ -42,8 +56,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void setCertificateAuthorityOrg(String certificateAuthorityOrg)
-			throws NotesApiException {
+	public void setCertificateAuthorityOrg(String certificateAuthorityOrg) throws NotesApiException {
 		this.certificateAuthorityOrg = certificateAuthorityOrg;
 	}
 
@@ -53,8 +66,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void setCertificateExpiration(NotesDateTime certificateExpiration)
-			throws NotesApiException {
+	public void setCertificateExpiration(NotesDateTime certificateExpiration) throws NotesApiException {
 		this.certificateExpiration = certificateExpiration;
 	}
 
@@ -74,13 +86,14 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void setCertifierPassword(String certifierPassword)
-			throws NotesApiException {
+	public void setCertifierPassword(String certifierPassword) throws NotesApiException {
 		this.certifierPassword = certifierPassword;
 	}
 
-	public void setCertificateAuthorityAvailable(
-			boolean certificateAuthorityAvailable) {
+	/**
+	 * @param certificateAuthorityAvailable
+	 */
+	public void setCertificateAuthorityAvailable(boolean certificateAuthorityAvailable) {
 		this.certificateAuthorityAvailable = certificateAuthorityAvailable;
 	}
 
@@ -95,8 +108,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void setUseCertificateAuthority(boolean useCertificateAuthority)
-			throws NotesApiException {
+	public void setUseCertificateAuthority(boolean useCertificateAuthority) throws NotesApiException {
 		this.useCertificateAuthority = useCertificateAuthority;
 	}
 
@@ -105,6 +117,10 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 		return parent;
 	}
 
+	/**
+	 * @param groupName
+	 * @param members
+	 */
 	public void addGroup(String groupName, Vector members) {
 		groups.put(groupName, members);
 		Random random = new Random();
@@ -112,8 +128,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public String addGroupMembers(String group, Vector members)
-			throws NotesApiException {
+	public String addGroupMembers(String group, Vector members) throws NotesApiException {
 		if (groups.containsKey(group)) {
 			Vector vector = groups.get(group);
 			vector.addAll(members);
@@ -124,179 +139,151 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public String addInternetCertificateToUser(String user, String keyRingFile,
-			String keyRingPassword) throws NotesApiException {
+	public String addInternetCertificateToUser(String user, String keyRingFile, String keyRingPassword) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String addInternetCertificateToUser(String user, String keyRingFile,
-			String keyRingPassword, NotesDateTime expiration)
-			throws NotesApiException {
+	public String addInternetCertificateToUser(String user, String keyRingFile, String keyRingPassword, NotesDateTime expiration) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String addServerToCluster(String server, String cluster)
-			throws NotesApiException {
+	public String addServerToCluster(String server, String cluster) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveDeletePersonInDirectory(String noteID)
-			throws NotesApiException {
+	public String approveDeletePersonInDirectory(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveDeleteServerInDirectory(String noteID)
-			throws NotesApiException {
+	public String approveDeleteServerInDirectory(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveDesignElementDeletion(String noteID)
-			throws NotesApiException {
+	public String approveDesignElementDeletion(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveMailFileDeletion(String noteID)
-			throws NotesApiException {
+	public String approveMailFileDeletion(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveMovedReplicaDeletion(String noteID)
-			throws NotesApiException {
+	public String approveMovedReplicaDeletion(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveNameChangeRetraction(String noteID)
-			throws NotesApiException {
+	public String approveNameChangeRetraction(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveRenamePersonInDirectory(String noteID)
-			throws NotesApiException {
+	public String approveRenamePersonInDirectory(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveRenameServerInDirectory(String noteID)
-			throws NotesApiException {
+	public String approveRenameServerInDirectory(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveReplicaDeletion(String noteID)
-			throws NotesApiException {
+	public String approveReplicaDeletion(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveResourceDeletion(String noteID)
-			throws NotesApiException {
+	public String approveResourceDeletion(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String approveHostedOrgStorageDeletion(String noteID)
-			throws NotesApiException {
+	public String approveHostedOrgStorageDeletion(String noteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String changeHTTPPassword(String userName, String oldPassword,
-			String newPassword) throws NotesApiException {
+	public String changeHTTPPassword(String userName, String oldPassword, String newPassword) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String configureMailAgent(String userName, String agentName)
-			throws NotesApiException {
+	public String configureMailAgent(String userName, String agentName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String configureMailAgent(String userName, String agentName,
-			boolean activatable, boolean enable) throws NotesApiException {
+	public String configureMailAgent(String userName, String agentName, boolean activatable, boolean enable) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String createReplica(String sourceserver, String sourcedbfile,
-			String destserver) throws NotesApiException {
+	public String createReplica(String sourceserver, String sourcedbfile, String destserver) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String createReplica(String sourceserver, String sourcedbfile,
-			String destserver, String destdbfile, boolean copyacl,
-			boolean createftindex) throws NotesApiException {
+	public String createReplica(String sourceserver, String sourcedbfile, String destserver, String destdbfile, boolean copyacl, boolean createftindex) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteGroup(String groupName, boolean immediate)
-			throws NotesApiException {
+	public String deleteGroup(String groupName, boolean immediate) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteGroup(String groupName, boolean immediate,
-			boolean deleteWindowsGroup) throws NotesApiException {
+	public String deleteGroup(String groupName, boolean immediate, boolean deleteWindowsGroup) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteReplicas(String serverName, String fileName)
-			throws NotesApiException {
+	public String deleteReplicas(String serverName, String fileName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteServer(String serverName, boolean immediate)
-			throws NotesApiException {
+	public String deleteServer(String serverName, boolean immediate) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteUser(String userName, boolean immediate,
-			int mailFileAction, String denyGroup) throws NotesApiException {
+	public String deleteUser(String userName, boolean immediate, int mailFileAction, String denyGroup) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String deleteUser(String userName, boolean immediate,
-			int mailFileAction, String denyGroup, boolean deleteWindowsUser)
-			throws NotesApiException {
+	public String deleteUser(String userName, boolean immediate, int mailFileAction, String denyGroup, boolean deleteWindowsUser) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -320,71 +307,57 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public String moveMailUser(String userName, String newHomeServer,
-			String newHomeServerMailPath) throws NotesApiException {
+	public String moveMailUser(String userName, String newHomeServer, String newHomeServerMailPath) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveMailUser(String userName, String newHomeServer,
-			String newHomeServerMailPath, boolean useSCOS,
-			Vector newClusterReplicas, boolean deleteOldClusterReplicas)
+	public String moveMailUser(String userName, String newHomeServer, String newHomeServerMailPath, boolean useSCOS, Vector newClusterReplicas, boolean deleteOldClusterReplicas)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveReplica(String sourceServer, String sourceDbFile,
-			String destServer) throws NotesApiException {
+	public String moveReplica(String sourceServer, String sourceDbFile, String destServer) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveReplica(String sourceServer, String sourceDbFile,
-			String destServer, String destDbFile, boolean copyACL,
-			boolean createFTIndex) throws NotesApiException {
+	public String moveReplica(String sourceServer, String sourceDbFile, String destServer, String destDbFile, boolean copyACL, boolean createFTIndex) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveRoamingUser(String userName, String destServer,
-			String destServerPath) throws NotesApiException {
+	public String moveRoamingUser(String userName, String destServer, String destServerPath) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveUserInHierarchyComplete(String requestNoteID)
-			throws NotesApiException {
+	public String moveUserInHierarchyComplete(String requestNoteID) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveUserInHierarchyComplete(String requestNoteID,
-			String lastName, String firstName, String middleInitial,
-			String orgUnit, String altCommonName, String altOrgUnit,
-			String altLanguage, boolean renameWindowsUser)
-			throws NotesApiException {
+	public String moveUserInHierarchyComplete(String requestNoteID, String lastName, String firstName, String middleInitial, String orgUnit, String altCommonName, String altOrgUnit,
+			String altLanguage, boolean renameWindowsUser) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveUserInHierarchyRequest(String userName,
-			String targetCertifier) throws NotesApiException {
+	public String moveUserInHierarchyRequest(String userName, String targetCertifier) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String moveUserInHierarchyRequest(String userName,
-			String targetCertifier, boolean allowPrimaryNameChange)
-			throws NotesApiException {
+	public String moveUserInHierarchyRequest(String userName, String targetCertifier, boolean allowPrimaryNameChange) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -402,87 +375,70 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public String removeServerFromCluster(String server)
-			throws NotesApiException {
+	public String removeServerFromCluster(String server) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String renameGroup(String group, String newGroup)
-			throws NotesApiException {
+	public String renameGroup(String group, String newGroup) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String renameNotesUser(String userName, String lastName,
-			String firstName, String middleInitial, String orgUnit)
-			throws NotesApiException {
+	public String renameNotesUser(String userName, String lastName, String firstName, String middleInitial, String orgUnit) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String renameNotesUser(String userName, String lastName,
-			String firstName, String middleInitial, String orgUnit,
-			String altCommonName, String altOrgUnit, String altLanguage,
+	public String renameNotesUser(String userName, String lastName, String firstName, String middleInitial, String orgUnit, String altCommonName, String altOrgUnit, String altLanguage,
 			boolean renameWindowsUser) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String renameWebUser(String userName, String newFullName,
-			String newLastName, String newFirstName, String newMiddleInitial,
-			String newShortName, String newInternetAddress)
+	public String renameWebUser(String userName, String newFullName, String newLastName, String newFirstName, String newMiddleInitial, String newShortName, String newInternetAddress)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String setServerDirectoryAssistanceSettings(String server,
-			String dbFile) throws NotesApiException {
+	public String setServerDirectoryAssistanceSettings(String server, String dbFile) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String setUserPasswordSettings(String userName,
-			Integer notesPasswordCheckSetting,
-			Integer notesPasswordChangeInterval,
-			Integer notesPasswordGracePeriod,
-			Boolean internetPasswordForceChange) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String signDatabaseWithServerID(String server, String dbFile)
+	public String setUserPasswordSettings(String userName, Integer notesPasswordCheckSetting, Integer notesPasswordChangeInterval, Integer notesPasswordGracePeriod, Boolean internetPasswordForceChange)
 			throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String signDatabaseWithServerID(String server, String dbFile,
-			boolean updateOnly) throws NotesApiException {
+	public String signDatabaseWithServerID(String server, String dbFile) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String upgradeUserToHierarchical(String userName)
-			throws NotesApiException {
+	public String signDatabaseWithServerID(String server, String dbFile, boolean updateOnly) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String upgradeUserToHierarchical(String userName, String orgUnit,
-			String altCommonName, String altOrgUnit, String altLanguage)
-			throws NotesApiException {
+	public String upgradeUserToHierarchical(String userName) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String upgradeUserToHierarchical(String userName, String orgUnit, String altCommonName, String altOrgUnit, String altLanguage) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}

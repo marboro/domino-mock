@@ -966,7 +966,7 @@ public interface NotesAdministrationProcess extends NotesBase {
 	 *            The full hierarchical name (can be abbreviated) of the server containing the database to be signed. The empty string ("") means the local server
 	 * @param dbFile
 	 *            New pathname of the database to be signed
-	 * @return
+	 * @return The note ID of an entry created in the Administration Requests database.
 	 * @throws NotesApiException
 	 */
 	public abstract String signDatabaseWithServerID(String server, String dbFile) throws NotesApiException;
