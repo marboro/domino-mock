@@ -8,8 +8,8 @@ import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesDbDirectory;
 import org.openntf.domino.mock.interfaces.NotesSession;
 
-
-public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements NotesDbDirectory {
+public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements
+		NotesDbDirectory {
 
 	private final String server;
 	private ArrayList<NotesDatabase> databases;
@@ -29,8 +29,10 @@ public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements Notes
 	}
 
 	@Override
-	public NotesDatabase createDatabase(String dbFile, boolean open) throws NotesApiException {
-		NotesDatabaseMockImpl database = new NotesDatabaseMockImpl(server, dbFile);
+	public NotesDatabase createDatabase(String dbFile, boolean open)
+			throws NotesApiException {
+		NotesDatabaseMockImpl database = new NotesDatabaseMockImpl(server,
+				dbFile);
 		if (open)
 			database.open();
 		databases.add(database);
@@ -71,14 +73,17 @@ public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements Notes
 	}
 
 	@Override
-	public NotesDatabase openDatabase(String dbFile, boolean failover) throws NotesApiException {
-		NotesDatabaseMockImpl database = new NotesDatabaseMockImpl(server, dbFile);
+	public NotesDatabase openDatabase(String dbFile, boolean failover)
+			throws NotesApiException {
+		NotesDatabaseMockImpl database = new NotesDatabaseMockImpl(server,
+				dbFile);
 		database.open();
 		return database;
 	}
 
 	@Override
-	public NotesDatabase openDatabaseIfModified(String dbFile, NotesDateTime date) throws NotesApiException {
+	public NotesDatabase openDatabaseIfModified(String dbFile,
+			NotesDateTime date) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -90,8 +95,14 @@ public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements Notes
 	}
 
 	@Override
-	public NotesDatabase openDatabaseByReplicaID(String rID) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public NotesDatabase openDatabaseByReplicaID(String rID)
+			throws NotesApiException {
+		for (NotesDatabase db : databases) {
+			NotesDatabaseMockImpl mockDB = (NotesDatabaseMockImpl) db;
+			if (rID.equalsIgnoreCase(mockDB.getReplicaID())) {
+				return db;
+			}
+		}
 		return null;
 	}
 

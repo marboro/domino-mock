@@ -175,7 +175,7 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 
 	@Override
 	public NotesAgentContext getAgentContext() throws NotesApiException {
-		return new NotesAgentContextMockImpl(this);
+		return new NotesAgentContextMockImpl();
 	}
 
 	@Override

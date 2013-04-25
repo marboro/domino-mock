@@ -7,7 +7,6 @@ import org.openntf.domino.mock.interfaces.NotesDatabase;
 import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesDocument;
 import org.openntf.domino.mock.interfaces.NotesDocumentCollection;
-import org.openntf.domino.mock.interfaces.NotesSession;
 
 public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
 		NotesAgentContext {
@@ -19,20 +18,14 @@ public class NotesAgentContextMockImpl extends NotesBaseMockImpl implements
 	private NotesDateTime lastRun;
 	private NotesDocument savedData;
 	private NotesDocumentCollection unprocessedDocuments;
-	private NotesDocument processedDoc;
 	private NotesDocumentCollection unprocessedFTSearch;
 	private NotesDocumentCollection unprocessedSearch;
 	private String effectiveUserName;
-	private final NotesSession parent;
-
-	public NotesAgentContextMockImpl(NotesSession parent) {
-		this.parent = parent;
-	}
 
 	@Override
 	public void updateProcessedDoc(NotesDocument processedDoc)
 			throws NotesApiException {
-		this.processedDoc = processedDoc;
+		unprocessedDocuments.deleteDocument(processedDoc);
 	}
 
 	public void setUnprocessedFTSearch(
