@@ -7,13 +7,7 @@ import java.util.Properties;
 import org.omg.CORBA.ORB;
 import org.openntf.domino.mock.Exception.NotesApiException;
 
-
 public interface NotesFactory {
-	// public abstract NotesTrace trace;
-	// public abstract final transient Hashtable m_serverCache;
-	// public abstract int m_serverCacheMinsValid;
-	// abstract synthetic Class class$lotus$domino$NotesFactory;
-	// public NotesFactory();
 
 	public abstract NotesSession createSessionWithFullAccess()
 			throws NotesApiException;
@@ -50,11 +44,11 @@ public interface NotesFactory {
 	public abstract NotesSession createSessionWithIOR(String iOR, ORB orb,
 			String user, String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(Applet app,
-			String user, String passwd) throws NotesApiException;
+	public abstract NotesSession createSession(Applet app, String user,
+			String passwd) throws NotesApiException;
 
-	public abstract NotesSession createSession(Applet app,
-			ORB orb, String user, String passwd) throws NotesApiException;
+	public abstract NotesSession createSession(Applet app, ORB orb,
+			String user, String passwd) throws NotesApiException;
 
 	public abstract NotesSession createSession(String host, Object cookie)
 			throws NotesApiException;

@@ -26,7 +26,7 @@ public class NotesDateTimeMockImpl extends NotesBaseMockImpl implements
 
 	public NotesDateTimeMockImpl(Calendar date, NotesSessionMockImpl parent) {
 		this.calendar = date;
-		this.parent = this.parent;
+		this.parent = parent;
 	}
 
 	public void setParent(NotesSession parent) {

@@ -51,8 +51,9 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 	@Override
 	public NotesACLEntry getNextEntry(NotesACLEntry entry)
 			throws NotesApiException {
-		if (aclEntries.contains(aclEntries)) {
-			int indexOf = aclEntries.indexOf(aclEntries);
+		if (aclEntries.contains(entry)) {
+			int indexOf = aclEntries.indexOf(entry);
+			currentEntry = indexOf;
 			return aclEntries.get(indexOf + 1);
 		}
 		return null;
