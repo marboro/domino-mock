@@ -142,8 +142,9 @@ public class NotesACLMockImpl extends NotesBaseMockImpl implements NotesACL {
 		if (aclEntry != null) {
 			aclEntries.remove(aclEntry);
 			aclEntry.setLevel(level);
-		} else
+		} else {
 			aclEntry = new NotesACLEntryMockImpl(name, level, this);
+		}
 		aclEntries.add(aclEntry);
 		Collections.sort(aclEntries);
 		return aclEntry;
