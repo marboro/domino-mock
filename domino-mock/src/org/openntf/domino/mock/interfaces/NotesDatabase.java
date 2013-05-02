@@ -5,8 +5,38 @@ import java.util.Vector;
 import org.openntf.domino.mock.Exception.NotesApiException;
 
 /**
+ * Represents a Notes database.
+ * 
  * @author Sven Dreher
  * 
+ * @access There are several ways you can use the Database class to access existing databases and to create new ones.
+ *         <ul>
+ *         <li>To access the current database if you are running as an agent, use {@link NotesAgentContext#getCurrentDatabase()} in AgentContext.</li>
+ *         <li>To access an existing database when you know its server and file name, use {@link NotesSession#getDatabase(String, String, boolean)} in Session.</li>
+ *         <li>To access an existing database when you know its server and replica ID, use {@link NotesDbDirectory#openDatabaseByReplicaID(String)} in DbDirectory.</li>
+ *         <li>To locate an existing database when you know its server but not its file name, use the {@link NotesDbDirectory} class.</li>
+ *         <li>To access the current user's mail database, use {@link NotesDbDirectory#openMailDatabase()} in DbDirectory.</li>
+ *         <li>To open the default Web Navigator database, use {@link NotesSession#getURLDatabase()} in Session.</li>
+ *         <li>To access the available Domino Directories and Personal Address Books, use {@link NotesSession#getAddressBooks()} in Session.</li>
+ *         <li>To test for the existence of a database with a specific server and file name before accessing it, use {@link NotesDbDirectory#openDatabase(String, boolean)} or
+ *         {@link NotesDbDirectory#openDatabaseIfModified(String, NotesDateTime)} in DbDirectory.</li>
+ *         <li>To create a new database from an existing database, use {@link #createCopy(String, String, int)}, {@link #createFromTemplate(String, String, boolean, int)}, or
+ *         {@link #createReplica(String, String)}.</li>
+ *         <li>To create a new database from scratch, use {@link NotesDbDirectory#createDatabase(String, boolean)} in DbDirectory.</li>
+ *         <li>To access a database when you have a contained object such as View, Document, DocumentCollection, ACL, or Agent, use the appropriate Parent (or ParentDatabase) property.</li>
+ *         </ul>
+ * 
+ * @usage A database must be open before you can use all the properties and methods in the corresponding Database object. In most cases, the class library automatically opens a database for you. But
+ *        see isOpen for the exceptions. <br>
+ * <br>
+ *        <b>Access levels</b><br>
+ *        Notes throws an exception when you attempt to perform an operation for which the user does not have appropriate access. The properties and methods that you can successfully use on a Database
+ *        object are determined by these factors:
+ *        <ul>
+ *        <li>The user's access level to the database, as determined by the database access control list. The ACL determines if the user can open a database, add documents to it, remove documents from
+ *        it, modify the ACL, and so on.</li>
+ *        <li>The user's access level to the server on which the database resides, as determined by the Server document in the Domino Directory.</li>
+ *        </ul>
  */
 public interface NotesDatabase extends NotesBase {
 	/**
@@ -458,8 +488,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract boolean openByReplicaID(String server, String replicaID)
-			throws NotesApiException;
+	public abstract boolean openByReplicaID(String server, String replicaID) throws NotesApiException;
 
 	/**
 	 * @param server
@@ -468,8 +497,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract boolean openIfModified(String server, String dbFile,
-			NotesDateTime modifiedSince) throws NotesApiException;
+	public abstract boolean openIfModified(String server, String dbFile, NotesDateTime modifiedSince) throws NotesApiException;
 
 	/**
 	 * @param server
@@ -477,8 +505,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract boolean openWithFailover(String server, String dbFile)
-			throws NotesApiException;
+	public abstract boolean openWithFailover(String server, String dbFile) throws NotesApiException;
 
 	/**
 	 * @return
@@ -491,16 +518,14 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract int compactWithOptions(String options)
-			throws NotesApiException;
+	public abstract int compactWithOptions(String options) throws NotesApiException;
 
 	/**
 	 * @param options
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract int compactWithOptions(int options)
-			throws NotesApiException;
+	public abstract int compactWithOptions(int options) throws NotesApiException;
 
 	/**
 	 * @param options
@@ -508,8 +533,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract int compactWithOptions(int options, String spaceThreshold)
-			throws NotesApiException;
+	public abstract int compactWithOptions(int options, String spaceThreshold) throws NotesApiException;
 
 	/**
 	 * @param server
@@ -517,8 +541,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDatabase createCopy(String server, String dbFile)
-			throws NotesApiException;
+	public abstract NotesDatabase createCopy(String server, String dbFile) throws NotesApiException;
 
 	/**
 	 * @param server
@@ -527,8 +550,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDatabase createCopy(String server, String dbFile,
-			int maxSize) throws NotesApiException;
+	public abstract NotesDatabase createCopy(String server, String dbFile, int maxSize) throws NotesApiException;
 
 	/**
 	 * @return
@@ -543,8 +565,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDatabase createFromTemplate(String server,
-			String dbFile, boolean inherit) throws NotesApiException;
+	public abstract NotesDatabase createFromTemplate(String server, String dbFile, boolean inherit) throws NotesApiException;
 
 	/**
 	 * @param server
@@ -554,17 +575,14 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDatabase createFromTemplate(String server,
-			String dbFile, boolean inherit, int maxSize)
-			throws NotesApiException;
+	public abstract NotesDatabase createFromTemplate(String server, String dbFile, boolean inherit, int maxSize) throws NotesApiException;
 
 	/**
 	 * @param options
 	 * @param recreate
 	 * @throws NotesApiException
 	 */
-	public abstract void createFTIndex(int options, boolean recreate)
-			throws NotesApiException;
+	public abstract void createFTIndex(int options, boolean recreate) throws NotesApiException;
 
 	/**
 	 * @param server
@@ -572,8 +590,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDatabase createReplica(String server, String dbFile)
-			throws NotesApiException;
+	public abstract NotesDatabase createReplica(String server, String dbFile) throws NotesApiException;
 
 	/**
 	 * @param query
@@ -581,16 +598,14 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection FTSearch(String query, int sortOpt)
-			throws NotesApiException;
+	public abstract NotesDocumentCollection FTSearch(String query, int sortOpt) throws NotesApiException;
 
 	/**
 	 * @param query
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection FTSearch(String query)
-			throws NotesApiException;
+	public abstract NotesDocumentCollection FTSearch(String query) throws NotesApiException;
 
 	/**
 	 * @param query
@@ -600,8 +615,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection FTSearch(String query, int max,
-			int sortOpt, int otherOpt) throws NotesApiException;
+	public abstract NotesDocumentCollection FTSearch(String query, int max, int sortOpt, int otherOpt) throws NotesApiException;
 
 	/**
 	 * @param query
@@ -612,9 +626,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection FTSearchRange(String query,
-			int max, int sortOpt, int otherOpt, int start)
-			throws NotesApiException;
+	public abstract NotesDocumentCollection FTSearchRange(String query, int max, int sortOpt, int otherOpt, int start) throws NotesApiException;
 
 	/**
 	 * @return
@@ -632,8 +644,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getAllDocuments()
-			throws NotesApiException;
+	public abstract NotesDocumentCollection getAllDocuments() throws NotesApiException;
 
 	/**
 	 * @param name
@@ -658,8 +669,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param categories
 	 * @throws NotesApiException
 	 */
-	public abstract void setCategories(String categories)
-			throws NotesApiException;
+	public abstract void setCategories(String categories) throws NotesApiException;
 
 	/**
 	 * @return
@@ -684,16 +694,14 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocument getDocumentByID(String noteID)
-			throws NotesApiException;
+	public abstract NotesDocument getDocumentByID(String noteID) throws NotesApiException;
 
 	/**
 	 * @param unid
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocument getDocumentByUNID(String unid)
-			throws NotesApiException;
+	public abstract NotesDocument getDocumentByUNID(String unid) throws NotesApiException;
 
 	/**
 	 * @param url
@@ -701,8 +709,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocument getDocumentByURL(String url, boolean reload)
-			throws NotesApiException;
+	public abstract NotesDocument getDocumentByURL(String url, boolean reload) throws NotesApiException;
 
 	/**
 	 * @param url
@@ -718,26 +725,22 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocument getDocumentByURL(String url, boolean reload,
-			boolean relIfMod, boolean urlList, String charset, String webUser,
-			String webPasswd, String proxyUser, String proxyPasswd,
-			boolean returnImmediately) throws NotesApiException;
+	public abstract NotesDocument getDocumentByURL(String url, boolean reload, boolean relIfMod, boolean urlList, String charset, String webUser, String webPasswd, String proxyUser,
+			String proxyPasswd, boolean returnImmediately) throws NotesApiException;
 
 	/**
 	 * @param profileName
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getProfileDocCollection(
-			String profileName) throws NotesApiException;
+	public abstract NotesDocumentCollection getProfileDocCollection(String profileName) throws NotesApiException;
 
 	/**
 	 * @param selectAllFlag
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesNoteCollection createNoteCollection(
-			boolean selectAllFlag) throws NotesApiException;
+	public abstract NotesNoteCollection createNoteCollection(boolean selectAllFlag) throws NotesApiException;
 
 	/**
 	 * @return
@@ -755,15 +758,13 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract boolean getFolderReferencesEnabled()
-			throws NotesApiException;
+	public abstract boolean getFolderReferencesEnabled() throws NotesApiException;
 
 	/**
 	 * @param bEnable
 	 * @throws NotesApiException
 	 */
-	public abstract void setFolderReferencesEnabled(boolean bEnable)
-			throws NotesApiException;
+	public abstract void setFolderReferencesEnabled(boolean bEnable) throws NotesApiException;
 
 	/**
 	 * @param name
@@ -820,8 +821,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocument getProfileDocument(String profile,
-			String profileKey) throws NotesApiException;
+	public abstract NotesDocument getProfileDocument(String profile, String profileKey) throws NotesApiException;
 
 	/**
 	 * @return
@@ -887,9 +887,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract String getURLHeaderInfo(String url, String header,
-			String webUser, String webPasswd, String proxyUser,
-			String proxyPasswd) throws NotesApiException;
+	public abstract String getURLHeaderInfo(String url, String header, String webUser, String webPasswd, String proxyUser, String proxyPasswd) throws NotesApiException;
 
 	/**
 	 * @param name
@@ -909,8 +907,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param level
 	 * @throws NotesApiException
 	 */
-	public abstract void grantAccess(String name, int level)
-			throws NotesApiException;
+	public abstract void grantAccess(String name, int level) throws NotesApiException;
 
 	/**
 	 * @return
@@ -922,8 +919,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param delay
 	 * @throws NotesApiException
 	 */
-	public abstract void setDelayUpdates(boolean delay)
-			throws NotesApiException;
+	public abstract void setDelayUpdates(boolean delay) throws NotesApiException;
 
 	/**
 	 * @return
@@ -979,8 +975,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract int queryAccessPrivileges(String name)
-			throws NotesApiException;
+	public abstract int queryAccessPrivileges(String name) throws NotesApiException;
 
 	/**
 	 * @throws NotesApiException
@@ -1010,8 +1005,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection search(String formula)
-			throws NotesApiException;
+	public abstract NotesDocumentCollection search(String formula) throws NotesApiException;
 
 	/**
 	 * @param formula
@@ -1019,8 +1013,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection search(String formula,
-			NotesDateTime dt) throws NotesApiException;
+	public abstract NotesDocumentCollection search(String formula, NotesDateTime dt) throws NotesApiException;
 
 	/**
 	 * @param formula
@@ -1029,22 +1022,19 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection search(String formula,
-			NotesDateTime dt, int max) throws NotesApiException;
+	public abstract NotesDocumentCollection search(String formula, NotesDateTime dt, int max) throws NotesApiException;
 
 	/**
 	 * @param frequency
 	 * @throws NotesApiException
 	 */
-	public abstract void setFTIndexFrequency(int frequency)
-			throws NotesApiException;
+	public abstract void setFTIndexFrequency(int frequency) throws NotesApiException;
 
 	/**
 	 * @param indexing
 	 * @throws NotesApiException
 	 */
-	public abstract void setInMultiDbIndexing(boolean indexing)
-			throws NotesApiException;
+	public abstract void setInMultiDbIndexing(boolean indexing) throws NotesApiException;
 
 	/**
 	 * @param title
@@ -1062,8 +1052,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesReplication getReplicationInfo()
-			throws NotesApiException;
+	public abstract NotesReplication getReplicationInfo() throws NotesApiException;
 
 	/**
 	 * @param query
@@ -1076,25 +1065,21 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocument FTDomainSearch(String query, int max,
-			int sortOpt, int otherOpt, int start, int count, String entryForm)
-			throws NotesApiException;
+	public abstract NotesDocument FTDomainSearch(String query, int max, int sortOpt, int otherOpt, int start, int count, String entryForm) throws NotesApiException;
 
 	/**
 	 * @param outlineName
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesOutline getOutline(String outlineName)
-			throws NotesApiException;
+	public abstract NotesOutline getOutline(String outlineName) throws NotesApiException;
 
 	/**
 	 * @param name
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesOutline createOutline(String name)
-			throws NotesApiException;
+	public abstract NotesOutline createOutline(String name) throws NotesApiException;
 
 	/**
 	 * @param name
@@ -1102,8 +1087,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesOutline createOutline(String name,
-			boolean defaultOutline) throws NotesApiException;
+	public abstract NotesOutline createOutline(String name, boolean defaultOutline) throws NotesApiException;
 
 	/**
 	 * @param folder
@@ -1134,8 +1118,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract Vector queryAccessRoles(String name)
-			throws NotesApiException;
+	public abstract Vector queryAccessRoles(String name) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1148,8 +1131,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createView(String viewName)
-			throws NotesApiException;
+	public abstract NotesView createView(String viewName) throws NotesApiException;
 
 	/**
 	 * @param viewName
@@ -1157,8 +1139,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createView(String viewName,
-			String viewSelectionFormula) throws NotesApiException;
+	public abstract NotesView createView(String viewName, String viewSelectionFormula) throws NotesApiException;
 
 	/**
 	 * @param viewName
@@ -1167,9 +1148,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createView(String viewName,
-			String viewSelectionFormula, NotesView templateView)
-			throws NotesApiException;
+	public abstract NotesView createView(String viewName, String viewSelectionFormula, NotesView templateView) throws NotesApiException;
 
 	/**
 	 * @param viewName
@@ -1179,10 +1158,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createView(String viewName,
-			String viewSelectionFormula, NotesView templateView,
-			boolean prohibitDesignRefreshModifications)
-			throws NotesApiException;
+	public abstract NotesView createView(String viewName, String viewSelectionFormula, NotesView templateView, boolean prohibitDesignRefreshModifications) throws NotesApiException;
 
 	/**
 	 * @throws NotesApiException
@@ -1210,8 +1186,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param inService
 	 * @throws NotesApiException
 	 */
-	public abstract void setInService(boolean inService)
-			throws NotesApiException;
+	public abstract void setInService(boolean inService) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1229,8 +1204,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param flag
 	 * @throws NotesApiException
 	 */
-	public abstract void setDocumentLockingEnabled(boolean flag)
-			throws NotesApiException;
+	public abstract void setDocumentLockingEnabled(boolean flag) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1242,8 +1216,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param flag
 	 * @throws NotesApiException
 	 */
-	public abstract void setDesignLockingEnabled(boolean flag)
-			throws NotesApiException;
+	public abstract void setDesignLockingEnabled(boolean flag) throws NotesApiException;
 
 	/**
 	 * @throws NotesApiException
@@ -1261,8 +1234,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param existingSigsOnly
 	 * @throws NotesApiException
 	 */
-	public abstract void sign(int documentType, boolean existingSigsOnly)
-			throws NotesApiException;
+	public abstract void sign(int documentType, boolean existingSigsOnly) throws NotesApiException;
 
 	/**
 	 * @param documentType
@@ -1270,8 +1242,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param nameStr
 	 * @throws NotesApiException
 	 */
-	public abstract void sign(int documentType, boolean existingSigsOnly,
-			String nameStr) throws NotesApiException;
+	public abstract void sign(int documentType, boolean existingSigsOnly, String nameStr) throws NotesApiException;
 
 	/**
 	 * @param documentType
@@ -1280,8 +1251,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param nameStrIsNoteid
 	 * @throws NotesApiException
 	 */
-	public abstract void sign(int documentType, boolean existingSigsOnly,
-			String nameStr, boolean nameStrIsNoteid) throws NotesApiException;
+	public abstract void sign(int documentType, boolean existingSigsOnly, String nameStr, boolean nameStrIsNoteid) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1323,23 +1293,20 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract boolean isCurrentAccessPublicReader()
-			throws NotesApiException;
+	public abstract boolean isCurrentAccessPublicReader() throws NotesApiException;
 
 	/**
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract boolean isCurrentAccessPublicWriter()
-			throws NotesApiException;
+	public abstract boolean isCurrentAccessPublicWriter() throws NotesApiException;
 
 	/**
 	 * @param optionName
 	 * @param flag
 	 * @throws NotesApiException
 	 */
-	public abstract void setOption(int optionName, boolean flag)
-			throws NotesApiException;
+	public abstract void setOption(int optionName, boolean flag) throws NotesApiException;
 
 	/**
 	 * @param optionName
@@ -1364,8 +1331,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param revisions
 	 * @throws NotesApiException
 	 */
-	public abstract void setLimitRevisions(double revisions)
-			throws NotesApiException;
+	public abstract void setLimitRevisions(double revisions) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1377,8 +1343,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param updateBy
 	 * @throws NotesApiException
 	 */
-	public abstract void setLimitUpdatedBy(double updateBy)
-			throws NotesApiException;
+	public abstract void setLimitUpdatedBy(double updateBy) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1390,8 +1355,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param flag
 	 * @throws NotesApiException
 	 */
-	public abstract void setListInDbCatalog(boolean flag)
-			throws NotesApiException;
+	public abstract void setListInDbCatalog(boolean flag) throws NotesApiException;
 
 	/**
 	 * @return
@@ -1403,8 +1367,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @param hours
 	 * @throws NotesApiException
 	 */
-	public abstract void setUndeleteExpireTime(int hours)
-			throws NotesApiException;
+	public abstract void setUndeleteExpireTime(int hours) throws NotesApiException;
 
 	/**
 	 * @param since
@@ -1412,23 +1375,20 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getModifiedDocuments(
-			NotesDateTime since, int noteClass) throws NotesApiException;
+	public abstract NotesDocumentCollection getModifiedDocuments(NotesDateTime since, int noteClass) throws NotesApiException;
 
 	/**
 	 * @param since
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getModifiedDocuments(
-			NotesDateTime since) throws NotesApiException;
+	public abstract NotesDocumentCollection getModifiedDocuments(NotesDateTime since) throws NotesApiException;
 
 	/**
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getModifiedDocuments()
-			throws NotesApiException;
+	public abstract NotesDocumentCollection getModifiedDocuments() throws NotesApiException;
 
 	/**
 	 * @return
@@ -1447,37 +1407,32 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getAllUnreadDocuments(String userID)
-			throws NotesApiException;
+	public abstract NotesDocumentCollection getAllUnreadDocuments(String userID) throws NotesApiException;
 
 	/**
 	 * @param userID
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getAllReadDocuments(String userID)
-			throws NotesApiException;
+	public abstract NotesDocumentCollection getAllReadDocuments(String userID) throws NotesApiException;
 
 	/**
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getAllUnreadDocuments()
-			throws NotesApiException;
+	public abstract NotesDocumentCollection getAllUnreadDocuments() throws NotesApiException;
 
 	/**
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection getAllReadDocuments()
-			throws NotesApiException;
+	public abstract NotesDocumentCollection getAllReadDocuments() throws NotesApiException;
 
 	/**
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesDocumentCollection createDocumentCollection()
-			throws NotesApiException;
+	public abstract NotesDocumentCollection createDocumentCollection() throws NotesApiException;
 
 	/**
 	 * @param viewName
@@ -1485,8 +1440,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createQueryView(String viewName, String formula)
-			throws NotesApiException;
+	public abstract NotesView createQueryView(String viewName, String formula) throws NotesApiException;
 
 	/**
 	 * @param viewName
@@ -1495,8 +1449,7 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createQueryView(String viewName, String formula,
-			NotesView templateView) throws NotesApiException;
+	public abstract NotesView createQueryView(String viewName, String formula, NotesView templateView) throws NotesApiException;
 
 	/**
 	 * @param viewName
@@ -1506,8 +1459,6 @@ public interface NotesDatabase extends NotesBase {
 	 * @return
 	 * @throws NotesApiException
 	 */
-	public abstract NotesView createQueryView(String viewName, String formula,
-			NotesView templateView, boolean prohibitDesignRefreshModifications)
-			throws NotesApiException;
+	public abstract NotesView createQueryView(String viewName, String formula, NotesView templateView, boolean prohibitDesignRefreshModifications) throws NotesApiException;
 
 }
