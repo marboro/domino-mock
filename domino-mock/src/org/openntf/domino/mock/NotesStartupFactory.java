@@ -18,7 +18,7 @@ public class NotesStartupFactory {
 		return new NotesSessionFactoryProdImpl();
 	}
 
-	public void setSessionFactory(NotesSessionFactory sessionFactory) {
+	public static void setSessionFactory(NotesSessionFactory sessionFactory) {
 		NotesStartupFactory.sessionFactory = sessionFactory;
 	}
 }

@@ -71,7 +71,9 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 
 	@Override
 	public NotesDateTime createDateTime(Date date) throws NotesApiException {
-		return createDateTime(date);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return createDateTime(calendar);
 	}
 
 	@Override

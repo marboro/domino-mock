@@ -1,13 +1,13 @@
 package org.openntf.domino.mock.impl.mock;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesAgent;
 import org.openntf.domino.mock.interfaces.NotesDatabase;
 import org.openntf.domino.mock.interfaces.NotesDateTime;
-
 
 public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent {
 
@@ -34,7 +34,7 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	private boolean isActivateable;
 	private String onBehalfOf;
 	private boolean prohibitDesignUpdate;
-	private Vector lockedBy;
+	private List<String> lockedBy;
 	private boolean provisionalok;
 
 	public NotesAgentMockImpl() {
@@ -275,8 +275,8 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	}
 
 	@Override
-	public Vector getLockHolders() throws NotesApiException {
-		return lockedBy;
+	public Vector<String> getLockHolders() throws NotesApiException {
+		return new Vector<String>(lockedBy);
 	}
 
 	@Override
@@ -341,7 +341,7 @@ public class NotesAgentMockImpl extends NotesBaseMockImpl implements NotesAgent 
 	@Override
 	public void unlock() throws NotesApiException {
 		this.provisionalok = false;
-		lockedBy.removeAllElements();
+		lockedBy.clear();
 	}
 
 	@Override

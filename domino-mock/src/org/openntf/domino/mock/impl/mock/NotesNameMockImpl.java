@@ -20,7 +20,8 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 	private Map<String, String> parameterMap = new HashMap<String, String>();
 
 	public NotesNameMockImpl(String name, String lang, NotesSession parent) {
-		// "CN=John B Goode/OU=Sales/OU=East/O=Acme/C=US/S=Goode/G=John/I=B/Q=Jr/A=acmeadmd/P=acmeprmd", "fr-CA";
+		// "CN=John B Goode/OU=Sales/OU=East/O=Acme/C=US/S=Goode/G=John/I=B/Q=Jr/A=acmeadmd/P=acmeprmd",
+		// "fr-CA";
 		// "\"John B Goode\" <jbgoode@us.acme.com> (Guitars) (Music) (East)"
 		// "CN=John B Goode/OU4=Guitars/OU3=Music/OU2=Sales/OU1=East/O=Acme/C=US"
 		isHierarchical = false;
@@ -29,7 +30,8 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 			int occurences = 0;
 			nameCanonical = name;
 
-			for (int index = name.indexOf("OU=", 0); index != -1; index = name.indexOf("OU=", index + 1))
+			for (int index = name.indexOf("OU=", 0); index != -1; index = name
+					.indexOf("OU=", index + 1))
 				occurences++;
 
 			sList = name.split("/");
@@ -395,9 +397,9 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 		try {
 			return getCanonical();
 		} catch (NotesApiException e) {
-
 			e.printStackTrace();
-			return null;
+			return "";
 		}
+
 	}
 }
