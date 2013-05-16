@@ -25,6 +25,16 @@ import org.openntf.domino.mock.Exception.NotesApiException;
  *         <li>To create a new database from scratch, use {@link NotesDbDirectory#createDatabase(String, boolean)} in DbDirectory.</li>
  *         <li>To access a database when you have a contained object such as View, Document, DocumentCollection, ACL, or Agent, use the appropriate Parent (or ParentDatabase) property.</li>
  *         </ul>
+ * <br>
+ *         <b>Access levels</b><br>
+ *         Notes throws an exception when you attempt to perform an operation for which the user does not have appropriate access. The properties and methods that you can successfully use on a
+ *         Database object are determined by these factors:
+ *         <ul>
+ *         <li>
+ *         The user's access level to the database, as determined by the database access control list. The ACL determines if the user can open a database, add documents to it, remove documents from
+ *         it, modify the ACL, and so on.</li>
+ *         <li>The user's access level to the server on which the database resides, as determined by the Server document in the Domino Directory.</li>
+ *         </ul>
  * 
  * @usage A database must be open before you can use all the properties and methods in the corresponding Database object. In most cases, the class library automatically opens a database for you. But
  *        see isOpen for the exceptions. <br>
@@ -37,6 +47,146 @@ import org.openntf.domino.mock.Exception.NotesApiException;
  *        it, modify the ACL, and so on.</li>
  *        <li>The user's access level to the server on which the database resides, as determined by the Server document in the Domino Directory.</li>
  *        </ul>
+ * 
+ * @example 1. This agent creates a Database object called db and assigns a database to it. The database is names.nsf, located at the top level of the data directory on server doc. If the database
+ *          exists, getDatabase automatically opens it.
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * 
+ * public class JavaAgent extends AgentBase {
+ * 	public void NotesMain() {
+ * 		try {
+ * 			Session session = getSession();
+ * 			AgentContext agentContext = session.getAgentContext();
+ * 			// (Your code goes here)
+ * 			Database db = session.getDatabase(&quot;doc&quot;, &quot;names&quot;);
+ * 			System.out.println(db.getTitle());
+ * 		} catch (Exception e) {
+ * 			e.printStackTrace();
+ * 		}
+ * 	}
+ * }
+ * </pre>
+ * 
+ *          2. This agent uses isOpen to test if the database quack.nsf exists locally. If not, the agent uses the create method to create a new database on disk.
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * 
+ * public class JavaAgent extends AgentBase {
+ * 	public void NotesMain() {
+ * 		try {
+ * 			Session session = getSession();
+ * 			AgentContext agentContext = session.getAgentContext();
+ * 			// (Your code goes here)
+ * 			Database db, template;
+ * 			db = session.getDatabase(null, &quot;quack&quot;);
+ * 			if (db.isOpen())
+ * 				System.out.println(db.getTitle());
+ * 			else {
+ * 				System.out.println(&quot;Database does not exist&quot;);
+ * 				System.out.println(&quot;Creating new database ...&quot;);
+ * 				template = session.getDatabase(null, &quot;discsw50.ntf&quot;);
+ * 				if (template.isOpen()) {
+ * 					db = template.createFromTemplate(null, &quot;quack&quot;, true);
+ * 					db.setTitle(&quot;Ducks of North America&quot;);
+ * 					System.out.println(db.getTitle());
+ * 				} else
+ * 					System.out.println(&quot;Template discsw50.ntf does not exist&quot;);
+ * 			}
+ * 		} catch (Exception e) {
+ * 			e.printStackTrace();
+ * 		}
+ * 	}
+ * }
+ * </pre>
+ * 
+ *          3. This agent is the same as the last except that the database is in a subdirectory of the data directory. Notice that two backslashes must be used because the backslash is an escape
+ *          character in Java.
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * 
+ * public class JavaAgent extends AgentBase {
+ * 	public void NotesMain() {
+ * 		try {
+ * 			Session session = getSession();
+ * 			AgentContext agentContext = session.getAgentContext();
+ * 			// (Your code goes here)
+ * 			Database db, template;
+ * 			db = session.getDatabase(null, &quot;quack&quot;);
+ * 			if (db.isOpen())
+ * 				System.out.println(db.getTitle());
+ * 			else {
+ * 				System.out.println(&quot;Database does not exist&quot;);
+ * 				System.out.println(&quot;Creating new database ...&quot;);
+ * 				template = session.getDatabase(null, &quot;discsw50.ntf&quot;);
+ * 				if (template.isOpen()) {
+ * 					db = template.createFromTemplate(null, &quot;birds\\quack&quot;, true);
+ * 					db.setTitle(&quot;Ducks of North America&quot;);
+ * 					System.out.println(db.getTitle());
+ * 				} else
+ * 					System.out.println(&quot;Template discsw50.ntf does not exist&quot;);
+ * 			}
+ * 		} catch (Exception e) {
+ * 			e.printStackTrace();
+ * 		}
+ * 	}
+ * }
+ * </pre>
+ * 
+ *          4. This agent gives Brian Flokka Editor access to the current database. Using the CurrentDatabase property avoids having to use file names in agents and makes agents easily portable from
+ *          one database to another.
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * 
+ * public class JavaAgent extends AgentBase {
+ * 	public void NotesMain() {
+ * 		try {
+ * 			Session session = getSession();
+ * 			AgentContext agentContext = session.getAgentContext();
+ * 			// (Your code goes here)
+ * 			Database db = agentContext.getCurrentDatabase();
+ * 			db.grantAccess(&quot;Brian Flokka&quot;, ACL.LEVEL_EDITOR);
+ * 		} catch (Exception e) {
+ * 			e.printStackTrace();
+ * 		}
+ * 	}
+ * }
+ * </pre>
+ * 
+ *          5. This agent shows how you can use the openIfModified method to open a database only if it's been modified after a certain date. The agent checks if quack.nsf on the current server was
+ *          modified since yesterday; if so, the agent opens the database and compacts it.
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * public class JavaAgent extends AgentBase {
+ *   public void NotesMain() {
+ *     try {
+ *       Session session = getSession();
+ *       AgentContext agentContext = 
+ *           session.getAgentContext();
+ *       // (Your code goes here) 
+ *       DbDirectory dir = session.getDbDirectory(null);
+ *       DateTime dt = session.createDateTime("Today");
+ *       dt.setNow();
+ *       dt.adjustDay(-1);
+ *       Database db = dir.openDatabaseIfModified
+ *       ("quack", dt);
+ *       if (db != null) {
+ *         System.out.println("Compacting database");
+ *         db.compact(); }
+ *       else
+ *         System.out.println(
+ *           "Database not modified in past 
+ *            day");
+ *     } catch(Exception e) {
+ *       e.printStackTrace();
+ *     }
+ *   }
+ * </pre>
  */
 public interface NotesDatabase extends NotesBase {
 	/**
@@ -629,20 +779,111 @@ public interface NotesDatabase extends NotesBase {
 	public abstract NotesDocumentCollection FTSearchRange(String query, int max, int sortOpt, int otherOpt, int start) throws NotesApiException;
 
 	/**
-	 * @return
+	 * The access control list for a database.
+	 * 
+	 * @return The access control list for a database.
 	 * @throws NotesApiException
+	 * @usage The database must be open to use this property.
+	 * @example This agent prints the name of every entry in the ACL of the current database.
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			ACL acl = db.getACL();
+	 * 			ACLEntry acle = acl.getFirstEntry();
+	 * 			do {
+	 * 				System.out.println(acle.getName());
+	 * 			} while ((acle = acl.getNextEntry(acle)) != null);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract NotesACL getACL() throws NotesApiException;
 
 	/**
-	 * @return
+	 * The log from the access control list for a database.
+	 * 
+	 * @return The log from the access control list for a database.
 	 * @throws NotesApiException
+	 * @usage Each vector element contains one entry from the log. The database must be open to use this property.
+	 * @example This agent displays the ACL log for the current database.
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * import java.util.Vector;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			Vector log = db.getACLActivityLog();
+	 * 			System.out.println(&quot;Activity log&quot;);
+	 * 			for (int i = 0; i &lt; log.size(); i++) {
+	 * 				String entry = (String) log.elementAt(0);
+	 * 				System.out.println(&quot;\t&quot; + entry);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract Vector getACLActivityLog() throws NotesApiException;
 
 	/**
-	 * @return
+	 * An unsorted collection containing all the documents in a database.
+	 * 
+	 * @return An unsorted collection containing all the documents in a database.
 	 * @throws NotesApiException
+	 * @usage The {@link #FTSearch(String)} and {@link #search(String)} methods return smaller collections of documents that meet specific criteria. Using the AllDocuments property is more efficient
+	 *        than using the search method with an "@All" formula. The database must be open to use this property.
+	 * 
+	 * @example This agent gets the number of documents in the current database, then gets the value of the Subject item for each document.
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			DocumentCollection dc = db.getAllDocuments();
+	 * 			System.out.println(&quot;Database \&quot;&quot; + title + &quot;\&quot; has &quot; + dc.getCount() + &quot; documents&quot;);
+	 * 			int n = 0;
+	 * 			Document doc = dc.getFirstDocument();
+	 * 			while (doc != null) {
+	 * 				n++;
+	 * 				System.out.println(&quot;Document # &quot; + n + &quot;: &quot; + doc.getItemValueString(&quot;Subject&quot;));
+	 * 				doc = dc.getNextDocument();
+	 * 			}
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract NotesDocumentCollection getAllDocuments() throws NotesApiException;
 
@@ -654,8 +895,37 @@ public interface NotesDatabase extends NotesBase {
 	public abstract NotesAgent getAgent(String name) throws NotesApiException;
 
 	/**
-	 * @return
+	 * All of the agents in a database.
+	 * 
+	 * @return All of the agents in a database.
 	 * @throws NotesApiException
+	 * @usage If the program runs on a workstation or is remote (IIOP), the return vector includes shared agents and private agents that belong to the current user. If the program runs on a server,
+	 *        the return vector includes only shared agents. The database must be open to use this property.
+	 * @example This agent prints the name of each agent in the current database.
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * import java.util.Vector;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			Vector agents = db.getAgents();
+	 * 			System.out.println(&quot;Agents in database:&quot;);
+	 * 			for (int i = 0; i &lt; agents.size(); i++) {
+	 * 				Agent agent = (Agent) agents.elementAt(i);
+	 * 				System.out.println(&quot;  &quot; + agent.getName());
+	 * 			}
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract Vector getAgents() throws NotesApiException;
 
