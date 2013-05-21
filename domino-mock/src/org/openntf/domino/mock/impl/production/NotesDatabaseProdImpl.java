@@ -2,6 +2,9 @@ package org.openntf.domino.mock.impl.production;
 
 import java.util.Vector;
 
+import lotus.domino.Database;
+import lotus.domino.NotesException;
+
 import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesACL;
 import org.openntf.domino.mock.interfaces.NotesAgent;
@@ -16,12 +19,7 @@ import org.openntf.domino.mock.interfaces.NotesReplication;
 import org.openntf.domino.mock.interfaces.NotesSession;
 import org.openntf.domino.mock.interfaces.NotesView;
 
-import lotus.domino.Database;
-import lotus.domino.NotesException;
-
-
-public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
-		NotesDatabase {
+public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements NotesDatabase {
 
 	private final Database database;
 
@@ -43,8 +41,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public boolean openByReplicaID(String arg0, String arg1)
-			throws NotesApiException {
+	public boolean openByReplicaID(String arg0, String arg1) throws NotesApiException {
 		try {
 			return database.openByReplicaID(arg0, arg1);
 		} catch (NotesException e) {
@@ -53,8 +50,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public boolean openIfModified(String arg0, String arg1, NotesDateTime arg2)
-			throws NotesApiException {
+	public boolean openIfModified(String arg0, String arg1, NotesDateTime arg2) throws NotesApiException {
 		try {
 			NotesDateTimeProdImpl dateTime = (NotesDateTimeProdImpl) arg2;
 			return database.openIfModified(arg0, arg1, dateTime.get());
@@ -64,8 +60,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public boolean openWithFailover(String arg0, String arg1)
-			throws NotesApiException {
+	public boolean openWithFailover(String arg0, String arg1) throws NotesApiException {
 		try {
 			return database.openWithFailover(arg0, arg1);
 		} catch (NotesException e) {
@@ -101,8 +96,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public int compactWithOptions(int arg0, String arg1)
-			throws NotesApiException {
+	public int compactWithOptions(int arg0, String arg1) throws NotesApiException {
 		try {
 			return database.compactWithOptions(arg0, arg1);
 		} catch (NotesException e) {
@@ -111,8 +105,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDatabase createCopy(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesDatabase createCopy(String arg0, String arg1) throws NotesApiException {
 		try {
 			return new NotesDatabaseProdImpl(database.createCopy(arg0, arg1));
 		} catch (NotesException e) {
@@ -121,11 +114,9 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDatabase createCopy(String arg0, String arg1, int arg2)
-			throws NotesApiException {
+	public NotesDatabase createCopy(String arg0, String arg1, int arg2) throws NotesApiException {
 		try {
-			return new NotesDatabaseProdImpl(database.createCopy(arg0, arg1,
-					arg2));
+			return new NotesDatabaseProdImpl(database.createCopy(arg0, arg1, arg2));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -141,22 +132,18 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDatabase createFromTemplate(String arg0, String arg1,
-			boolean arg2) throws NotesApiException {
+	public NotesDatabase createFromTemplate(String arg0, String arg1, boolean arg2) throws NotesApiException {
 		try {
-			return new NotesDatabaseProdImpl(database.createFromTemplate(arg0,
-					arg1, arg2));
+			return new NotesDatabaseProdImpl(database.createFromTemplate(arg0, arg1, arg2));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDatabase createFromTemplate(String arg0, String arg1,
-			boolean arg2, int arg3) throws NotesApiException {
+	public NotesDatabase createFromTemplate(String arg0, String arg1, boolean arg2, int arg3) throws NotesApiException {
 		try {
-			return new NotesDatabaseProdImpl(database.createFromTemplate(arg0,
-					arg1, arg2, arg3));
+			return new NotesDatabaseProdImpl(database.createFromTemplate(arg0, arg1, arg2, arg3));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -172,8 +159,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDatabase createReplica(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesDatabase createReplica(String arg0, String arg1) throws NotesApiException {
 		try {
 			return new NotesDatabaseProdImpl(database.createReplica(arg0, arg1));
 		} catch (NotesException e) {
@@ -182,19 +168,16 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearch(String arg0, int arg1)
-			throws NotesApiException {
+	public NotesDocumentCollection FTSearch(String arg0, int arg1) throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(database.FTSearch(arg0,
-					arg1));
+			return new NotesDocumentCollectionProdImpl(database.FTSearch(arg0, arg1));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearch(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection FTSearch(String arg0) throws NotesApiException {
 		try {
 			return new NotesDocumentCollectionProdImpl(database.FTSearch(arg0));
 		} catch (NotesException e) {
@@ -203,22 +186,18 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearch(String arg0, int arg1, int arg2,
-			int arg3) throws NotesApiException {
+	public NotesDocumentCollection FTSearch(String arg0, int arg1, int arg2, int arg3) throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(database.FTSearch(arg0,
-					arg1, arg2, arg3));
+			return new NotesDocumentCollectionProdImpl(database.FTSearch(arg0, arg1, arg2, arg3));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection FTSearchRange(String arg0, int arg1,
-			int arg2, int arg3, int arg4) throws NotesApiException {
+	public NotesDocumentCollection FTSearchRange(String arg0, int arg1, int arg2, int arg3, int arg4) throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(database.FTSearchRange(
-					arg0, arg1, arg2, arg3, arg4));
+			return new NotesDocumentCollectionProdImpl(database.FTSearchRange(arg0, arg1, arg2, arg3, arg4));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -245,8 +224,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	@Override
 	public NotesDocumentCollection getAllDocuments() throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getAllDocuments());
+			return new NotesDocumentCollectionProdImpl(database.getAllDocuments());
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -326,8 +304,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocument getDocumentByUNID(String arg0)
-			throws NotesApiException {
+	public NotesDocument getDocumentByUNID(String arg0) throws NotesApiException {
 		try {
 			return new NotesDocumentProdImpl(database.getDocumentByUNID(arg0));
 		} catch (NotesException e) {
@@ -336,45 +313,37 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocument getDocumentByURL(String arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesDocument getDocumentByURL(String arg0, boolean arg1) throws NotesApiException {
 		try {
-			return new NotesDocumentProdImpl(database.getDocumentByURL(arg0,
-					arg1));
+			return new NotesDocumentProdImpl(database.getDocumentByURL(arg0, arg1));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocument getDocumentByURL(String arg0, boolean arg1,
-			boolean arg2, boolean arg3, String arg4, String arg5, String arg6,
-			String arg7, String arg8, boolean arg9) throws NotesApiException {
+	public NotesDocument getDocumentByURL(String arg0, boolean arg1, boolean arg2, boolean arg3, String arg4, String arg5, String arg6, String arg7, String arg8, boolean arg9)
+			throws NotesApiException {
 		try {
-			return new NotesDocumentProdImpl(database.getDocumentByURL(arg0,
-					arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+			return new NotesDocumentProdImpl(database.getDocumentByURL(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection getProfileDocCollection(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getProfileDocCollection(String arg0) throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getProfileDocCollection(arg0));
+			return new NotesDocumentCollectionProdImpl(database.getProfileDocCollection(arg0));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesNoteCollection createNoteCollection(boolean arg0)
-			throws NotesApiException {
+	public NotesNoteCollection createNoteCollection(boolean arg0) throws NotesApiException {
 		try {
-			return new NotesNoteCollectionProdImpl(
-					database.createNoteCollection(arg0));
+			return new NotesNoteCollectionProdImpl(database.createNoteCollection(arg0));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -408,8 +377,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public void setFolderReferencesEnabled(boolean arg0)
-			throws NotesApiException {
+	public void setFolderReferencesEnabled(boolean arg0) throws NotesApiException {
 		try {
 			database.setFolderReferencesEnabled(arg0);
 		} catch (NotesException e) {
@@ -491,11 +459,9 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocument getProfileDocument(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesDocument getProfileDocument(String arg0, String arg1) throws NotesApiException {
 		try {
-			return new NotesDocumentProdImpl(database.getProfileDocument(arg0,
-					arg1));
+			return new NotesDocumentProdImpl(database.getProfileDocument(arg0, arg1));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -584,11 +550,9 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public String getURLHeaderInfo(String arg0, String arg1, String arg2,
-			String arg3, String arg4, String arg5) throws NotesApiException {
+	public String getURLHeaderInfo(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5) throws NotesApiException {
 		try {
-			return database
-					.getURLHeaderInfo(arg0, arg1, arg2, arg3, arg4, arg5);
+			return database.getURLHeaderInfo(arg0, arg1, arg2, arg3, arg4, arg5);
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -769,24 +733,20 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection search(String arg0, NotesDateTime arg1)
-			throws NotesApiException {
+	public NotesDocumentCollection search(String arg0, NotesDateTime arg1) throws NotesApiException {
 		try {
 			NotesDateTimeProdImpl dateTime = (NotesDateTimeProdImpl) arg1;
-			return new NotesDocumentCollectionProdImpl(database.search(arg0,
-					dateTime.get()));
+			return new NotesDocumentCollectionProdImpl(database.search(arg0, dateTime.get()));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection search(String arg0, NotesDateTime arg1,
-			int arg2) throws NotesApiException {
+	public NotesDocumentCollection search(String arg0, NotesDateTime arg1, int arg2) throws NotesApiException {
 		try {
 			NotesDateTimeProdImpl dateTime = (NotesDateTimeProdImpl) arg1;
-			return new NotesDocumentCollectionProdImpl(database.search(arg0,
-					dateTime.get(), arg2));
+			return new NotesDocumentCollectionProdImpl(database.search(arg0, dateTime.get(), arg2));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -842,11 +802,9 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocument FTDomainSearch(String arg0, int arg1, int arg2,
-			int arg3, int arg4, int arg5, String arg6) throws NotesApiException {
+	public NotesDocument FTDomainSearch(String arg0, int arg1, int arg2, int arg3, int arg4, int arg5, String arg6) throws NotesApiException {
 		try {
-			return new NotesDocumentProdImpl(database.FTDomainSearch(arg0,
-					arg1, arg2, arg3, arg4, arg5, arg6));
+			return new NotesDocumentProdImpl(database.FTDomainSearch(arg0, arg1, arg2, arg3, arg4, arg5, arg6));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -871,8 +829,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesOutline createOutline(String arg0, boolean arg1)
-			throws NotesApiException {
+	public NotesOutline createOutline(String arg0, boolean arg1) throws NotesApiException {
 		try {
 			return new NotesOutlineProdImpl(database.createOutline(arg0, arg1));
 		} catch (NotesException e) {
@@ -944,8 +901,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesView createView(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesView createView(String arg0, String arg1) throws NotesApiException {
 		try {
 			return new NotesViewProdImpl(database.createView(arg0, arg1));
 		} catch (NotesException e) {
@@ -954,24 +910,20 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesView createView(String arg0, String arg1, NotesView arg2)
-			throws NotesApiException {
+	public NotesView createView(String arg0, String arg1, NotesView arg2) throws NotesApiException {
 		try {
 			NotesViewProdImpl view = (NotesViewProdImpl) arg2;
-			return new NotesViewProdImpl(database.createView(arg0, arg1,
-					view.get()));
+			return new NotesViewProdImpl(database.createView(arg0, arg1, view.get()));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesView createView(String arg0, String arg1, NotesView arg2,
-			boolean arg3) throws NotesApiException {
+	public NotesView createView(String arg0, String arg1, NotesView arg2, boolean arg3) throws NotesApiException {
 		try {
 			NotesViewProdImpl view = (NotesViewProdImpl) arg2;
-			return new NotesViewProdImpl(database.createView(arg0, arg1,
-					view.get(), arg3));
+			return new NotesViewProdImpl(database.createView(arg0, arg1, view.get(), arg3));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -1042,8 +994,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public void setDocumentLockingEnabled(boolean arg0)
-			throws NotesApiException {
+	public void setDocumentLockingEnabled(boolean arg0) throws NotesApiException {
 		try {
 			database.setDocumentLockingEnabled(arg0);
 		} catch (NotesException e) {
@@ -1097,8 +1048,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public void sign(int arg0, boolean arg1, String arg2)
-			throws NotesApiException {
+	public void sign(int arg0, boolean arg1, String arg2) throws NotesApiException {
 		try {
 			database.sign(arg0, arg1, arg2);
 		} catch (NotesException e) {
@@ -1107,8 +1057,7 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public void sign(int arg0, boolean arg1, String arg2, boolean arg3)
-			throws NotesApiException {
+	public void sign(int arg0, boolean arg1, String arg2, boolean arg3) throws NotesApiException {
 		try {
 			database.sign(arg0, arg1, arg2, arg3);
 		} catch (NotesException e) {
@@ -1288,35 +1237,29 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection getModifiedDocuments(NotesDateTime arg0,
-			int arg1) throws NotesApiException {
+	public NotesDocumentCollection getModifiedDocuments(NotesDateTime arg0, int arg1) throws NotesApiException {
 		try {
 			NotesDateTimeProdImpl dt = (NotesDateTimeProdImpl) arg0;
-			return new NotesDocumentCollectionProdImpl(
-					database.getModifiedDocuments(dt.get(), arg1));
+			return new NotesDocumentCollectionProdImpl(database.getModifiedDocuments(dt.get(), arg1));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection getModifiedDocuments(NotesDateTime arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getModifiedDocuments(NotesDateTime arg0) throws NotesApiException {
 		try {
 			NotesDateTimeProdImpl dt = (NotesDateTimeProdImpl) arg0;
-			return new NotesDocumentCollectionProdImpl(
-					database.getModifiedDocuments(dt.get()));
+			return new NotesDocumentCollectionProdImpl(database.getModifiedDocuments(dt.get()));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection getModifiedDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getModifiedDocuments() throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getModifiedDocuments());
+			return new NotesDocumentCollectionProdImpl(database.getModifiedDocuments());
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -1341,63 +1284,52 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesDocumentCollection getAllUnreadDocuments(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getAllUnreadDocuments(String arg0) throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getAllUnreadDocuments(arg0));
+			return new NotesDocumentCollectionProdImpl(database.getAllUnreadDocuments(arg0));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection getAllReadDocuments(String arg0)
-			throws NotesApiException {
+	public NotesDocumentCollection getAllReadDocuments(String arg0) throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getAllReadDocuments(arg0));
+			return new NotesDocumentCollectionProdImpl(database.getAllReadDocuments(arg0));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection getAllUnreadDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getAllUnreadDocuments() throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getAllUnreadDocuments());
+			return new NotesDocumentCollectionProdImpl(database.getAllUnreadDocuments());
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection getAllReadDocuments()
-			throws NotesApiException {
+	public NotesDocumentCollection getAllReadDocuments() throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.getAllReadDocuments());
+			return new NotesDocumentCollectionProdImpl(database.getAllReadDocuments());
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesDocumentCollection createDocumentCollection()
-			throws NotesApiException {
+	public NotesDocumentCollection createDocumentCollection() throws NotesApiException {
 		try {
-			return new NotesDocumentCollectionProdImpl(
-					database.createDocumentCollection());
+			return new NotesDocumentCollectionProdImpl(database.createDocumentCollection());
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesView createQueryView(String arg0, String arg1)
-			throws NotesApiException {
+	public NotesView createQueryView(String arg0, String arg1) throws NotesApiException {
 		try {
 			return new NotesViewProdImpl(database.createQueryView(arg0, arg1));
 		} catch (NotesException e) {
@@ -1406,26 +1338,23 @@ public class NotesDatabaseProdImpl extends NotesBaseProdImpl implements
 	}
 
 	@Override
-	public NotesView createQueryView(String arg0, String arg1, NotesView arg2)
-			throws NotesApiException {
+	public NotesView createQueryView(String arg0, String arg1, NotesView arg2) throws NotesApiException {
 		try {
 			NotesViewProdImpl view = (NotesViewProdImpl) arg2;
-			return new NotesViewProdImpl(database.createQueryView(arg0, arg1,
-					view.get()));
+			return new NotesViewProdImpl(database.createQueryView(arg0, arg1, view.get()));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesView createQueryView(String arg0, String arg1, NotesView arg2,
-			boolean arg3) throws NotesApiException {
+	public NotesView createQueryView(String arg0, String arg1, NotesView arg2, boolean arg3) throws NotesApiException {
 		try {
 			NotesViewProdImpl view = (NotesViewProdImpl) arg2;
-			return new NotesViewProdImpl(database.createQueryView(arg0, arg1,
-					view.get(), arg3));
+			return new NotesViewProdImpl(database.createQueryView(arg0, arg1, view.get(), arg3));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
+
 }
