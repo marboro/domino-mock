@@ -627,33 +627,159 @@ public interface NotesDatabase extends NotesBase {
 	public static final int DBOPT_NOSIMPLESEARCH = 76;
 
 	/**
-	 * @return
+	 * Opens a database
+	 * 
+	 * @return <ul>
+	 *         <li>true if the database exists and is opened</li>
+	 *         <li>false if no database with this name exists</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage A database must be open to use the Database properties and methods with some exceptions. Most methods that access a database open it, but some do not. See isOpen for details.
+	 * 
+	 *        An error is returned if the user does not have access rights to the database or server.
+	 * 
+	 *        A Java application running on the same machine as a Domino server cannot open a local database from a local session. Use a remote (IIOP) session to access the database
+	 * 
+	 * 
 	 */
 	public abstract boolean open() throws NotesApiException;
 
 	/**
+	 * Given a server name and a replica ID, opens the specified database, if it exists
+	 * 
 	 * @param server
+	 *            The name of the server on which the database resides. Use null to indicate a database on the current computer
 	 * @param replicaID
-	 * @return
+	 *            The replica ID of the database that you want to open
+	 * @return <ul>
+	 *         <li>true indicates that the replica was found and opened</li>
+	 *         <li>false indicates that the replica was not found on the server, or could not be opened</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage Use Session.getDatabase(null, null) to instantiate an empty Database object
+	 * @example This agent attempts to open a replica of the current database on a particular server
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			String id = agentContext.getCurrentDatabase().getReplicaID();
+	 * 			String server = &quot;Slapper/East/Acme&quot;;
+	 * 			Database db = session.getDatabase(null, null);
+	 * 			if (db.openByReplicaID(server, id)) {
+	 * 				System.out.println(&quot;Replica of current database on Slapper&quot;);
+	 * 				System.out.println(&quot;Server = &quot; + db.getServer());
+	 * 				System.out.println(&quot;Filepath = &quot; + db.getFilePath());
+	 * 				System.out.println(&quot;Title = &quot; + db.getTitle());
+	 * 			} else
+	 * 				System.out.println(&quot;No replica of current database on Slapper&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean openByReplicaID(String server, String replicaID) throws NotesApiException;
 
 	/**
+	 * Given a date, opens the specified database if it has been modified since that date.
+	 * 
 	 * @param server
+	 *            The name of the server on which the database resides. Use null to indicate a database on the current computer
 	 * @param dbFile
+	 *            The file name of the database
 	 * @param modifiedSince
-	 * @return
+	 *            A cutoff date. If one or more documents in the database has been modified since this date, the database is opened; if not, it is not opened
+	 * @return <ul>
+	 *         <li>true indicates that the database was opened</li>
+	 *         <li>false indicates that the database was not opened</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage Use Session.getDatabase(null, null) to instantiate an empty Database object
+	 * @example This agent opens the local names.nsf only if it was modified in the past day
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			DateTime dt = session.createDateTime(&quot;Today&quot;);
+	 * 			dt.setNow();
+	 * 			dt.adjustHour(-1);
+	 * 			Database db = session.getDatabase(&quot;&quot;, &quot;&quot;);
+	 * 			if (db.openIfModified(null, &quot;names&quot;, dt))
+	 * 				System.out.println(&quot;Names.nsf opened&quot;);
+	 * 			else
+	 * 				System.out.println(&quot;Names.nsf not opened&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean openIfModified(String server, String dbFile, NotesDateTime modifiedSince) throws NotesApiException;
 
 	/**
+	 * Opens a database on a server
+	 * 
 	 * @param server
+	 *            The name of the primary server on which the database resides
 	 * @param dbFile
-	 * @return
+	 *            The file name of the database to open
+	 * @return <ul>
+	 *         <li>true indicates that the database exists and was opened.</li>
+	 *         <li>false indicates that there is no database with this name in the cluster</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage The object Server and FilePath properties reflect the actual server on which the database is opened.
+	 * 
+	 *        If the database can't be opened on the specific server but the server belongs to a cluster, openWithFailover automatically looks for a replica of the specified server on the same
+	 *        cluster. If the method finds a replica, that database is opened instead, and the Server property adjusts accordingly
+	 * @example This agent opens names.nsf on a server, but fails over if the server is in a cluster and another server contains the database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = session.getDatabase(&quot;&quot;, &quot;&quot;);
+	 * 			if (db.openWithFailover(&quot;Slapper/East/Acme&quot;, &quot;names&quot;))
+	 * 				System.out.println(&quot;Names.nsf opened on &quot; + db.getServer());
+	 * 			else
+	 * 				System.out.println(&quot;Names.nsf not opened&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean openWithFailover(String server, String dbFile) throws NotesApiException;
 
@@ -2600,8 +2726,52 @@ public interface NotesDatabase extends NotesBase {
 	public abstract boolean getFolderReferencesEnabled() throws NotesApiException;
 
 	/**
+	 * Indicates whether this database maintains folder references for documents
+	 * 
 	 * @param bEnable
+	 *            Indicates whether this database maintains folder references for documents
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true maintains folder references</li>
+	 *              <li>false (default) does not maintain folder references</li>
+	 *              </ul>
+	 * @usage The database must have the $FolderInfo and $FolderRefInfo hidden views to support folder references. These views can be copied from the mail template. This property does not return view
+	 *        references.
+	 * 
+	 *        The database must be at the Release 5 file format level or greater.
+	 * 
+	 *        Maintaining folder references impacts performance.
+	 * 
+	 *        The database must be open to use this property.
+	 * 
+	 *        For more information, see the FolderReferences property in Document.
+	 * @example This agent toggles the FolderReferencesEnabled property
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String msg;
+	 * 			if (db.getFolderReferencesEnabled()) {
+	 * 				db.setFolderReferencesEnabled(false);
+	 * 				msg = &quot;Folder references disabled&quot;;
+	 * 			} else {
+	 * 				db.setFolderReferencesEnabled(true);
+	 * 				msg = &quot;Folder references enabled&quot;;
+	 * 			}
+	 * 			System.out.println(msg);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setFolderReferencesEnabled(boolean bEnable) throws NotesApiException;
 
@@ -3110,8 +3280,8 @@ public interface NotesDatabase extends NotesBase {
 	/**
 	 * The size quota of a database, in kilobytes
 	 * 
-	 * @param The
-	 *            size quota of a database, in kilobytes
+	 * @param quota
+	 *            The size quota of a database, in kilobytes
 	 * @throws NotesApiException
 	 * @usage The size quota for a database specifies the amount of disk space that the server administrator is willing to provide for the database. Therefore, the SizeQuota property can only be set
 	 *        by a program that has administrator access to the server on which the database resides. The size quota is not the same as the size limit that a user specifies when creating a new
@@ -3604,105 +3774,715 @@ public interface NotesDatabase extends NotesBase {
 	public abstract void setDelayUpdates(boolean delay) throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether or not a database has a full-text index
+	 * 
+	 * @return Indicates whether or not a database has a full-text index
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database has a full-text index</li>
+	 *              <li>false if the database does not have a full-text index</li>
+	 *              </ul>
+	 * @usage The database must be open to use this property
+	 * @example This agent prints a message saying whether the current database has a full-text index
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			if (db.isFTIndexed())
+	 * 				System.out.println(&quot;Database \&quot;&quot; + title + &quot;\&quot; is full-text indexed&quot;);
+	 * 			else
+	 * 				System.out.println(&quot;Database \&quot;&quot; + title + &quot;\&quot; is not full-text indexed&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isFTIndexed() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether a database can be included in multi-database indexing
+	 * 
+	 * @return Indicates whether a database can be included in multi-database indexing
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database allows inclusion in multi-database indexing</li>
+	 *              <li>false if the database does not allow inclusion in multi-database indexing</li>
+	 *              </ul>
+	 * @usage This property corresponds to "Include in multi-database indexing" in the database design properties of the UI.
+	 * 
+	 *        The database must be open to use this property
+	 * @example This agent toggles the setting for including the current database in multi-database indexing
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			if (db.isInMultiDbIndexing()) {
+	 * 				db.setInMultiDbIndexing(false);
+	 * 				System.out.println(&quot;Do not include in multi-db indexing.&quot;);
+	 * 			} else {
+	 * 				db.setInMultiDbIndexing(true);
+	 * 				System.out.println(&quot;Include in multi-db indexing.&quot;);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isInMultiDbIndexing() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether a database is the target of a link
+	 * 
+	 * @return Indicates whether a database is the target of a link
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is the target of a link</li>
+	 *              <li>false if the database is not the target of a link</li>
+	 *              </ul>
+	 * @usage A link is a text file with an NSF extension whose only content is the full path name of a database. Accessing the link accesses the specified database.
+	 * 
+	 *        The target database appears to exist at the location of the link. For example, the {@link #getFilePath()} property returns the path of the link, not the target
+	 * @example This agent gets the path names of all linked databases in the local directory
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			DbDirectory dbdir = session.getDbDirectory(null);
+	 * 			String msg = &quot;&quot;;
+	 * 			Database db = dbdir.getFirstDatabase(DbDirectory.DATABASE);
+	 * 			while (db != null) {
+	 * 				if (db.isLink()) {
+	 * 					msg = msg + &quot;\n\t&quot; + db.getFilePath();
+	 * 				}
+	 * 				db = dbdir.getNextDatabase();
+	 * 			}
+	 * 			if (msg.length() == 0)
+	 * 				msg = &quot;\n\tNone&quot;;
+	 * 			System.out.println(&quot;Links in local directory&quot; + msg);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isLink() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether a database is of type "Multi DB Search"
+	 * 
+	 * @return Indicates whether a database is of type "Multi DB Search"
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is of type "Multi DB Search"</li>
+	 *              <li>false if the database is not of type "Multi DB Search"</li>
+	 *              </ul>
+	 * @usage The database must be open to use this property
+	 * @example This agent prints whether the current database represents a multi-database search index
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			if (db.isMultiDbSearch())
+	 * 				System.out.println(&quot;Database \&quot;&quot; + title + &quot;\&quot; is a multi-database search index&quot;);
+	 * 			else
+	 * 				System.out.println(&quot;Database \&quot;&quot; + title + &quot;\&quot; is not a multi-database search index&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isMultiDbSearch() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether a database is open
+	 * 
+	 * @return Indicates whether a database is open
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is open</li>
+	 *              <li>false if the database is not open</li>
+	 *              </ul>
+	 * @usage A database must be open to use the Database methods except: getCategories, getDelayUpdates, getDesignTemplateName, getFileName, getFilePath, isOpen, isPrivateAddressBook,
+	 *        isPublicAddressBook, getParent, getReplicaID, getServer, getSize, getSizeQuota, getTemplateName, and getTitle.
+	 * 
+	 *        The following methods do not open a database: DbDirectory.getFirstDatabase, DbDirectory.getNextDatabase, and Session.getAddressBooks. You must explicitly call Database.open.
+	 * 
+	 *        If a Database object must be open but is not, the following error occurs: "Database has not been opened yet." This error does not occur when the Database is created, but later when the
+	 *        attempt to use it occurs. Possible causes of the error are: the database as specified does not exist; the user does not have permission to access the database; the database is damaged
+	 * @example This agent prints the result of isOpen before and after opening a database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void isitopen(Database db) throws NotesException {
+	 * 		if (db.isOpen())
+	 * 			System.out.println(&quot;\&quot;&quot; + db.getTitle() + &quot;\&quot; is open&quot;);
+	 * 		else
+	 * 			System.out.println(&quot;\&quot;&quot; + db.getTitle() + &quot;\&quot; is not open&quot;);
+	 * 	}
+	 * 
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			DbDirectory Dir = session.getDbDirectory(null);
+	 * 			Database db = Dir.getFirstDatabase(DbDirectory.DATABASE);
+	 * 			isitopen(db);
+	 * 			db.open();
+	 * 			isitopen(db);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isOpen() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates if a database is a Domino Directory
+	 * 
+	 * @return Indicates if a database is a Domino Directory
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is a Domino Directory</li>
+	 *              <li>false if the database is not a Domino Directory</li>
+	 *              </ul>
+	 * @usage This property is available for Database objects retrieved from {@link NotesSession#getAddressBooks()} in Session. For other Database objects, this property has no value and evaluates to
+	 *        false.
+	 * 
+	 *        The database must be open to use this property
+	 * @example This agent retrieves the current user Domino Directories and Personal Address Books, and prints a message for each one that is a Domino Directory
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * import java.util.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			System.out.println(&quot;Domino Directories:\n&quot;);
+	 * 			Vector books = session.getAddressBooks();
+	 * 			Enumeration e = books.elements();
+	 * 			Database db;
+	 * 			while (e.hasMoreElements()) {
+	 * 				db = (Database) e.nextElement();
+	 * 				if (db.isPublicAddressBook()) {
+	 * 					String msg = &quot;  &quot; + db.getFilePath();
+	 * 					if (db.getServer() != &quot;&quot;)
+	 * 						msg = msg + &quot; on &quot; + db.getServer();
+	 * 					System.out.println(msg);
+	 * 				}
+	 * 			}
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isPublicAddressBook() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates if a database is a Personal Address Book
+	 * 
+	 * @return Indicates if a database is a Personal Address Book
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is a Personal Address Book</li>
+	 *              <li>false if the database is not a Personal Address Book</li>
+	 *              </ul>
+	 * @usage This property is available for Database objects retrieved by {@link NotesSession#getAddressBooks()} in Session. For other Database objects, this property has no value and evaluates to
+	 *        false.
+	 * @example This agent uses getAddressBooks in Session to retrieve the user Domino Directories and Personal Address Books, and prints a message for each one that is a Personal Address Book
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * import java.util.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			System.out.println(&quot;Personal address books:\n&quot;);
+	 * 			Vector books = session.getAddressBooks();
+	 * 			Enumeration e = books.elements();
+	 * 			Database db;
+	 * 			while (e.hasMoreElements()) {
+	 * 				db = (Database) e.nextElement();
+	 * 				if (db.isPrivateAddressBook()) {
+	 * 					String msg = &quot;  &quot; + db.getFilePath();
+	 * 					if (db.getServer() != &quot;&quot;)
+	 * 						msg = msg + &quot; on &quot; + db.getServer();
+	 * 					System.out.println(msg);
+	 * 				}
+	 * 			}
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
+	 * 
+	 *          The database must be open to use this property
 	 */
 	public abstract boolean isPrivateAddressBook() throws NotesApiException;
 
 	/**
+	 * Returns a person's, group's, or server's current access level to a database.
+	 * 
+	 * <b>Note</b> Using this method at the same time an ACL object is in use may produce inconsistent results
+	 * 
 	 * @param name
-	 * @return
+	 *            The name of the person, group, or server. For a hierarchical name, the full name must be specified but can be in abbreviated format
+	 * @return The current access level, which is one of the following:
+	 *         <ul>
+	 *         <li>ACL.LEVEL_AUTHOR</li>
+	 *         <li>ACL.LEVEL_DEPOSITOR</li>
+	 *         <li>ACL.LEVEL_DESIGNER</li>
+	 *         <li>ACL.LEVEL_EDITOR</li>
+	 *         <li>ACL.LEVEL_MANAGER</li>
+	 *         <li>ACL.LEVEL_NOACCESS</li>
+	 *         <li>ACL.LEVEL_READER</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage If the name$ you specify is listed explicitly in the ACL, then queryAccess returns the access level for that ACL entry and does not check the groups.
+	 * 
+	 *        If the name$ you specify is not listed explicitly in the ACL, queryAccess checks if the name$ is a member of a group in the Primary Address Book known to the computer on which the script
+	 *        is running. On a local workstation, that address book is the Personal Address Book. On a server, that address book is the Domino Directory. If the queryAccess method finds name$ in one
+	 *        or more groups, then it returns the highest access level among those groups.
+	 * 
+	 *        If the name$ you specify is not listed in the ACL either individually or as part of a group, queryAccess returns the default access level for the ACL
+	 * @example This agent prints the access level for the current user
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			int accLevel = db.queryAccess(session.getUserName());
+	 * 			System.out.print(&quot;For database \&quot;&quot; + title + &quot;\&quot; you have &quot;);
+	 * 			switch (accLevel) {
+	 * 			case (ACL.LEVEL_NOACCESS):
+	 * 				System.out.println(&quot;no access&quot;);
+	 * 				break;
+	 * 			case (ACL.LEVEL_DEPOSITOR):
+	 * 				System.out.println(&quot;depositor access&quot;);
+	 * 				break;
+	 * 			case (ACL.LEVEL_READER):
+	 * 				System.out.println(&quot;reader access&quot;);
+	 * 				break;
+	 * 			case (ACL.LEVEL_AUTHOR):
+	 * 				System.out.println(&quot;author access&quot;);
+	 * 				break;
+	 * 			case (ACL.LEVEL_EDITOR):
+	 * 				System.out.println(&quot;editor access&quot;);
+	 * 				break;
+	 * 			case (ACL.LEVEL_DESIGNER):
+	 * 				System.out.println(&quot;designer access&quot;);
+	 * 				break;
+	 * 			case (ACL.LEVEL_MANAGER):
+	 * 				System.out.println(&quot;manager access&quot;);
+	 * 				break;
+	 * 			default:
+	 * 				System.out.println(&quot;unknown access&quot;);
+	 * 				break;
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract int queryAccess(String name) throws NotesApiException;
 
 	/**
+	 * Returns the privileges of a person, group, or server in a database
+	 * 
 	 * @param name
-	 * @return
+	 *            The name of the person, group, or server. For a hierarchical name, the full name must be specified but can be in abbreviated format
+	 * @return The current access privileges, a combination of the following:
+	 *         <ul>
+	 *         <li>Database.DBACL_CREATE_DOCS (1)</li>
+	 *         <li>Database.DBACL_DELETE_DOCS (2)</li>
+	 *         <li>Database.DBACL_CREATE_PRIV_AGENTS (4)</li>
+	 *         <li>Database.DBACL_CREATE_PRIV_FOLDERS_VIEWS (8)</li>
+	 *         <li>Database.DBACL_CREATE_SHARED_FOLDERS_VIEWS (16)</li>
+	 *         <li>Database.DBACL_CREATE_SCRIPT_AGENTS (32)</li>
+	 *         <li>Database.DBACL_READ_PUBLIC_DOCS (64)</li>
+	 *         <li>Database.DBACL_WRITE_PUBLIC_DOCS (128)</li>
+	 *         <li>Database.DBACL_REPLICATE_COPY_DOCS (256)</li>
+	 *         </ul>
+	 *         Individual privileges can be discerned through bitwise operations
+	 * 
 	 * @throws NotesApiException
+	 * @usage If the name you specify is listed explicitly in the ACL, then queryAccessPrivileges returns the privileges for that ACL entry and does not check groups.
+	 * 
+	 *        If the name you specify is not listed explicitly in the ACL, queryAccessPrivileges checks to see if the name is a member of a group in the primary address book where the program is
+	 *        running: on a workstation the Personal Address Book; on a server the Domino Directory
+	 * @example This agent gets the privileges for the current user in the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			String user = session.getUserName();
+	 * 			int accPriv = db.queryAccessPrivileges(user);
+	 * 			System.out.println(&quot;Privileges for &quot; + user + &quot; in &quot; + title);
+	 * 			// Check each privilege bit to see if it is 0 or 1
+	 * 			if ((accPriv &amp; Database.DBACL_CREATE_DOCS) &gt; 0)
+	 * 				System.out.println(&quot;\tCreate documents&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_DELETE_DOCS) &gt; 0)
+	 * 				System.out.println(&quot;\tDelete documents&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_CREATE_PRIV_AGENTS) &gt; 0)
+	 * 				System.out.println(&quot;\tCreate private agents&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_CREATE_PRIV_FOLDERS_VIEWS) &gt; 0)
+	 * 				System.out.println(&quot;\tCreate private folders/views&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_CREATE_SHARED_FOLDERS_VIEWS) &gt; 0)
+	 * 				System.out.println(&quot;\tCreate shared folders/views&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_CREATE_SCRIPT_AGENTS) &gt; 0)
+	 * 				System.out.println(&quot;\tCreate LotusScript/Java agents&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_READ_PUBLIC_DOCS) &gt; 0)
+	 * 				System.out.println(&quot;\tRead public documents&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_WRITE_PUBLIC_DOCS) &gt; 0)
+	 * 				System.out.println(&quot;\tWrite public documents&quot;);
+	 * 			if ((accPriv &amp; Database.DBACL_REPLICATE_COPY_DOCS) &gt; 0)
+	 * 				System.out.println(&quot;\tReplicate or copy documents&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract int queryAccessPrivileges(String name) throws NotesApiException;
 
 	/**
+	 * Permanently deletes a database
+	 * 
 	 * @throws NotesApiException
+	 * @example This agent removes the local database whose name is in the agent's comment
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Agent agent = agentContext.getCurrentAgent();
+	 * 			Database db = session.getDatabase(null, agent.getComment());
+	 * 			db.remove();
+	 * 			System.out.println(&quot;Database &quot; + agent.getComment() + &quot; has been removed&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void remove() throws NotesApiException;
 
 	/**
+	 * Replicates a local database with its replica(s) on a server
+	 * 
 	 * @param server
-	 * @return
+	 *            The name of the server with which you want to replicate. Any replica of the source database that exists on the server will replicate
+	 * @return <ul>
+	 *         <li>true if the replication task runs without error</li>
+	 *         <li>false if replication errors occur</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage Successful replication does not necessarily mean that documents replicate. The replication settings are honored. For example, if replication is temporarily disabled on one of the
+	 *        databases, the replication task runs without error but no documents actually replicate.
+	 * 
+	 *        The source database must be local or an exception is thrown
+	 * @example This agent replicates the local database dbexamples.nsf with its replica on notesua1
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Database db = session.getDatabase(null, &quot;dbexamples&quot;);
+	 * 			if (db.isOpen()) {
+	 * 				String title = db.getTitle();
+	 * 				if (db.replicate(&quot;notesua1&quot;))
+	 * 					System.out.println(&quot;\&quot;&quot; + title + &quot;\&quot; has replicated&quot;);
+	 * 				else
+	 * 					System.out.println(&quot;Error replicating \&quot;&quot; + title + &quot;\&quot;&quot;);
+	 * 			} else
+	 * 				System.out.println(&quot;No such database&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean replicate(String server) throws NotesApiException;
 
 	/**
+	 * Removes a full-text index from a database
+	 * 
 	 * @throws NotesApiException
+	 * @usage No error occurs if the database does not have a full-text index.
+	 * 
+	 *        This method works only for local databases
+	 * @example This agent removes a full-text index from the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			if (db.isFTIndexed()) {
+	 * 				db.removeFTIndex();
+	 * 				System.out.println(&quot;Database index removed&quot;);
+	 * 			} else {
+	 * 				System.out.println(&quot;Database is not indexed&quot;);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void removeFTIndex() throws NotesApiException;
 
 	/**
+	 * Removes a person, group, or server from a database access control list. This resets the access level for that person, group, or server to the Default setting for the database.
+	 * 
+	 * <b>Note</b> Using this method at the same time an ACL object is in use may produce inconsistent results
+	 * 
 	 * @param name
+	 *            The name of the person, group, or server whose access you want to revoke. For a hierarchical name, the full name must be specified but can be in abbreviated format
 	 * @throws NotesApiException
+	 * @usage Revoking access is different than assigning No Access (which you can do with the grantAccess method). When you revoke access, you remove the name from the ACL, but the person, group, or
+	 *        server can still access the database at the level specified for Default. When you use the grantAccess method to assign No Access, the name remains in the ACL, and the person, group, or
+	 *        server cannot access the database, regardless of the Default setting
+	 * @example This agent revokes access to the current database for the user whose name is the agent comment
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Agent agent = agentContext.getCurrentAgent();
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			db.revokeAccess(agent.getComment());
+	 * 			System.out.println(agent.getComment() + &quot;'s access is revoked&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void revokeAccess(String name) throws NotesApiException;
 
 	/**
+	 * Given selection criteria for a document, returns all documents in a database that meet the criteria
+	 * 
 	 * @param formula
-	 * @return
+	 *            A Notes @function formula that specifies the selection criteria
+	 * @return An unsorted collection of documents that match the selection criteria
 	 * @throws NotesApiException
+	 * @usage This method returns a maximum of 5,000 documents by default. The Notes.ini variable FT_MAX_SEARCH_RESULTS overrides this limit for indexed databases or databases that are not indexed but
+	 *        that are running an agent on the client. For a database that is not indexed and is running in an agent on the server, you must set the TEMP_INDEX_MAX_DOC Notes.ini variable as well. The
+	 *        absolute maximum is 2,147,483,647
+	 * @example This agent searches the current database for all documents whose Subject field equals the value of the agent's comment
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Agent agent = agentContext.getCurrentAgent();
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			DocumentCollection dc = db.search(&quot;Subject = \&quot;&quot; + agent.getComment() + &quot;\&quot;&quot;);
+	 * 			int matches = dc.getCount();
+	 * 			System.out.println(&quot;Search of \&quot;&quot; + title + &quot;\&quot; found &quot; + matches + &quot; document(s) with Subject = \&quot;&quot; + agent.getComment() + &quot;\&quot;&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract NotesDocumentCollection search(String formula) throws NotesApiException;
 
 	/**
+	 * Given selection criteria for a document, returns all documents in a database that meet the criteria
+	 * 
 	 * @param formula
+	 *            A Notes @function formula that specifies the selection criteria
 	 * @param dt
-	 * @return
+	 *            A cutoff date. The method searches only documents created or modified since the cutoff date. Can be null to indicate no cutoff date
+	 * @return An unsorted collection of documents that match the selection criteria
 	 * @throws NotesApiException
+	 * @usage This method returns a maximum of 5,000 documents by default. The Notes.ini variable FT_MAX_SEARCH_RESULTS overrides this limit for indexed databases or databases that are not indexed but
+	 *        that are running an agent on the client. For a database that is not indexed and is running in an agent on the server, you must set the TEMP_INDEX_MAX_DOC Notes.ini variable as well. The
+	 *        absolute maximum is 2,147,483,647
+	 * @example This agent searches the current database for all documents whose Subject field equals the value of the agent's comment
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Agent agent = agentContext.getCurrentAgent();
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			DocumentCollection dc = db.search(&quot;Subject = \&quot;&quot; + agent.getComment() + &quot;\&quot;&quot;);
+	 * 			int matches = dc.getCount();
+	 * 			System.out.println(&quot;Search of \&quot;&quot; + title + &quot;\&quot; found &quot; + matches + &quot; document(s) with Subject = \&quot;&quot; + agent.getComment() + &quot;\&quot;&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract NotesDocumentCollection search(String formula, NotesDateTime dt) throws NotesApiException;
 
 	/**
+	 * Given selection criteria for a document, returns all documents in a database that meet the criteria
+	 * 
 	 * @param formula
+	 *            A Notes @function formula that specifies the selection criteria
 	 * @param dt
+	 *            A cutoff date. The method searches only documents created or modified since the cutoff date. Can be null to indicate no cutoff date
 	 * @param max
-	 * @return
+	 *            The maximum number of documents you want returned. Specify 0 to receive all matching documents (up to 5,000. See Usage section.).
+	 * @return An unsorted collection of documents that match the selection criteria
 	 * @throws NotesApiException
+	 * @usage This method returns a maximum of 5,000 documents by default. The Notes.ini variable FT_MAX_SEARCH_RESULTS overrides this limit for indexed databases or databases that are not indexed but
+	 *        that are running an agent on the client. For a database that is not indexed and is running in an agent on the server, you must set the TEMP_INDEX_MAX_DOC Notes.ini variable as well. The
+	 *        absolute maximum is 2,147,483,647
+	 * @example This agent searches the current database for all documents whose Subject field equals the value of the agent's comment
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 			// (Your code goes here)
+	 * 			Agent agent = agentContext.getCurrentAgent();
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			String title = db.getTitle();
+	 * 			DocumentCollection dc = db.search(&quot;Subject = \&quot;&quot; + agent.getComment() + &quot;\&quot;&quot;);
+	 * 			int matches = dc.getCount();
+	 * 			System.out.println(&quot;Search of \&quot;&quot; + title + &quot;\&quot; found &quot; + matches + &quot; document(s) with Subject = \&quot;&quot; + agent.getComment() + &quot;\&quot;&quot;);
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract NotesDocumentCollection search(String formula, NotesDateTime dt, int max) throws NotesApiException;
 
@@ -3766,8 +4546,47 @@ public interface NotesDatabase extends NotesBase {
 	public abstract void setFTIndexFrequency(int frequency) throws NotesApiException;
 
 	/**
+	 * Indicates whether a database can be included in multi-database indexing
+	 * 
 	 * @param indexing
+	 *            Indicates whether a database can be included in multi-database indexing
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database allows inclusion in multi-database indexing</li>
+	 *              <li>false if the database does not allow inclusion in multi-database indexing</li>
+	 *              </ul>
+	 * @usage This property corresponds to "Include in multi-database indexing" in the database design properties of the UI.
+	 * 
+	 *        The database must be open to use this property
+	 * @example This agent toggles the setting for including the current database in multi-database indexing
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			if (db.isInMultiDbIndexing()) {
+	 * 				db.setInMultiDbIndexing(false);
+	 * 				System.out.println(&quot;Do not include in multi-db indexing.&quot;);
+	 * 			} else {
+	 * 				db.setInMultiDbIndexing(true);
+	 * 				System.out.println(&quot;Include in multi-db indexing.&quot;);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setInMultiDbIndexing(boolean indexing) throws NotesApiException;
 
@@ -3807,8 +4626,50 @@ public interface NotesDatabase extends NotesBase {
 	public abstract void setTitle(String title) throws NotesApiException;
 
 	/**
+	 * Updates the full-text index of a database
+	 * 
 	 * @param create
+	 *            Specify true if you want to create an index if none exists (valid only for local databases). Otherwise, specify false
 	 * @throws NotesApiException
+	 * @usage An exception is thrown if you attempt to create a full-text index on a database that is not local.
+	 * 
+	 *        A database must contain at least one document in order for an index to be created, even if the create parameter is set to true
+	 * @example This agent updates the full-text index of the current database if the index has not been updated in the last two days
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 	public void NotesMain() {
+	 *     try {
+	 *       Session session = getSession();
+	 *       AgentContext agentContext = 
+	 *           session.getAgentContext();
+	 *       // (Your code goes here) 
+	 *       Database db = agentContext.getCurrentDatabase();
+	 *       String title = db.getTitle();
+	 *       DateTime lastDT = db.getLastFTIndexed();
+	 *       DateTime nowDT = session.createDateTime(&quot;Today&quot;);
+	 *       nowDT.setNow();
+	 *       int daysSince = 
+	 *           nowDT.timeDifference(lastDT) / 86400;
+	 *       if (daysSince &gt; 2) {
+	 *         System.out.println(&quot;Database \&quot;&quot; + title +
+	 *                 &quot;\&quot; was last full-text indexed &quot; + 
+	 *                  daysSince + &quot; days ago&quot;);
+	 *         System.out.println(&quot;Updating&quot;);
+	 *         db.updateFTIndex(true); }
+	 *       else
+	 *         System.out.println(&quot;Database \&quot;&quot; + title +
+	 *              &quot;\&quot; was full-text indexed less 
+	 *               than two days ago&quot;);
+	 *         
+	 *     } catch(Exception e) {
+	 *       e.printStackTrace();
+	 *     }
+	 *   }
+	 * }
+	 * </pre>
 	 */
 	public abstract void updateFTIndex(boolean create) throws NotesApiException;
 
@@ -4071,9 +4932,52 @@ public interface NotesDatabase extends NotesBase {
 	public abstract String getHttpURL() throws NotesApiException;
 
 	/**
+	 * Returns the roles of a person, group, or server in a database
+	 * 
 	 * @param name
-	 * @return
+	 *            The name of the person, group, or server. For a hierarchical name, the full name must be specified but can be in abbreviated format
+	 * @return A vector with elements of type String.
+	 *         <ul>
+	 *         <li>If the name has roles, each element of the vector contains one role.</li>
+	 *         <li>If the name has no roles, the vector has a size of 0</li>
+	 *         </ul>
 	 * @throws NotesApiException
+	 * @usage If the name you specify is listed explicitly in the ACL, then queryAccessRoles returns the roles for that ACL entry and does not check groups.
+	 * 
+	 *        If the name you specify is not listed explicitly in the ACL, queryAccessRoles checks to see if the name is a member of a group in the primary address book where the program is running:
+	 *        on a workstation the Personal Address Book; on a server the Domino Directory
+	 * @example This agent gets the roles for the current user in the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * import java.util.Vector;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			Vector roles = db.queryAccessRoles(session.getUserName());
+	 * 			if (roles.size() == 0)
+	 * 				System.out.println(&quot;No roles for current user&quot;);
+	 * 			else {
+	 * 				System.out.println(&quot;Roles for current user:&quot;);
+	 * 				for (int i = 0; i &lt; roles.size(); i++) {
+	 * 					System.out.println(&quot;  &quot; + roles.elementAt(i));
+	 * 				}
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract Vector queryAccessRoles(String name) throws NotesApiException;
 
@@ -4289,8 +5193,38 @@ public interface NotesDatabase extends NotesBase {
 	 *            <li>true (default) to prohibit the view design from being refreshed</li>
 	 *            <li>false to allow the view design to be refreshed</li>
 	 *            </ul>
-	 * @return
+	 * @return The new view
 	 * @throws NotesApiException
+	 * @usage If no template view exists, the new view contains one column with "@DocNumber" as its value. The template view must be accessible to the program, so can be a public view or a private
+	 *        view owned by the effective id running the agent, but can not be a private view stored in the desktop
+	 * @example This agent creates a new view and adds two columns by copying them from another view
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			View viewAll = db.getView(&quot;All Documents&quot;);
+	 * 			View viewTopics = db.createView(&quot;Topics&quot;, &quot;SELECT @All&quot;);
+	 * 			ViewColumn col1 = viewTopics.copyColumn(viewAll.getColumn(5), 1);
+	 * 			System.out.println(&quot;Column &quot; + col1.getPosition() + &quot; = &quot; + col1.getTitle());
+	 * 			ViewColumn col2 = viewTopics.copyColumn(viewAll.getColumn(1), 2);
+	 * 			System.out.println(&quot;Column &quot; + col2.getPosition() + &quot; = &quot; + col2.getTitle());
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract NotesView createView(String viewName, String viewSelectionFormula, NotesView templateView, boolean prohibitDesignRefreshModifications) throws NotesApiException;
 
@@ -4379,25 +5313,204 @@ public interface NotesDatabase extends NotesBase {
 	public abstract void fixup(int options) throws NotesApiException;
 
 	/**
+	 * Marks a database for deletion from a server in a cluster
+	 * 
 	 * @throws NotesApiException
+	 * @usage Once a database is marked for deletion, it does not accept any new database open requests. After all active users are finished with it, the Cluster Manager pushes all changes to another
+	 *        replica (if there is another replica) and then deletes the database.
+	 * 
+	 *        Use this method if you want to remove a database that is obsolete or if you are copying a database from one server to another and want to delete the database from the original server. If
+	 *        you want to delete a database and all its replicas from a cluster, each database on each server must be marked for deletion.
+	 * 
+	 *        This method cannot be undone. You cannot remove a mark for deletion from a database once this method is used.
+	 * 
+	 *        This method sets {@link #isPendingDelete()} to true and {@link #isInService()} to false.
+	 * 
+	 *        This method differs from the {@link #remove()} method in that the database must be in a cluster. If the database is not on a server in a cluster, this method does not return an error,
+	 *        but the database is not deleted. Additionally, the remove method fails if the database is in use. The markForDelete method waits for all current users to finish, then deletes the
+	 *        database. The Cluster Manager is responsible for deleting databases marked for deletion in the cluster; the Adminp task is not called.
+	 * 
+	 *        You can programmatically determine if a database is available on other servers in a cluster by querying the cldbdir.nsf database, which exists on every cluster and holds an up-to-date
+	 *        list of all the databases in the cluster and their replicas. The cldbdir.nsf database also tracks each database's enabled or disabled status.
+	 * 
+	 *        Use the {@link NotesAdministrationProcess#deleteReplicas(String, String)} method of the AdministrationProcess class if you want to delete a database and all replicas of it from the
+	 *        entire domain.
+	 * 
+	 *        This method requires Manager access privileges
+	 * @example This agent marks a database for deletion. It is effective if the database is on a server on a cluster with the Cluster Manager running
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = session.getDatabase(&quot;Cathy/Otus&quot;, &quot;Test\\MarkForDelete&quot;);
+	 * 			if (db.isOpen()) {
+	 * 				db.markForDelete();
+	 * 				System.out.println(&quot;Is in service = &quot; + db.isInService());
+	 * 				System.out.println(&quot;Is pending delete &quot; + db.isPendingDelete());
+	 * 			} else {
+	 * 				System.out.println(&quot;Could not open Test\\MarkForDelete&quot;);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void markForDelete() throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether a database on a server in a cluster is accessible
+	 * 
+	 * @return Indicates whether a database on a server in a cluster is accessible
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is in service</li>
+	 *              <li>false if the database is not in service</li>
+	 *              </ul>
+	 * @usage {@link #markForDelete()} sets this property read-only with a value of false.
+	 * 
+	 *        The database must be open to use this property
+	 * @example This agent toggles whether a database is in service
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = session.getDatabase(&quot;Cathy/Otus&quot;, &quot;Test\\TestMarkForDelete&quot;);
+	 * 			if (db.isOpen()) {
+	 * 				if (db.isInService()) {
+	 * 					db.setInService(false);
+	 * 					System.out.println(&quot;Not in service.&quot;);
+	 * 				} else {
+	 * 					db.setInService(true);
+	 * 					System.out.println(&quot;In service.&quot;);
+	 * 				}
+	 * 			} else
+	 * 				System.out.println(&quot;Could not open database.&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isInService() throws NotesApiException;
 
 	/**
+	 * Indicates whether a database on a server in a cluster is accessible
+	 * 
 	 * @param inService
+	 *            Indicates whether a database on a server in a cluster is accessible
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is in service</li>
+	 *              <li>false if the database is not in service</li>
+	 *              </ul>
+	 * @usage {@link #markForDelete()} sets this property read-only with a value of false.
+	 * 
+	 *        The database must be open to use this property
+	 * @example This agent toggles whether a database is in service
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = session.getDatabase(&quot;Cathy/Otus&quot;, &quot;Test\\TestMarkForDelete&quot;);
+	 * 			if (db.isOpen()) {
+	 * 				if (db.isInService()) {
+	 * 					db.setInService(false);
+	 * 					System.out.println(&quot;Not in service.&quot;);
+	 * 				} else {
+	 * 					db.setInService(true);
+	 * 					System.out.println(&quot;In service.&quot;);
+	 * 				}
+	 * 			} else
+	 * 				System.out.println(&quot;Could not open database.&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setInService(boolean inService) throws NotesApiException;
 
 	/**
-	 * @return
+	 * Indicates whether a database on a server in a cluster is marked for deletion
+	 * 
+	 * @return Indicates whether a database on a server in a cluster is marked for deletion
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if the database is marked for deletion</li>
+	 *              <li>false if the database is not marked for deletion</li>
+	 *              </ul>
+	 * @usage {@link #markForDelete()} sets this property to true.
+	 * 
+	 *        The database must be open to use this property.
+	 * @example This agent does not perform the main work if a database is pending deletion
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = session.getDatabase(&quot;Cathy/Otus&quot;, &quot;Test\\MarkForDelete&quot;);
+	 * 			if (db.isOpen()) {
+	 * 				if (db.isPendingDelete()) {
+	 * 					System.out.println(&quot;Database pending delete&quot;);
+	 * 				} else {
+	 * 					Document doc = db.createDocument();
+	 * 					doc.replaceItemValue(&quot;Subject&quot;, &quot;Test one&quot;);
+	 * 					doc.replaceItemValue(&quot;Form&quot;, &quot;Main Topic&quot;);
+	 * 					doc.save(true, true);
+	 * 					System.out.println(&quot;Document created&quot;);
+	 * 				}
+	 * 			} else {
+	 * 				System.out.println(&quot;Could not open Test\\MarkForDelete&quot;);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract boolean isPendingDelete() throws NotesApiException;
 
@@ -4472,6 +5585,63 @@ public interface NotesDatabase extends NotesBase {
 	 * @param flag
 	 *            Indicates whether document locking is enabled for a database
 	 * @throws NotesApiException
+	 * @legalValues <ul>
+	 *              <li>true if document locking is enabled</li>
+	 *              <li>false if document locking is not enabled</li>
+	 *              </ul>
+	 * @usage The database must be open to use this property
+	 * @example 1. This agent displays whether document locking is enabled for the current database.
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 
+	 * 			if (db.isDocumentLockingEnabled())
+	 * 				System.out.println(&quot;Document locking is enabled&quot;);
+	 * 			else
+	 * 				System.out.println(&quot;Document locking is not enabled&quot;);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
+	 * 
+	 *          2. This agent toggles document locking for the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 
+	 * 			db.setDocumentLockingEnabled(!db.isDocumentLockingEnabled());
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setDocumentLockingEnabled(boolean flag) throws NotesApiException;
 
@@ -4611,37 +5781,234 @@ public interface NotesDatabase extends NotesBase {
 	public abstract void setDesignLockingEnabled(boolean flag) throws NotesApiException;
 
 	/**
+	 * Signs elements in a database with the signature of the current user
+	 * 
 	 * @throws NotesApiException
 	 */
 	public abstract void sign() throws NotesApiException;
 
 	/**
+	 * Signs elements in a database with the signature of the current user
+	 * 
 	 * @param documentType
+	 *            One of the following constants.
+	 *            <ul>
+	 *            <li>Database.DBSIGN_DOC_ACL (64) signs the ACL</li>
+	 *            <li>Database.DBSIGN_DOC_AGENT (512) signs all agents</li>
+	 *            <li>Database.DBSIGN_DOC_ALL (32767) signs all elements</li>
+	 *            <li>Database.DBSIGN_DOC_DATA (1) signs all data documents' active content (hotspots)</li>
+	 *            <li>Database.DBSIGN_DOC_FORM (4) signs all forms</li>
+	 *            <li>Database.DBSIGN_DOC_HELP (256) signs the "About Database" and "Using Database" documents</li>
+	 *            <li>Database.DBSIGN_DOC_ICON (16) signs the icon</li>
+	 *            <li>Database.DBSIGN_DOC_REPLFORMULA (2048) signs the replication formula</li>
+	 *            <li>Database.DBSIGN_DOC_SHAREDFIELD (1024) signs all shared fields</li>
+	 *            <li>Database.DBSIGN_DOC_VIEW (8) signs all views</li>
+	 *            </ul>
+	 * 
 	 * @throws NotesApiException
+	 * @usage This method signs all design elements of the specified type if you specify parameter 1 and do not specify parameter 3.
+	 * 
+	 *        If you specify parameter 3, this method signs one design element. You can also specify parameter 1 to positively define the design element. If more than one design element has the same
+	 *        name and parameter 1 is not specified, this method signs the first design element with the specified name.
+	 * 
+	 *        This method executes only on a workstation.
+	 * @example This agent signs the forms in the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			db.sign(Database.DBSIGN_DOC_FORM);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void sign(int documentType) throws NotesApiException;
 
 	/**
+	 * Signs elements in a database with the signature of the current user
+	 * 
 	 * @param documentType
+	 *            One of the following constants.
+	 *            <ul>
+	 *            <li>Database.DBSIGN_DOC_ACL (64) signs the ACL</li>
+	 *            <li>Database.DBSIGN_DOC_AGENT (512) signs all agents</li>
+	 *            <li>Database.DBSIGN_DOC_ALL (32767) signs all elements</li>
+	 *            <li>Database.DBSIGN_DOC_DATA (1) signs all data documents' active content (hotspots)</li>
+	 *            <li>Database.DBSIGN_DOC_FORM (4) signs all forms</li>
+	 *            <li>Database.DBSIGN_DOC_HELP (256) signs the "About Database" and "Using Database" documents</li>
+	 *            <li>Database.DBSIGN_DOC_ICON (16) signs the icon</li>
+	 *            <li>Database.DBSIGN_DOC_REPLFORMULA (2048) signs the replication formula</li>
+	 *            <li>Database.DBSIGN_DOC_SHAREDFIELD (1024) signs all shared fields</li>
+	 *            <li>Database.DBSIGN_DOC_VIEW (8) signs all views</li>
+	 *            </ul>
 	 * @param existingSigsOnly
+	 *            <ul>
+	 *            <li>true to sign only elements with existing signatures</li>
+	 *            <li>false (default) to sign all elements</li>
+	 *            </ul>
 	 * @throws NotesApiException
+	 * @usage This method signs all design elements of the specified type if you specify parameter 1 and do not specify parameter 3.
+	 * 
+	 *        If you specify parameter 3, this method signs one design element. You can also specify parameter 1 to positively define the design element. If more than one design element has the same
+	 *        name and parameter 1 is not specified, this method signs the first design element with the specified name.
+	 * 
+	 *        This method executes only on a workstation.
+	 * @example This agent signs the forms in the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			db.sign(Database.DBSIGN_DOC_FORM);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void sign(int documentType, boolean existingSigsOnly) throws NotesApiException;
 
 	/**
+	 * Signs elements in a database with the signature of the current user
+	 * 
 	 * @param documentType
+	 *            One of the following constants.
+	 *            <ul>
+	 *            <li>Database.DBSIGN_DOC_ACL (64) signs the ACL</li>
+	 *            <li>Database.DBSIGN_DOC_AGENT (512) signs all agents</li>
+	 *            <li>Database.DBSIGN_DOC_ALL (32767) signs all elements</li>
+	 *            <li>Database.DBSIGN_DOC_DATA (1) signs all data documents' active content (hotspots)</li>
+	 *            <li>Database.DBSIGN_DOC_FORM (4) signs all forms</li>
+	 *            <li>Database.DBSIGN_DOC_HELP (256) signs the "About Database" and "Using Database" documents</li>
+	 *            <li>Database.DBSIGN_DOC_ICON (16) signs the icon</li>
+	 *            <li>Database.DBSIGN_DOC_REPLFORMULA (2048) signs the replication formula</li>
+	 *            <li>Database.DBSIGN_DOC_SHAREDFIELD (1024) signs all shared fields</li>
+	 *            <li>Database.DBSIGN_DOC_VIEW (8) signs all views</li>
+	 *            </ul>
 	 * @param existingSigsOnly
+	 *            <ul>
+	 *            <li>true to sign only elements with existing signatures</li>
+	 *            <li>false (default) to sign all elements</li>
+	 *            </ul>
 	 * @param nameStr
+	 *            Programmatic name or note ID of a single design element
 	 * @throws NotesApiException
+	 * @usage This method signs all design elements of the specified type if you specify parameter 1 and do not specify parameter 3.
+	 * 
+	 *        If you specify parameter 3, this method signs one design element. You can also specify parameter 1 to positively define the design element. If more than one design element has the same
+	 *        name and parameter 1 is not specified, this method signs the first design element with the specified name.
+	 * 
+	 *        This method executes only on a workstation.
+	 * @example This agent signs the forms in the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			db.sign(Database.DBSIGN_DOC_FORM);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void sign(int documentType, boolean existingSigsOnly, String nameStr) throws NotesApiException;
 
 	/**
+	 * Signs elements in a database with the signature of the current user
+	 * 
 	 * @param documentType
+	 *            One of the following constants.
+	 *            <ul>
+	 *            <li>Database.DBSIGN_DOC_ACL (64) signs the ACL</li>
+	 *            <li>Database.DBSIGN_DOC_AGENT (512) signs all agents</li>
+	 *            <li>Database.DBSIGN_DOC_ALL (32767) signs all elements</li>
+	 *            <li>Database.DBSIGN_DOC_DATA (1) signs all data documents' active content (hotspots)</li>
+	 *            <li>Database.DBSIGN_DOC_FORM (4) signs all forms</li>
+	 *            <li>Database.DBSIGN_DOC_HELP (256) signs the "About Database" and "Using Database" documents</li>
+	 *            <li>Database.DBSIGN_DOC_ICON (16) signs the icon</li>
+	 *            <li>Database.DBSIGN_DOC_REPLFORMULA (2048) signs the replication formula</li>
+	 *            <li>Database.DBSIGN_DOC_SHAREDFIELD (1024) signs all shared fields</li>
+	 *            <li>Database.DBSIGN_DOC_VIEW (8) signs all views</li>
+	 *            </ul>
 	 * @param existingSigsOnly
+	 *            <ul>
+	 *            <li>true to sign only elements with existing signatures</li>
+	 *            <li>false (default) to sign all elements</li>
+	 *            </ul>
 	 * @param nameStr
+	 *            Programmatic name or note ID of a single design element
 	 * @param nameStrIsNoteid
+	 *            <ul>
+	 *            <li>true if parameter 3 represents a note ID.</li>
+	 *            <li>false (default) if parameter 3 represents a programmatic name</li>
+	 *            </ul>
 	 * @throws NotesApiException
+	 * @usage This method signs all design elements of the specified type if you specify parameter 1 and do not specify parameter 3.
+	 * 
+	 *        If you specify parameter 3, this method signs one design element. You can also specify parameter 1 to positively define the design element. If more than one design element has the same
+	 *        name and parameter 1 is not specified, this method signs the first design element with the specified name.
+	 * 
+	 *        This method executes only on a workstation.
+	 * @example This agent signs the forms in the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			db.sign(Database.DBSIGN_DOC_FORM);
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void sign(int documentType, boolean existingSigsOnly, String nameStr, boolean nameStrIsNoteid) throws NotesApiException;
 
@@ -4763,6 +6130,65 @@ public interface NotesDatabase extends NotesBase {
 	 * @param warning
 	 *            The size warning threshold of a database, in kilobytes
 	 * @throws NotesApiException
+	 * @usage The size warning threshold for a database specifies the amount of disk space that the server administrator is willing to provide for that database before displaying a warning; therefore,
+	 *        the SizeWarning property can only be set by a script that has administrator access to the server on which the database resides.
+	 * 
+	 *        If there is no size warning threshold for the database, this property returns 0.
+	 * 
+	 *        In the Administration Client, use the "Set Quotas" tool to set the size warning.
+	 * 
+	 *        The database does not need to be open to use this property
+	 * @example 1. This agent displays the size quota and warning for the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			System.out.println(&quot;Size quota = &quot; + db.getSizeQuota());
+	 * 			System.out.println(&quot;Size warning = &quot; + db.getSizeWarning());
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
+	 * 
+	 *          2. This agent removes the size quota and warning for the current database
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			db.setSizeQuota(0);
+	 * 			db.setSizeWarning(0);
+	 * 			System.out.println(&quot;Size quota = &quot; + db.getSizeQuota());
+	 * 			System.out.println(&quot;Size warning = &quot; + db.getSizeWarning());
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setSizeWarning(int warning) throws NotesApiException;
 
@@ -5019,9 +6445,70 @@ public interface NotesDatabase extends NotesBase {
 	public abstract boolean isCurrentAccessPublicWriter() throws NotesApiException;
 
 	/**
+	 * Sets the value of a database option
+	 * 
 	 * @param optionName
+	 *            One of the following:
+	 *            <ul>
+	 *            <li></li>
+	 *            <li>Database.DBOPT_LZ1 uses LZ1 compression for attachments</li>
+	 *            <li>Database.DBOPT_LZCOMPRESSION uses LZ1 compression for attachments</li>
+	 *            <li>Database.DBOPT_MAINTAINLASTACCESSED maintains LastAccessed property</li>
+	 *            <li>Database.DBOPT_MOREFIELDS allows more fields in database</li>
+	 *            <li>Database.DBOPT_NOHEADLINEMONITORS doesn't allow headline monitoring</li>
+	 *            <li>Database.DBOPT_NOOVERWRITE doesn't overwrite free space</li>
+	 *            <li>Database.DBOPT_NORESPONSEINFO doesn't support specialized response hierarchy</li>
+	 *            <li>Database.DBOPT_NOTRANSACTIONLOGGING disables transaction logging</li>
+	 *            <li>Database.DBOPT_NOUNREAD doesn't maintain unread marks</li>
+	 *            <li>Database.DBOPT_OPTIMIZATION enables document table bitmap optimization</li>
+	 *            <li>Database.DBOPT_REPLICATEUNREADMARKSTOANY replicates unread marks to all servers</li>
+	 *            <li>Database.DBOPT_REPLICATEUNREADMARKSTOCLUSTER replicates unread marks to clustered servers only</li>
+	 *            <li>Database.DBOPT_SOFTDELETE allows soft deletions</li>
+	 *            </ul>
 	 * @param flag
+	 *            <ul>
+	 *            <li>true to enable the option</li>
+	 *            <li>false to disable the option</li>
+	 *            </ul>
 	 * @throws NotesApiException
+	 * @usage Compact the database to ensure that the option takes effect. See compact.
+	 * 
+	 *        See getOption for getting a database option.
+	 * 
+	 *        Setting DBOPT_REPLICATEUNREADMARKSTOANY true also sets DBOPT_REPLICATEUNREADMARKSTOCLUSTER true. Setting DBOPT_REPLICATEUNREADMARKSTOCLUSTER true sets DBOPT_REPLICATEUNREADMARKSTOANY
+	 *        false. Setting both options false means unread marks are never replicated.
+	 * 
+	 *        The database must be open. Otherwise this method throws NOTES_ERR_DATABASE_NOTOPEN (4063)
+	 * @example This agent toggles the value of a database option
+	 * 
+	 *          <pre>
+	 * import lotus.domino.*;
+	 * import java.util.Vector;
+	 * 
+	 * public class JavaAgent extends AgentBase {
+	 * 
+	 * 	public void NotesMain() {
+	 * 
+	 * 		try {
+	 * 			Session session = getSession();
+	 * 			AgentContext agentContext = session.getAgentContext();
+	 * 
+	 * 			// (Your code goes here)
+	 * 			Database db = agentContext.getCurrentDatabase();
+	 * 			if (db.getOption(Database.DBOPT_SOFTDELETE)) {
+	 * 				db.setOption(Database.DBOPT_SOFTDELETE, false);
+	 * 				System.out.println(&quot;Soft deletes turned off&quot;);
+	 * 			} else {
+	 * 				db.setOption(Database.DBOPT_SOFTDELETE, true);
+	 * 				System.out.println(&quot;Soft deletes turned on&quot;);
+	 * 			}
+	 * 
+	 * 		} catch (Exception e) {
+	 * 			e.printStackTrace();
+	 * 		}
+	 * 	}
+	 * }
+	 * </pre>
 	 */
 	public abstract void setOption(int optionName, boolean flag) throws NotesApiException;
 
