@@ -35,8 +35,7 @@ import org.openntf.domino.mock.interfaces.NotesStream;
  * @author Sven Dreher
  * @see NotesSession
  */
-public class NotesSessionMockImpl extends NotesBaseMockImpl implements
-		NotesSession {
+public class NotesSessionMockImpl extends NotesBaseMockImpl implements NotesSession {
 
 	private Vector addressBooks;
 	private String commonUserName;
@@ -51,22 +50,17 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDateRange createDateRange(NotesDateTime startt,
-			NotesDateTime endt) throws NotesApiException {
+	public NotesDateRange createDateRange(NotesDateTime startt, NotesDateTime endt) throws NotesApiException {
 		if (startt == null)
-			throw new NotesApiException(new IllegalArgumentException(
-					"Missing start time"));
+			throw new NotesApiException(new IllegalArgumentException("Missing start time"));
 		if (endt == null)
-			throw new NotesApiException(new IllegalArgumentException(
-					"Missing end time"));
+			throw new NotesApiException(new IllegalArgumentException("Missing end time"));
 		return new NotesDateRangeMockImpl(startt, endt, this);
 	}
 
 	@Override
-	public NotesDateRange createDateRange(Date startt, Date endt)
-			throws NotesApiException {
-		return createDateRange(new NotesDateTimeMockImpl(startt, this),
-				new NotesDateTimeMockImpl(endt, this));
+	public NotesDateRange createDateRange(Date startt, Date endt) throws NotesApiException {
+		return createDateRange(new NotesDateTimeMockImpl(startt, this), new NotesDateTimeMockImpl(endt, this));
 	}
 
 	@Override
@@ -97,14 +91,12 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesName createName(String name, String lang)
-			throws NotesApiException {
+	public NotesName createName(String name, String lang) throws NotesApiException {
 		return new NotesNameMockImpl(name, lang, this);
 	}
 
 	@Override
-	public NotesNewsletter createNewsletter(NotesDocumentCollection collection)
-			throws NotesApiException {
+	public NotesNewsletter createNewsletter(NotesDocumentCollection collection) throws NotesApiException {
 		return new NotesNewsletterMockImpl(collection, this);
 	}
 
@@ -119,8 +111,7 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesRichTextParagraphStyle createRichTextParagraphStyle()
-			throws NotesApiException {
+	public NotesRichTextParagraphStyle createRichTextParagraphStyle() throws NotesApiException {
 		return new NotesRichTextParagraphStyleMockImpl(this);
 	}
 
@@ -145,8 +136,7 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesAdministrationProcess createAdministrationProcess(String server)
-			throws NotesApiException {
+	public NotesAdministrationProcess createAdministrationProcess(String server) throws NotesApiException {
 		return new NotesAdministrationProcessMockImpl(server, this);
 	}
 
@@ -157,15 +147,13 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Vector evaluate(String formula, NotesDocument doc)
-			throws NotesApiException {
+	public Vector evaluate(String formula, NotesDocument doc) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Vector freeTimeSearch(NotesDateRange window, int duration,
-			Object names, boolean firstfit) throws NotesApiException {
+	public Vector freeTimeSearch(NotesDateRange window, int duration, Object names, boolean firstfit) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -206,21 +194,19 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDatabase getDatabase(String server, String db)
-			throws NotesApiException {
+	public NotesDatabase getDatabase(String server, String db) throws NotesApiException {
 		return getDatabase(server, db, true);
 	}
 
 	@Override
-	public NotesDatabase getDatabase(String server, String db,
-			boolean createonfail) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public NotesDatabase getDatabase(String server, String db, boolean createonfail) throws NotesApiException {
+		// TODO DbDirectory verwenden
+		NotesDatabaseMockImpl databaseMockImpl = new NotesDatabaseMockImpl(server, db);
+		return databaseMockImpl;
 	}
 
 	@Override
-	public NotesDbDirectory getDbDirectory(String server)
-			throws NotesApiException {
+	public NotesDbDirectory getDbDirectory(String server) throws NotesApiException {
 		return new NotesDbDirectoryMockImpl(server, this);
 	}
 
@@ -231,8 +217,7 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public String getEnvironmentString(String vname, boolean issystem)
-			throws NotesApiException {
+	public String getEnvironmentString(String vname, boolean issystem) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -244,22 +229,19 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Object getEnvironmentValue(String vname, boolean issystem)
-			throws NotesApiException {
+	public Object getEnvironmentValue(String vname, boolean issystem) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setEnvironmentVar(String vname, Object value)
-			throws NotesApiException {
+	public void setEnvironmentVar(String vname, Object value) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setEnvironmentVar(String vname, Object value, boolean issystem)
-			throws NotesApiException {
+	public void setEnvironmentVar(String vname, Object value, boolean issystem) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -292,8 +274,7 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 
 	@Override
 	public String getUserName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return "testImpl";
 	}
 
 	@Override
@@ -381,22 +362,19 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public String sendConsoleCommand(String servername, String consolecommand)
-			throws NotesApiException {
+	public String sendConsoleCommand(String servername, String consolecommand) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getUserPolicySettings(String server, String name,
-			int type) throws NotesApiException {
+	public NotesDocument getUserPolicySettings(String server, String name, int type) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesDocument getUserPolicySettings(String server, String name,
-			int type, String explicitpolicy) throws NotesApiException {
+	public NotesDocument getUserPolicySettings(String server, String name, int type, String explicitpolicy) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -408,8 +386,7 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean verifyPassword(String password, String hashedpassword)
-			throws NotesApiException {
+	public boolean verifyPassword(String password, String hashedpassword) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -445,15 +422,13 @@ public class NotesSessionMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean resetUserPassword(String servername, String username,
-			String password) throws NotesApiException {
+	public boolean resetUserPassword(String servername, String username, String password) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean resetUserPassword(String servername, String username,
-			String password, int downloadcount) throws NotesApiException {
+	public boolean resetUserPassword(String servername, String username, String password, int downloadcount) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}

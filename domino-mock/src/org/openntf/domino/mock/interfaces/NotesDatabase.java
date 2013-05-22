@@ -1942,7 +1942,7 @@ public interface NotesDatabase extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector getACLActivityLog() throws NotesApiException;
+	public abstract Vector<String> getACLActivityLog() throws NotesApiException;
 
 	/**
 	 * An unsorted collection containing all the documents in a database.
@@ -2050,7 +2050,7 @@ public interface NotesDatabase extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector getAgents() throws NotesApiException;
+	public abstract Vector<NotesAgent> getAgents() throws NotesApiException;
 
 	/**
 	 * The categories under which a database appears in the Database Library. Multiple categories are separated by a comma or semicolon
@@ -2844,7 +2844,7 @@ public interface NotesDatabase extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector getForms() throws NotesApiException;
+	public abstract Vector<NotesForm> getForms() throws NotesApiException;
 
 	/**
 	 * Update frequency of a database's full-text index
@@ -3043,7 +3043,7 @@ public interface NotesDatabase extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector getManagers() throws NotesApiException;
+	public abstract Vector<String> getManagers() throws NotesApiException;
 
 	/**
 	 * The Notes session that contains a database
@@ -3631,7 +3631,7 @@ public interface NotesDatabase extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector getViews() throws NotesApiException;
+	public abstract Vector<NotesView> getViews() throws NotesApiException;
 
 	/**
 	 * Modifies a database access control list to provide a specified level of access to a person, group, or server
@@ -4979,7 +4979,7 @@ public interface NotesDatabase extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector queryAccessRoles(String name) throws NotesApiException;
+	public abstract Vector<String> queryAccessRoles(String name) throws NotesApiException;
 
 	/**
 	 * Creates a view

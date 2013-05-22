@@ -30,8 +30,7 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 			int occurences = 0;
 			nameCanonical = name;
 
-			for (int index = name.indexOf("OU=", 0); index != -1; index = name
-					.indexOf("OU=", index + 1))
+			for (int index = name.indexOf("OU=", 0); index != -1; index = name.indexOf("OU=", index + 1))
 				occurences++;
 
 			sList = name.split("/");
@@ -54,7 +53,7 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 			parameterMap.clear();
 		}
 
-		this.name = name; // TODO MH Converter
+		this.name = name;
 		this.parent = parent;
 		if (lang != null)
 			this.lang = lang;
@@ -168,7 +167,6 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 
 	@Override
 	public String getAddr822LocalPart() throws NotesApiException {
-		// TODO Auto-generated method stub
 		// "\"John B Goode\" <jbgoode@us.acme.com> (Guitars) (Music) (East)"
 		// jbgoode (out)
 		String result = "";
@@ -181,7 +179,6 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 
 	@Override
 	public String getAddr822Phrase() throws NotesApiException {
-		// TODO Auto-generated method stub
 		// "\"John B Goode\" <jbgoode@us.acme.com> (Guitars) (Music) (East)"
 		// "John B Goode" (out)
 		String result = "";
@@ -206,7 +203,6 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 
 	@Override
 	public String getAddr822Comment1() throws NotesApiException {
-		// TODO Auto-generated method stub
 		// "\"John B Goode\" <jbgoode@us.acme.com> (Guitars) (Music) (East)"
 		// "Guitars" (out)
 		String result = "";
@@ -338,7 +334,6 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 
 	@Override
 	public String getOrgUnit4() throws NotesApiException {
-		// TODO Auto-generated method stub
 		// "CN=John B Goode/OU=Guitars/OU=Music/OU=Sales/OU=East/O=Acme/C=US"
 		// "Guitars" (Out)
 		String result = "";

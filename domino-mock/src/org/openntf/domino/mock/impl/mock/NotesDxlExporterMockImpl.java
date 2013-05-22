@@ -1,5 +1,8 @@
 package org.openntf.domino.mock.impl.mock;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
@@ -9,31 +12,43 @@ import org.openntf.domino.mock.interfaces.NotesDocumentCollection;
 import org.openntf.domino.mock.interfaces.NotesDxlExporter;
 import org.openntf.domino.mock.interfaces.NotesNoteCollection;
 
+public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements NotesDxlExporter {
 
-public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
-		NotesDxlExporter {
+	private String replacementText;
+	private boolean isOmitRichtextAttachments;
 
 	@Override
-	public String exportDxl(NotesDatabase arg0) throws NotesApiException {
+	public String exportDxl(NotesDatabase database) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String exportDxl(NotesNoteCollection arg0) throws NotesApiException {
+	public String exportDxl(NotesNoteCollection noteCollection) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String exportDxl(NotesDocument arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public String exportDxl(NotesDocument document) throws NotesApiException {
+		// TODO dxl dateien importieren
+		BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(document.getUniversalID() + ".dxl")));
+		String line = "";
+
+		StringBuilder sb = new StringBuilder();
+		try {
+			while ((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+			return sb.toString();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 	@Override
-	public String exportDxl(NotesDocumentCollection arg0)
-			throws NotesApiException {
+	public String exportDxl(NotesDocumentCollection documentCollection) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -45,7 +60,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setLogComment(String arg0) throws NotesApiException {
+	public void setLogComment(String comment) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -57,7 +72,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setExitOnFirstFatalError(boolean arg0) throws NotesApiException {
+	public void setExitOnFirstFatalError(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -69,7 +84,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setForceNoteFormat(boolean arg0) throws NotesApiException {
+	public void setForceNoteFormat(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -81,7 +96,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setOutputDOCTYPE(boolean arg0) throws NotesApiException {
+	public void setOutputDOCTYPE(boolean system) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -93,8 +108,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setConvertNotesBitmapsToGIF(boolean arg0)
-			throws NotesApiException {
+	public void setConvertNotesBitmapsToGIF(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -106,7 +120,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setDoctypeSYSTEM(String arg0) throws NotesApiException {
+	public void setDoctypeSYSTEM(String system) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -118,20 +132,18 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setOmitRichtextAttachments(boolean arg0)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setOmitRichtextAttachments(boolean flag) throws NotesApiException {
+		this.isOmitRichtextAttachments = flag;
 
 	}
 
 	@Override
 	public boolean getOmitRichtextAttachments() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isOmitRichtextAttachments;
 	}
 
 	@Override
-	public void setOmitOLEObjects(boolean arg0) throws NotesApiException {
+	public void setOmitOLEObjects(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -143,7 +155,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setOmitMiscFileObjects(boolean arg0) throws NotesApiException {
+	public void setOmitMiscFileObjects(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -155,7 +167,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setOmitRichtextPictures(boolean arg0) throws NotesApiException {
+	public void setOmitRichtextPictures(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -167,7 +179,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setUncompressAttachments(boolean arg0) throws NotesApiException {
+	public void setUncompressAttachments(boolean flag) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -179,19 +191,18 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setAttachmentOmittedText(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
+	public void setAttachmentOmittedText(String replacementText) throws NotesApiException {
+		this.replacementText = replacementText;
 
 	}
 
 	@Override
 	public String getAttachmentOmittedText() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return replacementText;
 	}
 
 	@Override
-	public void setOLEObjectOmittedText(String arg0) throws NotesApiException {
+	public void setOLEObjectOmittedText(String comment) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -203,7 +214,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setPictureOmittedText(String arg0) throws NotesApiException {
+	public void setPictureOmittedText(String comment) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -215,7 +226,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setOmitItemNames(Vector arg0) throws NotesApiException {
+	public void setOmitItemNames(Vector names) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -227,7 +238,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setRestrictToItemNames(Vector arg0) throws NotesApiException {
+	public void setRestrictToItemNames(Vector names) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -239,7 +250,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setRichTextOption(int arg0) throws NotesApiException {
+	public void setRichTextOption(int option) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -251,7 +262,7 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setMIMEOption(int arg0) throws NotesApiException {
+	public void setMIMEOption(int option) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -261,4 +272,5 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

@@ -27,7 +27,7 @@ public class NotesSessionFactoryMockImpl implements NotesSessionFactory {
 	}
 
 	@Override
-	public void returnSession(NotesSession session) throws NotesApiException {
+	public void closeSession(NotesSession session) throws NotesApiException {
 		sessionList.remove(session);
 
 	}

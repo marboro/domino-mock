@@ -14,11 +14,20 @@ import org.openntf.domino.mock.interfaces.NotesXSLTResultTarget;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-
 public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
 	private String name;
 	private int type;
+	private Vector values;
+	private boolean isAuthors;
+	private boolean isEncrypted;
+	private boolean isNames;
+	private boolean isProtected;
+	private boolean isReaders;
+	private boolean isSaveToDisk;
+	private boolean isSigned;
+	private boolean isSummary;
+	private String valueString;
 
 	public NotesItemMockImpl(String name) {
 		this.name = name;
@@ -26,45 +35,6 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
 	public NotesItemMockImpl(NotesItem item) throws NotesApiException {
 		this.name = item.getName();
-	}
-
-	@Override
-	public String abstractText(int arg0, boolean arg1, boolean arg2)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void appendToTextList(Vector arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void appendToTextList(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean containsValue(Object arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public NotesItem copyItemToDocument(NotesDocument arg0, String arg1)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public NotesItem copyItemToDocument(NotesDocument arg0)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -80,12 +50,6 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public void setDateTimeValue(NotesDateTime arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public NotesDateTime getLastModified() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
@@ -93,8 +57,7 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
 	@Override
 	public String getName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	@Override
@@ -110,38 +73,18 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public String getText(int arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getType() throws NotesApiException {
 		return type;
 	}
 
 	@Override
 	public Vector getValues() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValues(Vector arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return values;
 	}
 
 	@Override
 	public String getValueString() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setValueString(String arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return valueString;
 	}
 
 	@Override
@@ -151,21 +94,9 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public void setValueDouble(double arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getValueInteger() throws NotesApiException {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	@Override
-	public void setValueInteger(int arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -175,43 +106,7 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public void setValueCustomData(String arg0, Object arg1)
-			throws IOException, NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setValueCustomData(Object arg0) throws IOException,
-			NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setValueCustomDataBytes(String arg0, byte[] arg1)
-			throws IOException, NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Object getValueCustomData(String arg0) throws IOException,
-			ClassNotFoundException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getValueCustomData() throws IOException,
-			ClassNotFoundException, NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public byte[] getValueCustomDataBytes(String arg0) throws IOException,
-			NotesApiException {
+	public Object getValueCustomData() throws IOException, ClassNotFoundException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -224,98 +119,42 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
 	@Override
 	public boolean isAuthors() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setAuthors(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isAuthors;
 	}
 
 	@Override
 	public boolean isEncrypted() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setEncrypted(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isEncrypted;
 	}
 
 	@Override
 	public boolean isNames() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setNames(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isNames;
 	}
 
 	@Override
 	public boolean isProtected() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setProtected(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isProtected;
 	}
 
 	@Override
 	public boolean isReaders() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setReaders(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isReaders;
 	}
 
 	@Override
 	public boolean isSaveToDisk() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setSaveToDisk(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isSaveToDisk;
 	}
 
 	@Override
 	public boolean isSigned() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setSigned(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isSigned;
 	}
 
 	@Override
 	public boolean isSummary() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setSummary(boolean arg0) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		return isSummary;
 	}
 
 	@Override
@@ -343,20 +182,6 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 	}
 
 	@Override
-	public Document parseXML(boolean arg0) throws IOException,
-			NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void transformXML(Object arg0, NotesXSLTResultTarget arg1)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String toString() {
 		// TODO getName
 		return super.toString();
@@ -368,5 +193,165 @@ public class NotesItemMockImpl extends NotesBaseMockImpl implements NotesItem {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	@Override
+	public String abstractText(int maxLen, boolean dropVowels, boolean userDict) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void appendToTextList(Vector values) throws NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void appendToTextList(String value) throws NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean containsValue(Object value) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public NotesItem copyItemToDocument(NotesDocument doc, String newName) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NotesItem copyItemToDocument(NotesDocument doc) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setDateTimeValue(NotesDateTime dt) throws NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getText(int arg0) throws NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setValues(Vector values) throws NotesApiException {
+		this.values = values;
+	}
+
+	@Override
+	public void setValueString(String value) throws NotesApiException {
+		this.valueString = value;
+
+	}
+
+	@Override
+	public void setValueDouble(double value) throws NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setValueInteger(int value) throws NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setValueCustomData(String dataTypeName, Object userObj) throws IOException, NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setValueCustomData(Object userObj) throws IOException, NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void setValueCustomDataBytes(String dataTypeName, byte[] byteArray) throws IOException, NotesApiException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Object getValueCustomData(String dataTypeName) throws IOException, ClassNotFoundException, NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public byte[] getValueCustomDataBytes(String dataTypeName) throws IOException, NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setAuthors(boolean flag) throws NotesApiException {
+		this.isAuthors = flag;
+	}
+
+	@Override
+	public void setEncrypted(boolean flag) throws NotesApiException {
+		this.isEncrypted = flag;
+
+	}
+
+	@Override
+	public void setNames(boolean flag) throws NotesApiException {
+		this.isNames = flag;
+
+	}
+
+	@Override
+	public void setProtected(boolean flag) throws NotesApiException {
+		this.isProtected = flag;
+
+	}
+
+	@Override
+	public void setReaders(boolean flag) throws NotesApiException {
+		this.isReaders = flag;
+
+	}
+
+	@Override
+	public void setSaveToDisk(boolean flag) throws NotesApiException {
+		this.isSaveToDisk = flag;
+
+	}
+
+	@Override
+	public void setSigned(boolean flag) throws NotesApiException {
+		this.isSigned = flag;
+
+	}
+
+	@Override
+	public void setSummary(boolean flag) throws NotesApiException {
+		this.isSummary = flag;
+
+	}
+
+	@Override
+	public Document parseXML(boolean validate) throws IOException, NotesApiException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void transformXML(Object style, NotesXSLTResultTarget result) throws NotesApiException {
+		// TODO Auto-generated method stub
+
 	}
 }

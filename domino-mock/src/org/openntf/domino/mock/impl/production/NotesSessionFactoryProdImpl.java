@@ -1,14 +1,13 @@
 package org.openntf.domino.mock.impl.production;
 
-import org.openntf.domino.mock.Exception.NotesApiException;
-import org.openntf.domino.mock.interfaces.NotesSession;
-import org.openntf.domino.mock.interfaces.NotesSessionFactory;
-
 import lotus.domino.NotesException;
 import lotus.domino.NotesFactory;
 import lotus.domino.NotesThread;
 import lotus.domino.Session;
 
+import org.openntf.domino.mock.Exception.NotesApiException;
+import org.openntf.domino.mock.interfaces.NotesSession;
+import org.openntf.domino.mock.interfaces.NotesSessionFactory;
 
 public class NotesSessionFactoryProdImpl implements NotesSessionFactory {
 
@@ -26,7 +25,7 @@ public class NotesSessionFactoryProdImpl implements NotesSessionFactory {
 	}
 
 	@Override
-	public void returnSession(NotesSession session) throws NotesApiException {
+	public void closeSession(NotesSession session) throws NotesApiException {
 		try {
 			if (session instanceof NotesSessionProdImpl) {
 

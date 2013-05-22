@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
@@ -23,9 +24,7 @@ import org.openntf.domino.mock.interfaces.NotesRichTextItem;
 import org.openntf.domino.mock.interfaces.NotesView;
 import org.openntf.domino.mock.interfaces.NotesXSLTResultTarget;
 
-
-public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
-		NotesDocument {
+public class NotesDocumentMockImpl extends NotesBaseMockImpl implements NotesDocument {
 
 	private Map<String, NotesItem> items;
 	private boolean encrypted;
@@ -65,8 +64,11 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	private List<String> readBy;
 	private boolean provisionalok;
 	private Vector lockedBy;
+	private boolean isSaved;
 
 	public NotesDocumentMockImpl() {
+		UUID uuid = UUID.randomUUID();
+		universalID = uuid.toString();
 		items = new HashMap<String, NotesItem>();
 		readBy = new ArrayList<String>();
 		lockedBy = new Vector();
@@ -90,9 +92,30 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 		doc.copyAllItems(this, true);
 	}
 
+	public void addNotesItem(String name, Object value, int type) {
+		try {
+			NotesItemMockImpl notesItem = new NotesItemMockImpl(name);
+			notesItem.setType(type);
+			Vector<Object> vector = new Vector();
+			vector.addElement(value);
+			notesItem.setValues(vector);
+			addNotesItem(notesItem);
+		} catch (NotesApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void addNotesItem(NotesItem item) {
+		try {
+			items.put(item.getName(), item);
+		} catch (NotesApiException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
-	public NotesItem appendItemValue(String name, Object value)
-			throws NotesApiException {
+	public NotesItem appendItemValue(String name, Object value) throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(name);
 		try {
 			item.setValueCustomData(value);
@@ -113,8 +136,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesItem appendItemValue(String name, int value)
-			throws NotesApiException {
+	public NotesItem appendItemValue(String name, int value) throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(name);
 		try {
 			item.setValueInteger(value);
@@ -126,8 +148,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesItem appendItemValue(String name, double value)
-			throws NotesApiException {
+	public NotesItem appendItemValue(String name, double value) throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(name);
 		try {
 			item.setValueDouble(value);
@@ -144,28 +165,24 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean closeMIMEEntities(boolean saveChanges)
-			throws NotesApiException {
+	public boolean closeMIMEEntities(boolean saveChanges) throws NotesApiException {
 		return closeMIMEEntities(saveChanges, "Body");
 	}
 
 	@Override
-	public boolean closeMIMEEntities(boolean saveChanges, String entityItemName)
-			throws NotesApiException {
+	public boolean closeMIMEEntities(boolean saveChanges, String entityItemName) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean computeWithForm(boolean doDataTypes, boolean raiseError)
-			throws NotesApiException {
+	public boolean computeWithForm(boolean doDataTypes, boolean raiseError) throws NotesApiException {
 		// TODO Validate
 		return isValid;
 	}
 
 	@Override
-	public void copyAllItems(NotesDocument doc, boolean replace)
-			throws NotesApiException {
+	public void copyAllItems(NotesDocument doc, boolean replace) throws NotesApiException {
 		for (NotesItem item : items.values()) {
 			if (!doc.hasItem(item.getName()) || replace) {
 				doc.copyItem(item);
@@ -175,8 +192,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesItem copyItem(NotesItem item, String newName)
-			throws NotesApiException {
+	public NotesItem copyItem(NotesItem item, String newName) throws NotesApiException {
 		NotesItemMockImpl newItem = new NotesItemMockImpl(item);
 		newItem.setName(newName);
 		items.put(newName, newItem);
@@ -191,10 +207,8 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesDocument copyToDatabase(NotesDatabase db)
-			throws NotesApiException {
-		return (NotesDocumentMockImpl) ((NotesDatabaseMockImpl) db)
-				.addDocument(this);
+	public NotesDocument copyToDatabase(NotesDatabase db) throws NotesApiException {
+		return (NotesDocumentMockImpl) ((NotesDatabaseMockImpl) db).addDocument(this);
 	}
 
 	@Override
@@ -203,24 +217,21 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesMIMEEntity createMIMEEntity(String itemName)
-			throws NotesApiException {
+	public NotesMIMEEntity createMIMEEntity(String itemName) throws NotesApiException {
 		NotesItemMockImpl item = new NotesItemMockImpl(itemName);
 		item.setType(NotesItem.MIME_PART);
 		return item.getMIMEEntity();
 	}
 
 	@Override
-	public NotesRichTextItem createRichTextItem(String name)
-			throws NotesApiException {
+	public NotesRichTextItem createRichTextItem(String name) throws NotesApiException {
 		NotesRichTextItemMockImpl rtItem = new NotesRichTextItemMockImpl(name);
 		items.put(name, rtItem);
 		return rtItem;
 	}
 
 	@Override
-	public NotesDocument createReplyMessage(boolean toAll)
-			throws NotesApiException {
+	public NotesDocument createReplyMessage(boolean toAll) throws NotesApiException {
 		NotesDocumentMockImpl doc = new NotesDocumentMockImpl();
 		doc.copyItem(items.get("From"), "SendTo");
 		doc.appendItemValue("SendTo", items.get("SendTo").getValues());
@@ -235,8 +246,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesEmbeddedObject getAttachment(String filename)
-			throws NotesApiException {
+	public NotesEmbeddedObject getAttachment(String filename) throws NotesApiException {
 		return embeddedObjects.get(filename);
 	}
 
@@ -267,15 +277,18 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setEncryptionKeys(Vector encryptionKeys)
-			throws NotesApiException {
+	public void setEncryptionKeys(Vector encryptionKeys) throws NotesApiException {
 		this.encryptionKeys = encryptionKeys;
 
 	}
 
 	@Override
 	public NotesItem getFirstItem(String name) throws NotesApiException {
-		return items.get(name);
+		NotesItem notesItem = null;
+		if (items.containsKey(name)) {
+			notesItem = items.get(name);
+		}
+		return notesItem;
 	}
 
 	@Override
@@ -305,8 +318,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesMIMEEntity getMIMEEntity(String itemName)
-			throws NotesApiException {
+	public NotesMIMEEntity getMIMEEntity(String itemName) throws NotesApiException {
 		return items.get(itemName).getMIMEEntity();
 	}
 
@@ -336,26 +348,22 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public Object getItemValueCustomData(String itemName, String dataTypeName)
-			throws IOException, ClassNotFoundException, NotesApiException {
+	public Object getItemValueCustomData(String itemName, String dataTypeName) throws IOException, ClassNotFoundException, NotesApiException {
 		return items.get(itemName).getValueCustomData(dataTypeName);
 	}
 
 	@Override
-	public Object getItemValueCustomData(String itemName) throws IOException,
-			ClassNotFoundException, NotesApiException {
+	public Object getItemValueCustomData(String itemName) throws IOException, ClassNotFoundException, NotesApiException {
 		return getItemValueCustomData(itemName, "");
 	}
 
 	@Override
-	public byte[] getItemValueCustomDataBytes(String itemName,
-			String dataTypeName) throws IOException, NotesApiException {
+	public byte[] getItemValueCustomDataBytes(String itemName, String dataTypeName) throws IOException, NotesApiException {
 		return items.get(itemName).getValueCustomDataBytes(dataTypeName);
 	}
 
 	@Override
-	public Vector getItemValueDateTimeArray(String name)
-			throws NotesApiException {
+	public Vector getItemValueDateTimeArray(String name) throws NotesApiException {
 		return items.get(name).getValueDateTimeArray();
 	}
 
@@ -455,8 +463,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setEncryptOnSend(boolean encryptOnSend)
-			throws NotesApiException {
+	public void setEncryptOnSend(boolean encryptOnSend) throws NotesApiException {
 		this.encryptOnSend = encryptOnSend;
 	}
 
@@ -491,8 +498,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void setSaveMessageOnSend(boolean saveMessageOnSend)
-			throws NotesApiException {
+	public void setSaveMessageOnSend(boolean saveMessageOnSend) throws NotesApiException {
 		this.saveMessageOnSend = saveMessageOnSend;
 	}
 
@@ -528,16 +534,13 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void putInFolder(String name, boolean createOnFail)
-			throws NotesApiException {
+	public void putInFolder(String name, boolean createOnFail) throws NotesApiException {
 		if (parentDatabase.getView(name) == null) {
 			if (createOnFail) {
-				NotesViewMockImpl folder = (NotesViewMockImpl) parentDatabase
-						.createView(name);
+				NotesViewMockImpl folder = (NotesViewMockImpl) parentDatabase.createView(name);
 				folder.setIsFolder(true);
 			} else {
-				throw new NotesApiException(new IllegalArgumentException(
-						"Folder does not exist"));
+				throw new NotesApiException(new IllegalArgumentException("Folder does not exist"));
 			}
 		}
 		folderReferences.add(name);
@@ -568,15 +571,13 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean renderToRTItem(NotesRichTextItem rtItem)
-			throws NotesApiException {
+	public boolean renderToRTItem(NotesRichTextItem rtItem) throws NotesApiException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public NotesItem replaceItemValue(String itemName, Object value)
-			throws NotesApiException {
+	public NotesItem replaceItemValue(String itemName, Object value) throws NotesApiException {
 		NotesItemMockImpl newItem = (NotesItemMockImpl) items.get(itemName);
 		if (newItem == null) {
 			newItem = new NotesItemMockImpl(itemName);
@@ -599,9 +600,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomData(String itemName,
-			String dataTypeName, Object userObj) throws IOException,
-			NotesApiException {
+	public NotesItem replaceItemValueCustomData(String itemName, String dataTypeName, Object userObj) throws IOException, NotesApiException {
 		NotesItemMockImpl newItem = (NotesItemMockImpl) items.get(itemName);
 		if (newItem == null) {
 			newItem = new NotesItemMockImpl(itemName);
@@ -612,16 +611,13 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomData(String itemName, Object userObj)
-			throws IOException, NotesApiException {
+	public NotesItem replaceItemValueCustomData(String itemName, Object userObj) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NotesItem replaceItemValueCustomDataBytes(String itemName,
-			String dataTypeName, byte[] byteArray) throws IOException,
-			NotesApiException {
+	public NotesItem replaceItemValueCustomDataBytes(String itemName, String dataTypeName, byte[] byteArray) throws IOException, NotesApiException {
 		NotesItemMockImpl newItem = (NotesItemMockImpl) items.get(itemName);
 		if (newItem == null) {
 			newItem = new NotesItemMockImpl(itemName);
@@ -632,8 +628,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean save(boolean force, boolean makeRespoonse, boolean markRead)
-			throws NotesApiException {
+	public boolean save(boolean force, boolean makeRespoonse, boolean markRead) throws NotesApiException {
 		// TODO save changes
 		// boolean forceIf true, the document is saved even if someone else
 		// edits and saves the document while the program is running. The last
@@ -655,13 +650,16 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 		//
 		// Note If the database does not track unread marks, all documents are
 		// considered read, and this parameter has no effect.
+		this.isSaved = true;
+		return isSaved;
+	}
 
-		return false;
+	public boolean isSaved() {
+		return isSaved;
 	}
 
 	@Override
-	public boolean save(boolean force, boolean makeResponse)
-			throws NotesApiException {
+	public boolean save(boolean force, boolean makeResponse) throws NotesApiException {
 		return save(force, makeResponse, false);
 	}
 
@@ -676,8 +674,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void send(boolean attachForm, Vector recipients)
-			throws NotesApiException {
+	public void send(boolean attachForm, Vector recipients) throws NotesApiException {
 		if (!hasItem("SendTo")) {
 			replaceItemValue("SendTo", recipients);
 		}
@@ -696,8 +693,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void send(boolean attachForm, String recipient)
-			throws NotesApiException {
+	public void send(boolean attachForm, String recipient) throws NotesApiException {
 		Vector recipients = new Vector();
 		if (!"".equalsIgnoreCase(recipient))
 			recipients.add(recipient);
@@ -751,15 +747,13 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void generateXML(Writer writer) throws NotesApiException,
-			IOException {
+	public void generateXML(Writer writer) throws NotesApiException, IOException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void generateXML(Object style, NotesXSLTResultTarget result)
-			throws IOException, NotesApiException {
+	public void generateXML(Object style, NotesXSLTResultTarget result) throws IOException, NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -791,8 +785,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean lock(String name, boolean provisionalok)
-			throws NotesApiException {
+	public boolean lock(String name, boolean provisionalok) throws NotesApiException {
 		Vector vector = new Vector();
 		vector.add(name);
 		return lock(vector, provisionalok);
@@ -804,10 +797,8 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public boolean lock(Vector names, boolean provisionalok)
-			throws NotesApiException {
-		if (names.isEmpty()
-				|| "".equalsIgnoreCase((String) names.firstElement())) {
+	public boolean lock(Vector names, boolean provisionalok) throws NotesApiException {
+		if (names.isEmpty() || "".equalsIgnoreCase((String) names.firstElement())) {
 			return false;
 		}
 
@@ -871,8 +862,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void attachVCard(NotesBase document, String fileName)
-			throws NotesApiException {
+	public void attachVCard(NotesBase document, String fileName) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
@@ -898,8 +888,7 @@ public class NotesDocumentMockImpl extends NotesBaseMockImpl implements
 	}
 
 	@Override
-	public void convertToMIME(int conversionType, int options)
-			throws NotesApiException {
+	public void convertToMIME(int conversionType, int options) throws NotesApiException {
 		// TODO Auto-generated method stub
 
 	}
