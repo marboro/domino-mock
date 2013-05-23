@@ -336,8 +336,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int setRGB(int red, int green, int blue)
-			throws NotesApiException;
+	int setRGB(int red, int green, int blue) throws NotesApiException;
 
 	/**
 	 * Sets an HSL value to the closest Domino color and RGB value.
@@ -410,8 +409,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int setHSL(int hue, int saturation, int luminance)
-			throws NotesApiException;
+	int setHSL(int hue, int saturation, int luminance) throws NotesApiException;
 
 	/**
 	 * The red component of the color's RGB value.
@@ -451,7 +449,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getRed() throws NotesApiException;
+	int getRed() throws NotesApiException;
 
 	/**
 	 * The green component of the color's RGB value.
@@ -491,7 +489,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getGreen() throws NotesApiException;
+	int getGreen() throws NotesApiException;
 
 	/**
 	 * The blue component of a color's RGB value
@@ -531,7 +529,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getBlue() throws NotesApiException;
+	int getBlue() throws NotesApiException;
 
 	/**
 	 * The hue component of the color's HSL value.
@@ -571,7 +569,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getHue() throws NotesApiException;
+	int getHue() throws NotesApiException;
 
 	/**
 	 * The saturation component of the color's HSL value
@@ -611,7 +609,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getSaturation() throws NotesApiException;
+	int getSaturation() throws NotesApiException;
 
 	/**
 	 * The luminance component of the color's HSL value.
@@ -651,7 +649,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getLuminance() throws NotesApiException;
+	int getLuminance() throws NotesApiException;
 
 	/**
 	 * The color's Domino value.
@@ -698,7 +696,7 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getNotesColor() throws NotesApiException;
+	int getNotesColor() throws NotesApiException;
 
 	/**
 	 * The color's Domino value
@@ -746,5 +744,5 @@ public interface NotesColorObject extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setNotesColor(int notesColor) throws NotesApiException;
+	void setNotesColor(int notesColor) throws NotesApiException;
 }

@@ -31,27 +31,27 @@ public interface NotesACLEntry extends NotesBase {
 	/**
 	 * {@value}
 	 */
-	public static final int TYPE_UNSPECIFIED = 0;
+	static final int TYPE_UNSPECIFIED = 0;
 	/**
 	 * {@value}
 	 */
-	public static final int TYPE_PERSON = 1;
+	static final int TYPE_PERSON = 1;
 	/**
 	 * {@value}
 	 */
-	public static final int TYPE_SERVER = 2;
+	static final int TYPE_SERVER = 2;
 	/**
 	 * {@value}
 	 */
-	public static final int TYPE_MIXED_GROUP = 3;
+	static final int TYPE_MIXED_GROUP = 3;
 	/**
 	 * {@value}
 	 */
-	public static final int TYPE_PERSON_GROUP = 4;
+	static final int TYPE_PERSON_GROUP = 4;
 	/**
 	 * {@value}
 	 */
-	public static final int TYPE_SERVER_GROUP = 5;
+	static final int TYPE_SERVER_GROUP = 5;
 
 	/**
 	 * Disables a role for an entry.
@@ -60,7 +60,7 @@ public interface NotesACLEntry extends NotesBase {
 	 *            The name of the role to disable. Do not specify the brackets.
 	 * @throws NotesApiException
 	 */
-	public abstract void enableRole(String name) throws NotesApiException;
+	void enableRole(String name) throws NotesApiException;
 
 	/**
 	 * Enables a role for an entry.
@@ -69,7 +69,7 @@ public interface NotesACLEntry extends NotesBase {
 	 *            The name of the role to enable. Do not specify the brackets.
 	 * @throws NotesApiException
 	 */
-	public abstract void disableRole(String name) throws NotesApiException;
+	void disableRole(String name) throws NotesApiException;
 
 	/**
 	 * Indicates whether a role is enabled for an entry.
@@ -91,8 +91,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -117,7 +117,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isRoleEnabled(String name) throws NotesApiException;
+	boolean isRoleEnabled(String name) throws NotesApiException;
 
 	/**
 	 * Removes an entry from an access control list.
@@ -132,8 +132,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -152,7 +152,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void remove() throws NotesApiException;
+	void remove() throws NotesApiException;
 
 	/**
 	 * The roles that are enabled for an entry.
@@ -173,8 +173,8 @@ public interface NotesACLEntry extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -201,7 +201,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector<String> getRoles() throws NotesApiException;
+	Vector<String> getRoles() throws NotesApiException;
 
 	/**
 	 * 
@@ -228,8 +228,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -249,7 +249,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getName() throws NotesApiException;
+	String getName() throws NotesApiException;
 
 	/**
 	 * The name of an ACL entry.
@@ -275,8 +275,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -296,7 +296,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setName(String name) throws NotesApiException;
+	void setName(String name) throws NotesApiException;
 
 	/**
 	 * The name of an entry.
@@ -310,8 +310,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -334,7 +334,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesName getNameObject() throws NotesApiException;
+	NotesName getNameObject() throws NotesApiException;
 
 	/**
 	 * The name of an ACL entry.
@@ -360,8 +360,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -381,7 +381,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setName(NotesName name) throws NotesApiException;
+	void setName(NotesName name) throws NotesApiException;
 
 	/**
 	 * The access level this entry has for this database
@@ -408,8 +408,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -451,7 +451,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getLevel() throws NotesApiException;
+	int getLevel() throws NotesApiException;
 
 	/**
 	 * The access level this entry has for this database
@@ -479,8 +479,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -522,7 +522,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setLevel(int level) throws NotesApiException;
+	void setLevel(int level) throws NotesApiException;
 
 	/**
 	 * The user type this entry has for this database.
@@ -549,8 +549,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -596,7 +596,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getUserType() throws NotesApiException;
+	int getUserType() throws NotesApiException;
 
 	/**
 	 * * The user type this entry has for this database.
@@ -624,8 +624,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -671,7 +671,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setUserType(int userType) throws NotesApiException;
+	void setUserType(int userType) throws NotesApiException;
 
 	/**
 	 * For an entry with Editor, Author, or Reader access, indicates whether the
@@ -706,8 +706,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -727,7 +727,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanCreatePersonalAgent() throws NotesApiException;
+	boolean isCanCreatePersonalAgent() throws NotesApiException;
 
 	/**
 	 * For an entry with Editor, Author, or Reader access, indicates whether the
@@ -765,8 +765,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -786,8 +786,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanCreatePersonalAgent(boolean flag)
-			throws NotesApiException;
+	void setCanCreatePersonalAgent(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Editor, Author, or Reader access, indicates whether the
@@ -822,8 +821,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -842,8 +841,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanCreatePersonalFolder()
-			throws NotesApiException;
+	boolean isCanCreatePersonalFolder() throws NotesApiException;
 
 	/**
 	 * For an entry with Editor, Author, or Reader access, indicates whether the
@@ -879,8 +877,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -899,8 +897,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanCreatePersonalFolder(boolean flag)
-			throws NotesApiException;
+	void setCanCreatePersonalFolder(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Author access to a database, indicates whether the
@@ -936,8 +933,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -956,7 +953,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanCreateDocuments() throws NotesApiException;
+	boolean isCanCreateDocuments() throws NotesApiException;
 
 	/**
 	 * For an entry with Author access to a database, indicates whether the
@@ -993,8 +990,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1013,8 +1010,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanCreateDocuments(boolean flag)
-			throws NotesApiException;
+	void setCanCreateDocuments(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Author access or above, indicates whether the entry can
@@ -1048,8 +1044,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1068,7 +1064,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanDeleteDocuments() throws NotesApiException;
+	boolean isCanDeleteDocuments() throws NotesApiException;
 
 	/**
 	 * For an entry with Author access or above, indicates whether the entry can
@@ -1103,8 +1099,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1123,8 +1119,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanDeleteDocuments(boolean flag)
-			throws NotesApiException;
+	void setCanDeleteDocuments(boolean flag) throws NotesApiException;
 
 	/**
 	 * The access control list that contains an entry.
@@ -1139,8 +1134,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1174,19 +1169,19 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesACL getParent() throws NotesApiException;
+	NotesACL getParent() throws NotesApiException;
 
 	/**
 	 * For an entry with Depositor or No access, indicates whether the entry is
-	 * a public reader of the database.
+	 * a reader of the database.
 	 * 
 	 * @return For an entry with Depositor or No access, indicates whether the
-	 *         entry is a public reader of the database.
+	 *         entry is a reader of the database.
 	 * @throws NotesApiException
 	 * 
 	 * @legalValues <ul>
-	 *              <li>true if the current entry is a public reader</li>
-	 *              <li>false if the current entry is not a public reader</li>
+	 *              <li>true if the current entry is a reader</li>
+	 *              <li>false if the current entry is not a reader</li>
 	 *              </ul>
 	 * 
 	 * @usage Setting this property has no effect on an ACL entry unless the
@@ -1198,13 +1193,13 @@ public interface NotesACLEntry extends NotesBase {
 	 *        or No access.
 	 * 
 	 * @example This agent creates a new ACL entry with Depositor access and
-	 *          makes it a public reader.
+	 *          makes it a reader.
 	 * 
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1214,8 +1209,8 @@ public interface NotesACLEntry extends NotesBase {
 	 * 			ACL acl = db.getACL();
 	 * 			ACLEntry entry = acl.createACLEntry(agent.getComment(),
 	 * 					ACL.LEVEL_DEPOSITOR);
-	 * 			entry.setPublicReader(true);
-	 * 			entry.setPublicWriter(true);
+	 * 			entry.setReader(true);
+	 * 			entry.setWriter(true);
 	 * 			acl.save();
 	 * 		} catch (Exception e) {
 	 * 			e.printStackTrace();
@@ -1224,20 +1219,20 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isPublicReader() throws NotesApiException;
+	boolean isPublicReader() throws NotesApiException;
 
 	/**
 	 * For an entry with Depositor or No access, indicates whether the entry is
-	 * a public reader of the database.
+	 * a reader of the database.
 	 * 
 	 * @param flag
 	 *            For an entry with Depositor or No access, indicates whether
-	 *            the entry is a public reader of the database.
+	 *            the entry is a reader of the database.
 	 * @throws NotesApiException
 	 * 
 	 * @legalValues <ul>
-	 *              <li>true if the current entry is a public reader</li>
-	 *              <li>false if the current entry is not a public reader</li>
+	 *              <li>true if the current entry is a reader</li>
+	 *              <li>false if the current entry is not a reader</li>
 	 *              </ul>
 	 * 
 	 * @usage Setting this property has no effect on an ACL entry unless the
@@ -1249,13 +1244,13 @@ public interface NotesACLEntry extends NotesBase {
 	 *        or No access.
 	 * 
 	 * @example This agent creates a new ACL entry with Depositor access and
-	 *          makes it a public reader.
+	 *          makes it a reader.
 	 * 
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1265,8 +1260,8 @@ public interface NotesACLEntry extends NotesBase {
 	 * 			ACL acl = db.getACL();
 	 * 			ACLEntry entry = acl.createACLEntry(agent.getComment(),
 	 * 					ACL.LEVEL_DEPOSITOR);
-	 * 			entry.setPublicReader(true);
-	 * 			entry.setPublicWriter(true);
+	 * 			entry.setReader(true);
+	 * 			entry.setWriter(true);
 	 * 			acl.save();
 	 * 		} catch (Exception e) {
 	 * 			e.printStackTrace();
@@ -1275,19 +1270,19 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setPublicReader(boolean flag) throws NotesApiException;
+	void setPublicReader(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Author, Reader, Depositor, or No access, indicates
-	 * whether the entry is a public writer of the database.
+	 * whether the entry is a writer of the database.
 	 * 
 	 * @return For an entry with Author, Reader, Depositor, or No access,
-	 *         indicates whether the entry is a public writer of the database.
+	 *         indicates whether the entry is a writer of the database.
 	 * @throws NotesApiException
 	 * 
 	 * @legalValues <ul>
-	 *              <li>true if the current entry is a public reader</li>
-	 *              <li>false if the current entry is not a public reader</li>
+	 *              <li>true if the current entry is a reader</li>
+	 *              <li>false if the current entry is not a reader</li>
 	 *              </ul>
 	 * 
 	 * @usage Setting this property has no effect on an ACL entry unless the
@@ -1299,13 +1294,13 @@ public interface NotesACLEntry extends NotesBase {
 	 *        or No access.
 	 * 
 	 * @example This agent creates a new ACL entry with Depositor access and
-	 *          makes it a public reader.
+	 *          makes it a reader.
 	 * 
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1315,8 +1310,8 @@ public interface NotesACLEntry extends NotesBase {
 	 * 			ACL acl = db.getACL();
 	 * 			ACLEntry entry = acl.createACLEntry(agent.getComment(),
 	 * 					ACL.LEVEL_DEPOSITOR);
-	 * 			entry.setPublicReader(true);
-	 * 			entry.setPublicWriter(true);
+	 * 			entry.setReader(true);
+	 * 			entry.setWriter(true);
 	 * 			acl.save();
 	 * 		} catch (Exception e) {
 	 * 			e.printStackTrace();
@@ -1325,21 +1320,20 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isPublicWriter() throws NotesApiException;
+	boolean isPublicWriter() throws NotesApiException;
 
 	/**
 	 * For an entry with Author, Reader, Depositor, or No access, indicates
-	 * whether the entry is a public writer of the database.
+	 * whether the entry is a writer of the database.
 	 * 
 	 * @param flag
 	 *            For an entry with Author, Reader, Depositor, or No access,
-	 *            indicates whether the entry is a public writer of the
-	 *            database.
+	 *            indicates whether the entry is a writer of the database.
 	 * @throws NotesApiException
 	 * 
 	 * @legalValues <ul>
-	 *              <li>true if the current entry is a public reader</li>
-	 *              <li>false if the current entry is not a public reader</li>
+	 *              <li>true if the current entry is a reader</li>
+	 *              <li>false if the current entry is not a reader</li>
 	 *              </ul>
 	 * 
 	 * @usage Setting this property has no effect on an ACL entry unless the
@@ -1351,13 +1345,13 @@ public interface NotesACLEntry extends NotesBase {
 	 *        or No access.
 	 * 
 	 * @example This agent creates a new ACL entry with Depositor access and
-	 *          makes it a public reader.
+	 *          makes it a reader.
 	 * 
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1367,8 +1361,8 @@ public interface NotesACLEntry extends NotesBase {
 	 * 			ACL acl = db.getACL();
 	 * 			ACLEntry entry = acl.createACLEntry(agent.getComment(),
 	 * 					ACL.LEVEL_DEPOSITOR);
-	 * 			entry.setPublicReader(true);
-	 * 			entry.setPublicWriter(true);
+	 * 			entry.setReader(true);
+	 * 			entry.setWriter(true);
 	 * 			acl.save();
 	 * 		} catch (Exception e) {
 	 * 			e.printStackTrace();
@@ -1377,7 +1371,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setPublicWriter(boolean flag) throws NotesApiException;
+	void setPublicWriter(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Reader access to a database, indicates whether the
@@ -1412,8 +1406,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1433,7 +1427,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanCreateLSOrJavaAgent() throws NotesApiException;
+	boolean isCanCreateLSOrJavaAgent() throws NotesApiException;
 
 	/**
 	 * For an entry with Reader access to a database, indicates whether the
@@ -1470,8 +1464,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1491,8 +1485,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanCreateLSOrJavaAgent(boolean flag)
-			throws NotesApiException;
+	void setCanCreateLSOrJavaAgent(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether this is a server ACL entry.
@@ -1513,8 +1506,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1560,7 +1553,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isServer() throws NotesApiException;
+	boolean isServer() throws NotesApiException;
 
 	/**
 	 * Indicates whether this is a server ACL entry.
@@ -1582,8 +1575,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1629,7 +1622,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setServer(boolean flag) throws NotesApiException;
+	void setServer(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether this is a person ACL entry.
@@ -1650,8 +1643,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1697,7 +1690,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isPerson() throws NotesApiException;
+	boolean isPerson() throws NotesApiException;
 
 	/**
 	 * Indicates whether this is a person ACL entry.
@@ -1719,8 +1712,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1766,7 +1759,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setPerson(boolean flag) throws NotesApiException;
+	void setPerson(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether this is a group ACL entry.
@@ -1787,8 +1780,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1834,7 +1827,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isGroup() throws NotesApiException;
+	boolean isGroup() throws NotesApiException;
 
 	/**
 	 * Indicates whether this is a group ACL entry.
@@ -1856,8 +1849,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1903,7 +1896,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setGroup(boolean flag) throws NotesApiException;
+	void setGroup(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Editor access to a database, indicates whether the
@@ -1939,8 +1932,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1959,7 +1952,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanCreateSharedFolder() throws NotesApiException;
+	boolean isCanCreateSharedFolder() throws NotesApiException;
 
 	/**
 	 * For an entry with Editor access to a database, indicates whether the
@@ -1997,8 +1990,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -2017,8 +2010,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanCreateSharedFolder(boolean flag)
-			throws NotesApiException;
+	void setCanCreateSharedFolder(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether an entry that is an administration server can modify
@@ -2042,8 +2034,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -2062,7 +2054,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isAdminReaderAuthor() throws NotesApiException;
+	boolean isAdminReaderAuthor() throws NotesApiException;
 
 	/**
 	 * Indicates whether an entry that is an administration server can modify
@@ -2087,8 +2079,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -2107,8 +2099,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setAdminReaderAuthor(boolean flag)
-			throws NotesApiException;
+	void setAdminReaderAuthor(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether this entry is an administration server.
@@ -2128,8 +2119,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 *  class JavaAgent extends AgentBase {
+	 * 	 void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -2147,7 +2138,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * 	}
 	 * }
 	 */
-	public abstract boolean isAdminServer() throws NotesApiException;
+	boolean isAdminServer() throws NotesApiException;
 
 	/**
 	 * Indicates whether this entry is an administration server.
@@ -2168,8 +2159,8 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 *  class JavaAgent extends AgentBase {
+	 * 	 void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -2187,7 +2178,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * 	}
 	 * }
 	 */
-	public abstract void setAdminServer(boolean flag) throws NotesApiException;
+	void setAdminServer(boolean flag) throws NotesApiException;
 
 	/**
 	 * For an entry with Reader access or above to a database, indicates whether
@@ -2218,9 +2209,9 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2241,8 +2232,7 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isCanReplicateOrCopyDocuments()
-			throws NotesApiException;
+	boolean isCanReplicateOrCopyDocuments() throws NotesApiException;
 
 	/**
 	 * For an entry with Reader access or above to a database, indicates whether
@@ -2274,9 +2264,9 @@ public interface NotesACLEntry extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2297,7 +2287,6 @@ public interface NotesACLEntry extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setCanReplicateOrCopyDocuments(boolean flag)
-			throws NotesApiException;
+	void setCanReplicateOrCopyDocuments(boolean flag) throws NotesApiException;
 
 }

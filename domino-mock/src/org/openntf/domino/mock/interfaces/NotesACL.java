@@ -16,8 +16,8 @@ import org.openntf.domino.mock.Exception.NotesApiException;
  * 
  * import lotus.domino.*;
  * 
- * public class JavaAgent extends AgentBase {
- * 	public void NotesMain() {
+ * class JavaAgent extends AgentBase {
+ * 	void NotesMain() {
  * 		try {
  * 			Session session = getSession();
  * 			AgentContext agentContext = session.getAgentContext();
@@ -52,35 +52,35 @@ public interface NotesACL extends NotesBase {
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_NOACCESS = 0;
+	static final int LEVEL_NOACCESS = 0;
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_DEPOSITOR = 1;
+	static final int LEVEL_DEPOSITOR = 1;
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_READER = 2;
+	static final int LEVEL_READER = 2;
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_AUTHOR = 3;
+	static final int LEVEL_AUTHOR = 3;
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_EDITOR = 4;
+	static final int LEVEL_EDITOR = 4;
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_DESIGNER = 5;
+	static final int LEVEL_DESIGNER = 5;
 	/**
 	 * {@value}
 	 */
-	public static final int LEVEL_MANAGER = 6;
+	static final int LEVEL_MANAGER = 6;
 	/**
 	 * {@value}
 	 */
-	public static final int ACL_MAX_ROLES = 80;
+	static final int ACL_MAX_ROLES = 80;
 
 	/**
 	 * Returns the first entry in an ACL.
@@ -96,8 +96,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -130,7 +130,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesACLEntry getFirstEntry() throws NotesApiException;
+	NotesACLEntry getFirstEntry() throws NotesApiException;
 
 	/**
 	 * Returns the next ACL entry or the one following a specified entry.
@@ -154,8 +154,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -180,8 +180,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesACLEntry getNextEntry(NotesACLEntry entry)
-			throws NotesApiException;
+	NotesACLEntry getNextEntry(NotesACLEntry entry) throws NotesApiException;
 
 	/**
 	 * Returns the next ACL entry or the one following a specified entry.
@@ -202,8 +201,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -228,7 +227,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesACLEntry getNextEntry() throws NotesApiException;
+	NotesACLEntry getNextEntry() throws NotesApiException;
 
 	/**
 	 * Given a name, finds its entry in an ACL.
@@ -251,8 +250,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -277,8 +276,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesACLEntry getEntry(String name)
-			throws NotesApiException;
+	NotesACLEntry getEntry(String name) throws NotesApiException;
 
 	/**
 	 * The maximum Internet access level for this database.
@@ -306,8 +304,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -350,7 +348,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getInternetLevel() throws NotesApiException;
+	int getInternetLevel() throws NotesApiException;
 
 	/**
 	 * The maximum Internet access level for this database.
@@ -379,8 +377,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -423,7 +421,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setInternetLevel(int level) throws NotesApiException;
+	void setInternetLevel(int level) throws NotesApiException;
 
 	/**
 	 * Saves changes that you've made to the ACL. If you don't call save before
@@ -438,8 +436,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -456,7 +454,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void save() throws NotesApiException;
+	void save() throws NotesApiException;
 
 	/**
 	 * Changes the name of a role.
@@ -483,8 +481,8 @@ public interface NotesACL extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -507,8 +505,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void renameRole(String oldName, String newName)
-			throws NotesApiException;
+	void renameRole(String oldName, String newName) throws NotesApiException;
 
 	/**
 	 * Adds a role to an ACL.
@@ -527,8 +524,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -545,7 +542,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void addRole(String name) throws NotesApiException;
+	void addRole(String name) throws NotesApiException;
 
 	/**
 	 * Deletes a role from an ACL and removes it from any ACL entries that have
@@ -565,8 +562,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -583,7 +580,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void deleteRole(String name) throws NotesApiException;
+	void deleteRole(String name) throws NotesApiException;
 
 	/**
 	 * Creates an entry in the ACL with the name and level that you specify.
@@ -613,8 +610,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -631,7 +628,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesACLEntry createACLEntry(String name, int level)
+	NotesACLEntry createACLEntry(String name, int level)
 			throws NotesApiException;
 
 	/**
@@ -655,8 +652,8 @@ public interface NotesACL extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -673,7 +670,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector<String> getRoles() throws NotesApiException;
+	Vector<String> getRoles() throws NotesApiException;
 
 	/**
 	 * The database that owns an ACL.
@@ -687,8 +684,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -704,7 +701,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDatabase getParent() throws NotesApiException;
+	NotesDatabase getParent() throws NotesApiException;
 
 	/**
 	 * Indicates whether a consistent access control list is enforced across all
@@ -723,8 +720,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -745,7 +742,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isUniformAccess() throws NotesApiException;
+	boolean isUniformAccess() throws NotesApiException;
 
 	/**
 	 * Indicates whether a consistent access control list is enforced across all
@@ -764,8 +761,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -786,8 +783,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setUniformAccess(boolean flag)
-			throws NotesApiException;
+	void setUniformAccess(boolean flag) throws NotesApiException;
 
 	/**
 	 * Removes an entry from the ACL.
@@ -807,8 +803,8 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -825,7 +821,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void removeACLEntry(String name) throws NotesApiException;
+	void removeACLEntry(String name) throws NotesApiException;
 
 	/**
 	 * Indicates whether extended access is enabled.
@@ -854,9 +850,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -881,7 +877,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isExtendedAccess() throws NotesApiException;
+	boolean isExtendedAccess() throws NotesApiException;
 
 	/**
 	 * Indicates whether extended access is enabled.
@@ -911,9 +907,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -938,8 +934,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setExtendedAccess(boolean flag)
-			throws NotesApiException;
+	void setExtendedAccess(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether the administration server for the database can modify
@@ -965,9 +960,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -992,7 +987,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isAdminReaderAuthor() throws NotesApiException;
+	boolean isAdminReaderAuthor() throws NotesApiException;
 
 	/**
 	 * Indicates whether the administration server for the database can modify
@@ -1018,9 +1013,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1045,8 +1040,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setAdminReaderAuthor(boolean flag)
-			throws NotesApiException;
+	void setAdminReaderAuthor(boolean flag) throws NotesApiException;
 
 	/**
 	 * Indicates whether the administration server for the database can modify
@@ -1071,9 +1065,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1097,7 +1091,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isAdminNames() throws NotesApiException;
+	boolean isAdminNames() throws NotesApiException;
 
 	/**
 	 * Indicates whether the administration server for the database can modify
@@ -1123,9 +1117,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1149,7 +1143,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setAdminNames(boolean flag) throws NotesApiException;
+	void setAdminNames(boolean flag) throws NotesApiException;
 
 	/**
 	 * The name of the administration server for a database.
@@ -1167,9 +1161,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1197,9 +1191,9 @@ public interface NotesACL extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1222,7 +1216,7 @@ public interface NotesACL extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getAdministrationServer() throws NotesApiException;
+	String getAdministrationServer() throws NotesApiException;
 
 	/**
 	 * The name of the administration server for a database.
@@ -1232,6 +1226,5 @@ public interface NotesACL extends NotesBase {
 	 * 
 	 * @throws NotesApiException
 	 */
-	public abstract void setAdministrationServer(String serverName)
-			throws NotesApiException;
+	void setAdministrationServer(String serverName) throws NotesApiException;
 }

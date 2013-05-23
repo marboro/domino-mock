@@ -5,74 +5,131 @@ import java.util.Vector;
 import org.openntf.domino.mock.Exception.NotesApiException;
 
 /**
- * @author Sven Dreher
+ * Represents an agent.
  * 
+ * @author Sven Dreher
+ * @access There are two ways to access an agent:
+ * 
+ *         To access the agent that's currently running, use getCurrentAgent in
+ *         AgentContext. To access all the agents in a database, use getAgents
+ *         in Database.
+ * @usage System.out writes to an Events document ("Miscellaneous Events" view)
+ *        in the log.nsf database where the code executes for:
+ *        <ul>
+ *        <li>Scheduled agents</li>
+ *        <li>Agents started by run or runOnServer</li>
+ *        </ul>
+ * @example 1. This agent prints the name of the current agent
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * 
+ * public class JavaAgent extends AgentBase {
+ * 	public void NotesMain() {
+ * 		try {
+ * 			Session session = getSession();
+ * 			AgentContext agentContext = session.getAgentContext();
+ * 			// (Your code goes here)
+ * 			Agent agent = agentContext.getCurrentAgent();
+ * 			System.out.println(&quot;Current agent is \&quot;&quot; + agent.getName() + &quot;\&quot;&quot;);
+ * 		} catch (Exception e) {
+ * 			e.printStackTrace();
+ * 		}
+ * 	}
+ * }
+ * </pre>
+ * 
+ *          2. This agent prints the names of all agents in the current database
+ * 
+ *          <pre>
+ * import lotus.domino.*;
+ * import java.util.Vector;
+ * 
+ * public class JavaAgent extends AgentBase {
+ * 	public void NotesMain() {
+ * 		try {
+ * 			Session session = getSession();
+ * 			AgentContext agentContext = session.getAgentContext();
+ * 			// (Your code goes here)
+ * 			Database db = agentContext.getCurrentDatabase();
+ * 			Vector agents = db.getAgents();
+ * 			System.out.println(&quot;Agents in database:&quot;);
+ * 			for (int i = 0; i &lt; agents.size(); i++) {
+ * 				Agent agent = (Agent) agents.elementAt(i);
+ * 				System.out.println(&quot;  &quot; + agent.getName());
+ * 			}
+ * 		} catch (Exception e) {
+ * 			e.printStackTrace();
+ * 		}
+ * 	}
+ * }
+ * </pre>
  */
 public interface NotesAgent extends NotesBase {
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_NONE = 0;
+	static final int TRIGGER_NONE = 0;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_SCHEDULED = 1;
+	static final int TRIGGER_SCHEDULED = 1;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_AFTER_MAIL_DELIVERY = 2;
+	static final int TRIGGER_AFTER_MAIL_DELIVERY = 2;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_DOC_PASTED = 3;
+	static final int TRIGGER_DOC_PASTED = 3;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_MANUAL = 4;
+	static final int TRIGGER_MANUAL = 4;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_DOC_UPDATE = 5;
+	static final int TRIGGER_DOC_UPDATE = 5;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_BEFORE_MAIL_DELIVERY = 6;
+	static final int TRIGGER_BEFORE_MAIL_DELIVERY = 6;
 	/**
 	 * {@value}
 	 */
-	public static final int TRIGGER_SERVERSTART = 8;
+	static final int TRIGGER_SERVERSTART = 8;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_NONE = 0;
+	static final int TARGET_NONE = 0;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_ALL_DOCS = 1;
+	static final int TARGET_ALL_DOCS = 1;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_NEW_DOCS = 2;
+	static final int TARGET_NEW_DOCS = 2;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_NEW_OR_MODIFIED_DOCS = 3;
+	static final int TARGET_NEW_OR_MODIFIED_DOCS = 3;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_SELECTED_DOCS = 4;
+	static final int TARGET_SELECTED_DOCS = 4;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_ALL_DOCS_IN_VIEW = 5;
+	static final int TARGET_ALL_DOCS_IN_VIEW = 5;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_UNREAD_DOCS_IN_VIEW = 6;
+	static final int TARGET_UNREAD_DOCS_IN_VIEW = 6;
 	/**
 	 * {@value}
 	 */
-	public static final int TARGET_RUN_ONCE = 8;
+	static final int TARGET_RUN_ONCE = 8;
 
 	/**
 	 * Runs the agent.
@@ -98,9 +155,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -123,9 +180,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -153,9 +210,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -185,9 +242,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -215,7 +272,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void run() throws NotesApiException;
+	void run() throws NotesApiException;
 
 	/**
 	 * Runs the agent.
@@ -244,9 +301,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -269,9 +326,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -299,9 +356,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -331,9 +388,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -361,7 +418,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void run(String noteID) throws NotesApiException;
+	void run(String noteID) throws NotesApiException;
 
 	/**
 	 * Runs the agent on the computer containing the database.
@@ -398,9 +455,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -426,9 +483,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -457,9 +514,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -492,9 +549,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -522,7 +579,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int runOnServer() throws NotesApiException;
+	int runOnServer() throws NotesApiException;
 
 	/**
 	 * Runs the agent on the computer containing the database.
@@ -562,9 +619,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -590,9 +647,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -621,9 +678,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -656,9 +713,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -686,7 +743,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int runOnServer(String noteID) throws NotesApiException;
+	int runOnServer(String noteID) throws NotesApiException;
 
 	/**
 	 * Permanently deletes an agent from a database.
@@ -706,8 +763,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -733,7 +790,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void remove() throws NotesApiException;
+	void remove() throws NotesApiException;
 
 	/**
 	 * Saves changes made to the agent.
@@ -758,7 +815,7 @@ public interface NotesAgent extends NotesBase {
 	 *        invoking the agent if the agent is run from the Web the
 	 *        "Run as web user" agent property is in effect.
 	 */
-	public abstract void save() throws NotesApiException;
+	void save() throws NotesApiException;
 
 	/**
 	 * The name of an agent. Within a database, the name of an agent may not be
@@ -772,8 +829,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -794,8 +851,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -814,7 +871,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getName() throws NotesApiException;
+	String getName() throws NotesApiException;
 
 	/**
 	 * The name of the person who last modified and saved an agent.
@@ -835,8 +892,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -851,7 +908,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getOwner() throws NotesApiException;
+	String getOwner() throws NotesApiException;
 
 	/**
 	 * The date that an agent last ran.
@@ -867,8 +924,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -893,7 +950,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDateTime getLastRun() throws NotesApiException;
+	NotesDateTime getLastRun() throws NotesApiException;
 
 	/**
 	 * Indicates whether an agent is able to run.
@@ -922,8 +979,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -954,8 +1011,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -982,7 +1039,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isEnabled() throws NotesApiException;
+	boolean isEnabled() throws NotesApiException;
 
 	/**
 	 * Indicates whether an agent is able to run.
@@ -1012,8 +1069,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1044,8 +1101,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1072,7 +1129,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setEnabled(boolean value) throws NotesApiException;
+	void setEnabled(boolean value) throws NotesApiException;
 
 	/**
 	 * The name of the server on which an agent runs.
@@ -1100,8 +1157,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1123,8 +1180,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1151,7 +1208,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getServerName() throws NotesApiException;
+	String getServerName() throws NotesApiException;
 
 	/**
 	 * The name of the server on which an agent runs.
@@ -1179,8 +1236,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1202,8 +1259,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1230,8 +1287,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void setServerName(String serverName)
-			throws NotesApiException;
+	void setServerName(String serverName) throws NotesApiException;
 
 	/**
 	 * The text of the query used by an agent to select documents. In the Agent
@@ -1287,8 +1343,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1311,7 +1367,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getQuery() throws NotesApiException;
+	String getQuery() throws NotesApiException;
 
 	/**
 	 * The comment that describes an agent, as entered by the agent's designer
@@ -1324,8 +1380,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1340,7 +1396,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getComment() throws NotesApiException;
+	String getComment() throws NotesApiException;
 
 	/**
 	 * The database that contains an agent.
@@ -1353,8 +1409,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1370,7 +1426,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDatabase getParent() throws NotesApiException;
+	NotesDatabase getParent() throws NotesApiException;
 
 	/**
 	 * Indicates whether an agent is shared or private.
@@ -1385,14 +1441,14 @@ public interface NotesAgent extends NotesBase {
 	 *         in the owner's desktop file.</li>
 	 *         </ul>
 	 * 
-	 *         Shared agents are sometimes called public agents.
+	 *         Shared agents are sometimes called agents.
 	 * @throws NotesApiException
 	 * @legalValues <ul>
 	 *              <li>true if the agent is shared</li>
 	 *              <li>false if the agent is private</li>
 	 *              </ul>
 	 */
-	public abstract boolean isPublic() throws NotesApiException;
+	boolean isPublic() throws NotesApiException;
 
 	/**
 	 * The common name of the person who last modified and saved an agent.
@@ -1407,8 +1463,8 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1423,7 +1479,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getCommonOwner() throws NotesApiException;
+	String getCommonOwner() throws NotesApiException;
 
 	/**
 	 * Indicates when this agent runs.
@@ -1465,8 +1521,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1520,7 +1576,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getTrigger() throws NotesApiException;
+	int getTrigger() throws NotesApiException;
 
 	/**
 	 * Indicates on which documents this agent acts.
@@ -1552,8 +1608,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1607,7 +1663,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getTarget() throws NotesApiException;
+	int getTarget() throws NotesApiException;
 
 	/**
 	 * Indicates whether an agent can run in the Notes client environment.
@@ -1628,8 +1684,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1657,7 +1713,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isNotesAgent() throws NotesApiException;
+	boolean isNotesAgent() throws NotesApiException;
 
 	/**
 	 * Indicates whether an agent can run in a Web browser environment.
@@ -1676,8 +1732,8 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1705,7 +1761,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isWebAgent() throws NotesApiException;
+	boolean isWebAgent() throws NotesApiException;
 
 	/**
 	 * Returns the Domino URL for its parent object when called in the following
@@ -1717,7 +1773,7 @@ public interface NotesAgent extends NotesBase {
 	 * @return Returns the Domino URL for its parent object
 	 * @throws NotesApiException
 	 */
-	public abstract String getURL() throws NotesApiException;
+	String getURL() throws NotesApiException;
 
 	/**
 	 * The Domino URL of an agent when Notes protocols are in effect
@@ -1737,9 +1793,9 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.io.PrintWriter;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1772,7 +1828,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getNotesURL() throws NotesApiException;
+	String getNotesURL() throws NotesApiException;
 
 	/**
 	 * The Domino URL of an agent when HTTP protocols are in effect.
@@ -1792,9 +1848,9 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.io.PrintWriter;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1827,7 +1883,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getHttpURL() throws NotesApiException;
+	String getHttpURL() throws NotesApiException;
 
 	/**
 	 * Returns the NoteID of a document passed in by {@link #run()} or
@@ -1843,9 +1899,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1868,9 +1924,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1898,9 +1954,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1930,9 +1986,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1960,7 +2016,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getParameterDocID() throws NotesApiException;
+	String getParameterDocID() throws NotesApiException;
 
 	/**
 	 * Indicates whether user activation is in effect when enabling or disabling
@@ -1996,9 +2052,9 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2025,7 +2081,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean isActivatable() throws NotesApiException;
+	boolean isActivatable() throws NotesApiException;
 
 	/**
 	 * Name of the user under whose identity the agent runs
@@ -2045,9 +2101,9 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2083,7 +2139,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getOnBehalfOf() throws NotesApiException;
+	String getOnBehalfOf() throws NotesApiException;
 
 	/**
 	 * The names of the holders of a lock.
@@ -2102,9 +2158,9 @@ public interface NotesAgent extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2133,7 +2189,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract Vector<String> getLockHolders() throws NotesApiException;
+	Vector<String> getLockHolders() throws NotesApiException;
 
 	/**
 	 * Locks an agent.
@@ -2172,9 +2228,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2208,7 +2264,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lock() throws NotesApiException;
+	boolean lock() throws NotesApiException;
 
 	/**
 	 * Locks an agent.
@@ -2252,9 +2308,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2288,8 +2344,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lock(boolean provisionalok)
-			throws NotesApiException;
+	boolean lock(boolean provisionalok) throws NotesApiException;
 
 	/**
 	 * Locks an agent.
@@ -2329,9 +2384,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2365,7 +2420,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lock(String name) throws NotesApiException;
+	boolean lock(String name) throws NotesApiException;
 
 	/**
 	 * Locks an agent.
@@ -2411,9 +2466,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2447,8 +2502,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lock(String name, boolean provisionalok)
-			throws NotesApiException;
+	boolean lock(String name, boolean provisionalok) throws NotesApiException;
 
 	/**
 	 * Locks an agent.
@@ -2491,9 +2545,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2527,7 +2581,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lock(Vector<String> names) throws NotesApiException;
+	boolean lock(Vector<String> names) throws NotesApiException;
 
 	/**
 	 * Locks an agent.
@@ -2575,9 +2629,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2611,7 +2665,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lock(Vector<String> names, boolean provisionalok)
+	boolean lock(Vector<String> names, boolean provisionalok)
 			throws NotesApiException;
 
 	/**
@@ -2646,9 +2700,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2682,7 +2736,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lockProvisional() throws NotesApiException;
+	boolean lockProvisional() throws NotesApiException;
 
 	/**
 	 * Locks an agent provisionally.
@@ -2718,9 +2772,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2754,8 +2808,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lockProvisional(String name)
-			throws NotesApiException;
+	boolean lockProvisional(String name) throws NotesApiException;
 
 	/**
 	 * Locks an agent provisionally.
@@ -2793,9 +2846,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2829,8 +2882,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract boolean lockProvisional(Vector<String> names)
-			throws NotesApiException;
+	boolean lockProvisional(Vector<String> names) throws NotesApiException;
 
 	/**
 	 * Unlocks an agent.
@@ -2849,9 +2901,9 @@ public interface NotesAgent extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -2880,7 +2932,7 @@ public interface NotesAgent extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void unlock() throws NotesApiException;
+	void unlock() throws NotesApiException;
 
 	/**
 	 * Indicates whether a design refresh or replace can overwrite an agent.
@@ -2893,7 +2945,7 @@ public interface NotesAgent extends NotesBase {
 	 *         </ul>
 	 * @throws NotesApiException
 	 */
-	public abstract boolean isProhibitDesignUpdate() throws NotesApiException;
+	boolean isProhibitDesignUpdate() throws NotesApiException;
 
 	/**
 	 * Indicates whether a design refresh or replace can overwrite an agent.
@@ -2908,7 +2960,6 @@ public interface NotesAgent extends NotesBase {
 	 *            </ul>
 	 * @throws NotesApiException
 	 */
-	public abstract void setProhibitDesignUpdate(boolean flag)
-			throws NotesApiException;
+	void setProhibitDesignUpdate(boolean flag) throws NotesApiException;
 
 }

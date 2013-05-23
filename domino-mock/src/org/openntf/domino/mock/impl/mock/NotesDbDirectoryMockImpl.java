@@ -84,13 +84,20 @@ public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements
 	@Override
 	public NotesDatabase openDatabaseIfModified(String dbFile,
 			NotesDateTime date) throws NotesApiException {
-		// TODO Auto-generated method stub
+		NotesDatabaseMockImpl database = new NotesDatabaseMockImpl(server,
+				dbFile);
+		database.open();
+		NotesDateTimeMockImpl lastModified = (NotesDateTimeMockImpl) database
+				.getLastModified();
+		if (lastModified.timeDifference((NotesDateTimeMockImpl) date) >= 0) {
+			return database;
+		}
 		return null;
 	}
 
 	@Override
 	public NotesDatabase openMailDatabase() throws NotesApiException {
-		// TODO Auto-generated method stub
+		// current User should always be the server without its own MailDatabase
 		return null;
 	}
 
@@ -118,6 +125,12 @@ public class NotesDbDirectoryMockImpl extends NotesBaseMockImpl implements
 	@Override
 	public String getClusterName(String serverName) throws NotesApiException {
 		return clusterName;
+	}
+
+	public void removeDatabase(NotesDatabase database) {
+		if (databases.contains(database)) {
+			databases.remove(database);
+		}
 	}
 
 }

@@ -18,8 +18,8 @@ import org.openntf.domino.mock.Exception.NotesApiException;
  *        <pre>
  * import lotus.domino.*;
  * 
- * public class JavaAgent extends AgentBase {
- * 	public void NotesMain() {
+ * class JavaAgent extends AgentBase {
+ * 	void NotesMain() {
  * 		try {
  * 			Session session = getSession();
  * 			AgentContext agentContext = session.getAgentContext();
@@ -36,8 +36,8 @@ import org.openntf.domino.mock.Exception.NotesApiException;
  *          <pre>
  * import lotus.domino.*;
  * 
- * public class JavaAgent extends AgentBase {
- * 	public void NotesMain() {
+ * class JavaAgent extends AgentBase {
+ * 	void NotesMain() {
  * 		try {
  * 			Session session = getSession();
  * 			AgentContext agentContext = session.getAgentContext();
@@ -94,8 +94,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -114,8 +114,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract void updateProcessedDoc(NotesDocument doc)
-			throws NotesApiException;
+	void updateProcessedDoc(NotesDocument doc) throws NotesApiException;
 
 	/**
 	 * Given a full-text query, returns documents in a database:
@@ -277,8 +276,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -301,8 +300,8 @@ public interface NotesAgentContext extends NotesBase {
 	 * 
 	 * 
 	 */
-	public abstract NotesDocumentCollection unprocessedFTSearch(String query,
-			int maxDocs) throws NotesApiException;
+	NotesDocumentCollection unprocessedFTSearch(String query, int maxDocs)
+			throws NotesApiException;
 
 	/**
 	 * Given a full-text query, returns documents in a database:
@@ -492,8 +491,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -516,8 +515,8 @@ public interface NotesAgentContext extends NotesBase {
 	 * 
 	 * 
 	 */
-	public abstract NotesDocumentCollection unprocessedFTSearch(String query,
-			int maxDocs, int sortOpt, int otherOpt) throws NotesApiException;
+	NotesDocumentCollection unprocessedFTSearch(String query, int maxDocs,
+			int sortOpt, int otherOpt) throws NotesApiException;
 
 	/**
 	 * Given a full-text query, returns documents in a database:
@@ -684,9 +683,9 @@ public interface NotesAgentContext extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -724,8 +723,8 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDocumentCollection unprocessedFTSearchRange(
-			String query, int maxDocs, int start) throws NotesApiException;
+	NotesDocumentCollection unprocessedFTSearchRange(String query, int maxDocs,
+			int start) throws NotesApiException;
 
 	/**
 	 * Given a full-text query, returns documents in a database:
@@ -920,9 +919,9 @@ public interface NotesAgentContext extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.util.Vector;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -960,9 +959,8 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDocumentCollection unprocessedFTSearchRange(
-			String query, int maxdocs, int sortopt, int otheropt, int start)
-			throws NotesApiException;
+	NotesDocumentCollection unprocessedFTSearchRange(String query, int maxdocs,
+			int sortopt, int otheropt, int start) throws NotesApiException;
 
 	/**
 	 * Given selection criteria, returns documents in a database that:
@@ -1090,8 +1088,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1113,7 +1111,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDocumentCollection unprocessedSearch(String formula,
+	NotesDocumentCollection unprocessedSearch(String formula,
 			NotesDateTime limit, int maxDocs) throws NotesApiException;
 
 	/**
@@ -1149,8 +1147,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1164,7 +1162,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract String getEffectiveUserName() throws NotesApiException;
+	String getEffectiveUserName() throws NotesApiException;
 
 	/**
 	 * The agent that's currently running.
@@ -1176,8 +1174,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1192,7 +1190,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesAgent getCurrentAgent() throws NotesApiException;
+	NotesAgent getCurrentAgent() throws NotesApiException;
 
 	/**
 	 * The database in which the current agent resides.
@@ -1207,8 +1205,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1223,7 +1221,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDatabase getCurrentDatabase() throws NotesApiException;
+	NotesDatabase getCurrentDatabase() throws NotesApiException;
 
 	/**
 	 * The in-memory document when an agent starts.
@@ -1295,9 +1293,9 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 *         try {
 	 *           Session session = getSession();
@@ -1322,9 +1320,9 @@ public interface NotesAgentContext extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.io.PrintWriter;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1351,9 +1349,9 @@ public interface NotesAgentContext extends NotesBase {
 	 * import lotus.domino.*;
 	 * import java.io.PrintWriter;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1384,9 +1382,9 @@ public interface NotesAgentContext extends NotesBase {
 	 *                           <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
+	 * class JavaAgent extends AgentBase {
 	 * 
-	 * 	public void NotesMain() {
+	 * 	void NotesMain() {
 	 * 
 	 * 		try {
 	 * 			Session session = getSession();
@@ -1419,7 +1417,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDocument getDocumentContext() throws NotesApiException;
+	NotesDocument getDocumentContext() throws NotesApiException;
 
 	/**
 	 * The exit status code returned by the Agent Manager the last time the
@@ -1434,8 +1432,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1449,7 +1447,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract int getLastExitStatus() throws NotesApiException;
+	int getLastExitStatus() throws NotesApiException;
 
 	/**
 	 * The date and time when the current agent was last executed.
@@ -1462,8 +1460,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1481,7 +1479,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDateTime getLastRun() throws NotesApiException;
+	NotesDateTime getLastRun() throws NotesApiException;
 
 	/**
 	 * A document that an agent uses to store information between invocations.
@@ -1510,8 +1508,8 @@ public interface NotesAgentContext extends NotesBase {
 	 * import java.util.Vector;
 	 * import java.lang.Float;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1548,7 +1546,7 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDocument getSavedData() throws NotesApiException;
+	NotesDocument getSavedData() throws NotesApiException;
 
 	/**
 	 * The documents in a database that the current agent considers to be
@@ -1675,8 +1673,8 @@ public interface NotesAgentContext extends NotesBase {
 	 *          <pre>
 	 * import lotus.domino.*;
 	 * 
-	 * public class JavaAgent extends AgentBase {
-	 * 	public void NotesMain() {
+	 * class JavaAgent extends AgentBase {
+	 * 	void NotesMain() {
 	 * 		try {
 	 * 			Session session = getSession();
 	 * 			AgentContext agentContext = session.getAgentContext();
@@ -1695,6 +1693,5 @@ public interface NotesAgentContext extends NotesBase {
 	 * }
 	 * </pre>
 	 */
-	public abstract NotesDocumentCollection getUnprocessedDocuments()
-			throws NotesApiException;
+	NotesDocumentCollection getUnprocessedDocuments() throws NotesApiException;
 }

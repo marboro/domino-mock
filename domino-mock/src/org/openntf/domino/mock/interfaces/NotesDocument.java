@@ -6,7 +6,6 @@ import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
 
-
 public interface NotesDocument extends NotesBase {
 	public static final int CVT_RT_TO_PLAINTEXT = 1;
 	public static final int CVT_RT_TO_HTML = 2;
@@ -29,11 +28,11 @@ public interface NotesDocument extends NotesBase {
 	public abstract boolean closeMIMEEntities(boolean saveChanges)
 			throws NotesApiException;
 
-	public abstract boolean closeMIMEEntities(boolean saveChanges, String entityItemName)
-			throws NotesApiException;
+	public abstract boolean closeMIMEEntities(boolean saveChanges,
+			String entityItemName) throws NotesApiException;
 
-	public abstract boolean computeWithForm(boolean doDataTypes, boolean raiseError)
-			throws NotesApiException;
+	public abstract boolean computeWithForm(boolean doDataTypes,
+			boolean raiseError) throws NotesApiException;
 
 	public abstract void copyAllItems(NotesDocument doc, boolean replace)
 			throws NotesApiException;
@@ -91,7 +90,7 @@ public interface NotesDocument extends NotesBase {
 	public abstract NotesMIMEEntity getMIMEEntity(String itemName)
 			throws NotesApiException;
 
-	public abstract Vector getItems() throws NotesApiException;
+	public abstract Vector<NotesItem> getItems() throws NotesApiException;
 
 	public abstract Vector getItemValue(String name) throws NotesApiException;
 
@@ -104,14 +103,15 @@ public interface NotesDocument extends NotesBase {
 	public abstract double getItemValueDouble(String name)
 			throws NotesApiException;
 
-	public abstract Object getItemValueCustomData(String itemName, String dataTypeName)
-			throws IOException, ClassNotFoundException, NotesApiException;
+	public abstract Object getItemValueCustomData(String itemName,
+			String dataTypeName) throws IOException, ClassNotFoundException,
+			NotesApiException;
 
 	public abstract Object getItemValueCustomData(String itemName)
 			throws IOException, ClassNotFoundException, NotesApiException;
 
-	public abstract byte[] getItemValueCustomDataBytes(String itemName, String dataTypeName)
-			throws IOException, NotesApiException;
+	public abstract byte[] getItemValueCustomDataBytes(String itemName,
+			String dataTypeName) throws IOException, NotesApiException;
 
 	public abstract Vector getItemValueDateTimeArray(String name)
 			throws NotesApiException;
@@ -199,16 +199,18 @@ public interface NotesDocument extends NotesBase {
 			throws NotesApiException;
 
 	public abstract NotesItem replaceItemValueCustomData(String itemName,
-			String dataTypeName, Object userObj) throws IOException, NotesApiException;
+			String dataTypeName, Object userObj) throws IOException,
+			NotesApiException;
 
 	public abstract NotesItem replaceItemValueCustomData(String itemName,
 			Object userObj) throws IOException, NotesApiException;
 
 	public abstract NotesItem replaceItemValueCustomDataBytes(String itemName,
-			String dataTypeName, byte[] byteArray) throws IOException, NotesApiException;
+			String dataTypeName, byte[] byteArray) throws IOException,
+			NotesApiException;
 
-	public abstract boolean save(boolean force, boolean makeRespoonse, boolean markRead)
-			throws NotesApiException;
+	public abstract boolean save(boolean force, boolean makeRespoonse,
+			boolean markRead) throws NotesApiException;
 
 	public abstract boolean save(boolean force, boolean makeResponse)
 			throws NotesApiException;
@@ -253,7 +255,8 @@ public interface NotesDocument extends NotesBase {
 
 	public abstract boolean lock() throws NotesApiException;
 
-	public abstract boolean lock(boolean provisionalOk) throws NotesApiException;
+	public abstract boolean lock(boolean provisionalOk)
+			throws NotesApiException;
 
 	public abstract boolean lock(String name) throws NotesApiException;
 
@@ -283,7 +286,8 @@ public interface NotesDocument extends NotesBase {
 
 	public abstract void markRead(String userName) throws NotesApiException;
 
-	public abstract void attachVCard(NotesBase document) throws NotesApiException;
+	public abstract void attachVCard(NotesBase document)
+			throws NotesApiException;
 
 	public abstract void attachVCard(NotesBase document, String fileName)
 			throws NotesApiException;
@@ -294,7 +298,8 @@ public interface NotesDocument extends NotesBase {
 
 	public abstract void convertToMIME() throws NotesApiException;
 
-	public abstract void convertToMIME(int conversionType) throws NotesApiException;
+	public abstract void convertToMIME(int conversionType)
+			throws NotesApiException;
 
 	public abstract void convertToMIME(int conversionType, int options)
 			throws NotesApiException;

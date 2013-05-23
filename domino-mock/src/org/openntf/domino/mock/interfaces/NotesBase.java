@@ -58,7 +58,7 @@ public interface NotesBase {
 	 * 
 	 * @throws NotesApiException
 	 */
-	public abstract void recycle() throws NotesApiException;
+	void recycle() throws NotesApiException;
 
 	/**
 	 * The recycle method unconditionally destroys an object and returns its
@@ -113,6 +113,5 @@ public interface NotesBase {
 	 *            The Domino Objects to be recycled
 	 * @throws NotesApiException
 	 */
-	public abstract void recycle(Vector<NotesBase> objects)
-			throws NotesApiException;
+	void recycle(Vector<NotesBase> objects) throws NotesApiException;
 }
