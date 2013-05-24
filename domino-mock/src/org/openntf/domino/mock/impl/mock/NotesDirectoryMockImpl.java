@@ -1,11 +1,12 @@
 package org.openntf.domino.mock.impl.mock;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesDirectory;
 import org.openntf.domino.mock.interfaces.NotesDirectoryNavigator;
-
 
 public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDirectory {
 
@@ -16,7 +17,10 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDi
 	private boolean useContextServer;
 	private boolean limitMatches;
 	private boolean partialMatches;
-	private boolean errorOnMultipleMatches;
+	private String availableView = null;
+	private Vector<String> availableNames = null;
+	private Vector<String> items = null;
+	private List<NotesDirectoryNavigator> dirNavs;
 
 	public NotesDirectoryMockImpl() {
 		this("");
@@ -24,6 +28,7 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDi
 
 	public NotesDirectoryMockImpl(String server) {
 		this.server = server;
+		dirNavs = new ArrayList<NotesDirectoryNavigator>();
 	}
 
 	@Override
@@ -33,32 +38,27 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDi
 
 	@Override
 	public String getAvailableView() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return availableView;
 	}
 
 	@Override
-	public Vector getAvailableNames() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector<String> getAvailableNames() throws NotesApiException {
+		return availableNames;
 	}
 
 	@Override
-	public Vector getAvailableItems() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+	public Vector<String> getAvailableItems() throws NotesApiException {
+		return items;
 	}
 
 	@Override
 	public boolean isSearchAllDirectories() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return searchAllDirectories;
 	}
 
 	@Override
 	public boolean isTrustedOnly() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return trustedOnly;
 	}
 
 	@Override
@@ -87,13 +87,18 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDi
 
 	@Override
 	public NotesDirectoryNavigator createNavigator() throws NotesApiException {
-		return new NotesDirectoryNavigatorMockImpl();
+		NotesDirectoryNavigatorMockImpl directoryNavigator = new NotesDirectoryNavigatorMockImpl();
+		dirNavs.add(directoryNavigator);
+		return directoryNavigator;
 	}
 
 	@Override
 	public void freeLookupBuffer() throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		for (NotesDirectoryNavigator dirNav : dirNavs) {
+			NotesDirectoryNavigatorMockImpl nav = (NotesDirectoryNavigatorMockImpl) dirNav;
+			nav.recycle();
+		}
+		dirNavs.clear();
 	}
 
 	@Override
@@ -123,38 +128,48 @@ public class NotesDirectoryMockImpl extends NotesBaseMockImpl implements NotesDi
 
 	@Override
 	public NotesDirectoryNavigator lookupNames(String view, String name, String item) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		Vector<String> names = new Vector<String>();
+		names.add(name);
+		Vector<String> items = new Vector<String>();
+		items.add(item);
+		return lookupNames(view, names, items, false);
 	}
 
 	@Override
-	public NotesDirectoryNavigator lookupNames(String view, Vector names, Vector items, boolean partialMatches) throws NotesApiException {
+	public NotesDirectoryNavigator lookupNames(String view, Vector<String> names, Vector<String> items, boolean partialMatches) throws NotesApiException {
+		availableView = view;
+		this.items = items;
 		this.partialMatches = partialMatches;
 		// TODO Auto-generated method stub
+		Vector<String> vector = new Vector<String>();
+		availableNames = vector;
 		return null;
 	}
 
 	@Override
 	public NotesDirectoryNavigator lookupAllNames(String view, String item) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		Vector<String> vector = new Vector<String>();
+		vector.add(item);
+		return lookupAllNames(view, vector);
 	}
 
 	@Override
-	public NotesDirectoryNavigator lookupAllNames(String view, Vector items) throws NotesApiException {
+	public NotesDirectoryNavigator lookupAllNames(String view, Vector<String> items) throws NotesApiException {
+		availableView = view;
+		this.items = items;
 		// TODO Auto-generated method stub
+		Vector<String> vector = new Vector<String>();
+		availableNames = vector;
 		return null;
 	}
 
 	@Override
 	public Vector getMailInfo(String userName) throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return getMailInfo(userName, false, true);
 	}
 
 	@Override
 	public Vector getMailInfo(String userName, boolean getVer, boolean errorOnMultipleMatches) throws NotesApiException {
-		this.errorOnMultipleMatches = errorOnMultipleMatches;
 		// TODO Auto-generated method stub
 		return null;
 	}

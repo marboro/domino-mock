@@ -2,6 +2,7 @@ package org.openntf.domino.mock.impl.mock;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Vector;
 
@@ -32,7 +33,11 @@ public class NotesDxlExporterMockImpl extends NotesBaseMockImpl implements Notes
 	@Override
 	public String exportDxl(NotesDocument document) throws NotesApiException {
 		// TODO dxl dateien importieren
-		BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getClassLoader().getResourceAsStream(document.getUniversalID() + ".dxl")));
+		Class<? extends NotesDxlExporterMockImpl> clazz = getClass();
+		ClassLoader classLoader = clazz.getClassLoader();
+		InputStream stream = classLoader.getResourceAsStream(document.getUniversalID() + ".dxl");
+		InputStreamReader streamReader = new InputStreamReader(stream);
+		BufferedReader reader = new BufferedReader(streamReader);
 		String line = "";
 
 		StringBuilder sb = new StringBuilder();

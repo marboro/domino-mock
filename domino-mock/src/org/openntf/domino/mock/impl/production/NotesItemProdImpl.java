@@ -19,7 +19,6 @@ import org.openntf.domino.mock.interfaces.NotesXSLTResultTarget;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-
 public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 
 	private final Item item;
@@ -37,8 +36,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public String abstractText(int arg0, boolean arg1, boolean arg2)
-			throws NotesApiException {
+	public String abstractText(int arg0, boolean arg1, boolean arg2) throws NotesApiException {
 		try {
 			return item.abstractText(arg0, arg1, arg2);
 		} catch (NotesException e) {
@@ -67,7 +65,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	@Override
 	public boolean containsValue(Object arg0) throws NotesApiException {
 		try {
-			if (arg0 instanceof DateTime) {
+			if (arg0 instanceof NotesDateTime) {
 				return item.containsValue(((NotesDateTimeProdImpl) arg0).get());
 			}
 			return item.containsValue(arg0);
@@ -77,23 +75,18 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public NotesItem copyItemToDocument(NotesDocument arg0, String arg1)
-			throws NotesApiException {
+	public NotesItem copyItemToDocument(NotesDocument arg0, String arg1) throws NotesApiException {
 		try {
-			return new NotesItemProdImpl(item.copyItemToDocument(
-					((NotesDocumentProdImpl) arg0).get(), arg1));
+			return new NotesItemProdImpl(item.copyItemToDocument(((NotesDocumentProdImpl) arg0).get(), arg1));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
 	}
 
 	@Override
-	public NotesItem copyItemToDocument(NotesDocument arg0)
-			throws NotesApiException {
+	public NotesItem copyItemToDocument(NotesDocument arg0) throws NotesApiException {
 		try {
-			return new NotesItemProdImpl(
-					item.copyItemToDocument(((NotesDocumentProdImpl) arg0)
-							.get()));
+			return new NotesItemProdImpl(item.copyItemToDocument(((NotesDocumentProdImpl) arg0).get()));
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -189,8 +182,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 				if (values.get(0) instanceof DateTime) {
 					Iterator iterator = values.iterator();
 					while (iterator.hasNext()) {
-						vector.add(new NotesDateTimeProdImpl(
-								(DateTime) iterator.next()));
+						vector.add(new NotesDateTimeProdImpl((DateTime) iterator.next()));
 					}
 					return vector;
 				}
@@ -204,18 +196,18 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	@Override
 	public void setValues(Vector arg0) throws NotesApiException {
 		try {
-			if (arg0.size() > 0){
-				if (arg0.get(0) instanceof DateTime){
+			if (arg0.size() > 0) {
+				if (arg0.get(0) instanceof DateTime) {
 					Vector<NotesDateTime> vector = new Vector<NotesDateTime>();
 					Iterator iterator = arg0.iterator();
-					while (iterator.hasNext()){
-						vector.add(new NotesDateTimeProdImpl((DateTime)iterator.next()));
+					while (iterator.hasNext()) {
+						vector.add(new NotesDateTimeProdImpl((DateTime) iterator.next()));
 					}
 					item.setValues(vector);
 				} else
 					item.setValues(arg0);
 			}
-			
+
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}
@@ -285,8 +277,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public void setValueCustomData(String arg0, Object arg1)
-			throws IOException, NotesApiException {
+	public void setValueCustomData(String arg0, Object arg1) throws IOException, NotesApiException {
 		try {
 			item.setValueCustomData(arg0, arg1);
 		} catch (NotesException e) {
@@ -295,8 +286,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public void setValueCustomData(Object arg0) throws IOException,
-			NotesApiException {
+	public void setValueCustomData(Object arg0) throws IOException, NotesApiException {
 		try {
 			item.setValueCustomData(arg0);
 		} catch (NotesException e) {
@@ -306,8 +296,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public void setValueCustomDataBytes(String arg0, byte[] arg1)
-			throws IOException, NotesApiException {
+	public void setValueCustomDataBytes(String arg0, byte[] arg1) throws IOException, NotesApiException {
 		try {
 			item.setValueCustomDataBytes(arg0, arg1);
 		} catch (NotesException e) {
@@ -316,8 +305,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public Object getValueCustomData(String arg0) throws IOException,
-			ClassNotFoundException, NotesApiException {
+	public Object getValueCustomData(String arg0) throws IOException, ClassNotFoundException, NotesApiException {
 		try {
 			return item.getValueCustomData(arg0);
 		} catch (NotesException e) {
@@ -326,8 +314,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public Object getValueCustomData() throws IOException,
-			ClassNotFoundException, NotesApiException {
+	public Object getValueCustomData() throws IOException, ClassNotFoundException, NotesApiException {
 		try {
 			return item.getValueCustomData();
 		} catch (NotesException e) {
@@ -336,8 +323,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public byte[] getValueCustomDataBytes(String arg0) throws IOException,
-			NotesApiException {
+	public byte[] getValueCustomDataBytes(String arg0) throws IOException, NotesApiException {
 		try {
 			return item.getValueCustomDataBytes(arg0);
 		} catch (NotesException e) {
@@ -354,8 +340,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 				if (timeArray.get(0) instanceof DateTime) {
 					Iterator iterator = timeArray.iterator();
 					while (iterator.hasNext()) {
-						vector.add(new NotesDateTimeProdImpl(
-								(DateTime) iterator.next()));
+						vector.add(new NotesDateTimeProdImpl((DateTime) iterator.next()));
 					}
 					return vector;
 				}
@@ -547,8 +532,7 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public Document parseXML(boolean arg0) throws IOException,
-			NotesApiException {
+	public Document parseXML(boolean arg0) throws IOException, NotesApiException {
 		try {
 			return item.parseXML(arg0);
 		} catch (NotesException e) {
@@ -557,11 +541,9 @@ public class NotesItemProdImpl extends NotesBaseProdImpl implements NotesItem {
 	}
 
 	@Override
-	public void transformXML(Object arg0, NotesXSLTResultTarget arg1)
-			throws NotesApiException {
+	public void transformXML(Object arg0, NotesXSLTResultTarget arg1) throws NotesApiException {
 		try {
-			item.transformXML(arg0,
-					((NotesXSLTResultTargetProdImpl) arg1).get());
+			item.transformXML(arg0, ((NotesXSLTResultTargetProdImpl) arg1).get());
 		} catch (NotesException e) {
 			throw new NotesApiException(e);
 		}

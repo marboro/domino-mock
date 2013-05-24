@@ -10,33 +10,34 @@ import org.openntf.domino.mock.interfaces.NotesDateTime;
 import org.openntf.domino.mock.interfaces.NotesDocument;
 import org.openntf.domino.mock.interfaces.NotesDocumentCollection;
 
-
-public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
-		implements NotesDocumentCollection {
+public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl implements NotesDocumentCollection {
 
 	private NotesDatabase parent;
 	private List<NotesDocument> documents;
 	private int currentDoc;
 	private boolean isSorted;
+	private String query;
 
 	public NotesDocumentCollectionMockImpl() {
 		documents = new ArrayList<NotesDocument>();
 	}
 
-	public NotesDocumentCollectionMockImpl(
-			NotesDocumentCollection documentCollection) {
+	public NotesDocumentCollectionMockImpl(NotesDocumentCollection documentCollection) {
 		try {
 			this.parent = documentCollection.getParent();
 		} catch (NotesApiException e) {
 			e.printStackTrace();
 		}
-		this.documents = ((NotesDocumentCollectionMockImpl) documentCollection)
-				.getDocuments();
+		this.documents = ((NotesDocumentCollectionMockImpl) documentCollection).getDocuments();
 		this.currentDoc = 0;
 	}
 
 	public List<NotesDocument> getDocuments() {
 		return documents;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 	@Override
@@ -46,8 +47,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 
 	@Override
 	public String getQuery() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return query;
 	}
 
 	@Override
@@ -83,15 +83,13 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public NotesDocument getNextDocument(NotesDocument doc)
-			throws NotesApiException {
+	public NotesDocument getNextDocument(NotesDocument doc) throws NotesApiException {
 		int index = documents.indexOf(doc);
 		return getNthDocument(index + 1);
 	}
 
 	@Override
-	public NotesDocument getPrevDocument(NotesDocument doc)
-			throws NotesApiException {
+	public NotesDocument getPrevDocument(NotesDocument doc) throws NotesApiException {
 		int index = documents.indexOf(doc);
 		return getNthDocument(index - 1);
 	}
@@ -115,8 +113,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public NotesDocument getDocument(NotesDocument doc)
-			throws NotesApiException {
+	public NotesDocument getDocument(NotesDocument doc) throws NotesApiException {
 		return documents.get(documents.indexOf(doc));
 	}
 
@@ -127,8 +124,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void addDocument(NotesDocument doc, boolean checkDups)
-			throws NotesApiException {
+	public void addDocument(NotesDocument doc, boolean checkDups) throws NotesApiException {
 		if (checkDups) {
 			if (documents.contains(doc)) {
 				return;
@@ -145,12 +141,12 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 
 	@Override
 	public void FTSearch(String query) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		FTSearch(query, 0);
 	}
 
 	@Override
 	public void FTSearch(String query, int maxDocs) throws NotesApiException {
+		this.query = query;
 		// TODO Auto-generated method stub
 
 	}
@@ -166,8 +162,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void putAllInFolder(String folderName, boolean createOnFail)
-			throws NotesApiException {
+	public void putAllInFolder(String folderName, boolean createOnFail) throws NotesApiException {
 		for (NotesDocument doc : documents) {
 			doc.putInFolder(folderName, createOnFail);
 		}
@@ -187,10 +182,11 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	}
 
 	@Override
-	public void stampAll(String itemName, Object value)
-			throws NotesApiException {
-		// TODO Auto-generated method stub
-
+	public void stampAll(String itemName, Object value) throws NotesApiException {
+		for (NotesDocument document : documents) {
+			NotesDocumentMockImpl doc = (NotesDocumentMockImpl) document;
+			doc.replaceItemValue(itemName, value);
+		}
 	}
 
 	@Override
@@ -255,9 +251,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	@Override
 	public void intersect(NotesBase documents) throws NotesApiException {
 		if (documents instanceof NotesDocumentCollection) {
-			this.documents
-					.retainAll(((NotesDocumentCollectionMockImpl) documents)
-							.getDocuments());
+			this.documents.retainAll(((NotesDocumentCollectionMockImpl) documents).getDocuments());
 		} else if (documents instanceof NotesDocument) {
 			ArrayList<NotesDocument> docs = new ArrayList<NotesDocument>();
 			docs.add((NotesDocument) documents);
@@ -285,8 +279,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	@Override
 	public void merge(NotesBase documents) throws NotesApiException {
 		if (documents instanceof NotesDocumentCollection) {
-			for (NotesDocument doc : ((NotesDocumentCollectionMockImpl) documents)
-					.getDocuments()) {
+			for (NotesDocument doc : ((NotesDocumentCollectionMockImpl) documents).getDocuments()) {
 				addDocument(doc, true);
 			}
 		} else if (documents instanceof NotesDocument) {
@@ -312,9 +305,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	@Override
 	public void subtract(NotesBase documents) throws NotesApiException {
 		if (documents instanceof NotesDocumentCollection) {
-			this.documents
-					.removeAll(((NotesDocumentCollectionMockImpl) documents)
-							.getDocuments());
+			this.documents.removeAll(((NotesDocumentCollectionMockImpl) documents).getDocuments());
 		} else if (documents instanceof NotesDocument) {
 			this.documents.remove(documents);
 		}
@@ -337,9 +328,7 @@ public class NotesDocumentCollectionMockImpl extends NotesBaseMockImpl
 	@Override
 	public boolean contains(NotesBase documents) throws NotesApiException {
 		if (documents instanceof NotesDocumentCollection) {
-			return this.documents
-					.containsAll(((NotesDocumentCollectionMockImpl) documents)
-							.getDocuments());
+			return this.documents.containsAll(((NotesDocumentCollectionMockImpl) documents).getDocuments());
 		} else if (documents instanceof NotesDocument) {
 			return this.documents.contains(documents);
 		}

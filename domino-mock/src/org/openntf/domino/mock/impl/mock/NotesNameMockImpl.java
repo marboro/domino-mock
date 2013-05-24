@@ -79,12 +79,15 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 		String result = "";
 		if (!parameterMap.isEmpty()) {
 			Collection<String> cresult = parameterMap.values();
-
-			for (String elem : cresult)
-				result = result + "/" + elem;
-
-			if (result.substring(result.length()).contains("/"))
+			StringBuilder builder = new StringBuilder();
+			for (String elem : cresult) {
+				builder.append(elem);
+				builder.append("/");
+			}
+			result = builder.toString();
+			if (result.substring(result.length()).contains("/")) {
 				result = result.substring(0, result.length() - 1);
+			}
 		}
 
 		return result;
@@ -263,16 +266,17 @@ public class NotesNameMockImpl extends NotesBaseMockImpl implements NotesName {
 		String result = "";
 		if (!parameterMap.isEmpty()) {
 			String addString = "";
+			StringBuilder builder = new StringBuilder();
 			Collection<String> cresult = parameterMap.values();
 
-			for (int i = parameterMap.size(); i > 1; i--)
-				addString = addString + "\\";
+			for (int i = cresult.size(); i > 1; i--) {
+				builder.append(cresult.toArray()[i]);
+				builder.append("\\");
+			}
 
-			if (addString.substring(addString.length()).contains("\\"))
+			if (addString.substring(addString.length()).contains("\\")) {
 				result = addString.substring(0, addString.length() - 1);
-
-			if (result == null)
-				result = "";
+			}
 
 		}
 		return result;

@@ -5,26 +5,30 @@ import java.util.Vector;
 import org.openntf.domino.mock.Exception.NotesApiException;
 import org.openntf.domino.mock.interfaces.NotesDirectoryNavigator;
 
+public class NotesDirectoryNavigatorMockImpl extends NotesBaseMockImpl implements NotesDirectoryNavigator {
 
-public class NotesDirectoryNavigatorMockImpl extends NotesBaseMockImpl
-		implements NotesDirectoryNavigator {
+	private String currentView;
+	private long currentMatch;
+	private Vector matches;
+	private String currentName;
+
+	public void setCurrentView(String currentView) {
+		this.currentView = currentView;
+	}
 
 	@Override
 	public String getCurrentView() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return currentView;
 	}
 
 	@Override
 	public long getCurrentMatch() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return currentMatch;
 	}
 
 	@Override
 	public long getCurrentMatches() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return matches.size();
 	}
 
 	@Override
@@ -47,8 +51,7 @@ public class NotesDirectoryNavigatorMockImpl extends NotesBaseMockImpl
 
 	@Override
 	public String getCurrentName() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return currentName;
 	}
 
 	@Override
@@ -71,7 +74,11 @@ public class NotesDirectoryNavigatorMockImpl extends NotesBaseMockImpl
 
 	@Override
 	public boolean findFirstMatch() throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (matches.size() > 0) {
+			currentMatch = 1;
+			currentName = (String) matches.get(0);
+			return true;
+		}
 		return false;
 	}
 
