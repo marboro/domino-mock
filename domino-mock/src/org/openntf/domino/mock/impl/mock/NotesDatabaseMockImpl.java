@@ -1058,7 +1058,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDat
 
 	@Override
 	public boolean isCurrentAccessPublicReader() throws NotesApiException {
-		//TODO gruppenauflösung
+		//TODO gruppenaufloesung
 		NotesACLEntry entry = acl.getEntry(parent.getUserName());
 		if (entry != null){
 			return entry.isPublicReader();
@@ -1068,7 +1068,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDat
 
 	@Override
 	public boolean isCurrentAccessPublicWriter() throws NotesApiException {
-		//TODO gruppenauflösung
+		//TODO gruppenaufloesung
 		NotesACLEntry entry = acl.getEntry(parent.getUserName());
 		if (entry != null){
 			return entry.isPublicReader();
