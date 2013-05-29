@@ -93,6 +93,15 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDat
 	private StandardAnalyzer analyzer;
 	private NotesReplication replicationObject;
 	private int sizeWarning;
+	private NotesDateTime lastFixup;
+	private Map<Integer, Boolean> options;
+	private boolean isDirectoryCatalog;
+	private boolean isConfigurationDirectory;
+	private boolean isClusterReplication;
+	private double limitRevisions;
+	private double limitUpdateBy;
+	private boolean listInDbCatalog;
+	private int undeleteExpireTime;
 
 	public NotesDatabaseMockImpl() {
 		this("", "", 0, UUID.randomUUID().toString(), null);
@@ -119,6 +128,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDat
 		profileDocuments = new NotesDocumentCollectionMockImpl();
 		forms = new HashMap<String, NotesForm>();
 		analyzer = new StandardAnalyzer(Version.LUCENE_43);
+		options = new HashMap<Integer, Boolean>();
 	}
 
 	public void addView(NotesView view) {
@@ -941,6 +951,7 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDat
 	@Override
 	public void fixup(int options) throws NotesApiException {
 		// TODO Auto-generated method stub
+		lastFixup = new NotesDateTimeMockImpl(new Date());
 
 	}
 
@@ -1032,97 +1043,102 @@ public class NotesDatabaseMockImpl extends NotesBaseMockImpl implements NotesDat
 
 	@Override
 	public NotesDateTime getLastFixup() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return null;
+		return lastFixup;
 	}
 
 	@Override
 	public boolean isDirectoryCatalog() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isDirectoryCatalog;
 	}
 
 	@Override
 	public boolean isConfigurationDirectory() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isConfigurationDirectory;
 	}
 
 	@Override
 	public boolean isCurrentAccessPublicReader() throws NotesApiException {
-		// TODO Auto-generated method stub
+		//TODO gruppenauflösung
+		NotesACLEntry entry = acl.getEntry(parent.getUserName());
+		if (entry != null){
+			return entry.isPublicReader();
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isCurrentAccessPublicWriter() throws NotesApiException {
-		// TODO Auto-generated method stub
+		//TODO gruppenauflösung
+		NotesACLEntry entry = acl.getEntry(parent.getUserName());
+		if (entry != null){
+			return entry.isPublicReader();
+		}
 		return false;
 	}
 
 	@Override
 	public void setOption(int optionName, boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
-
+		if (options.containsKey(optionName)){
+			options.remove(optionName);
+		}
+		options.put(optionName, flag);
 	}
 
 	@Override
 	public boolean getOption(int optionName) throws NotesApiException {
-		// TODO Auto-generated method stub
+		if (options.containsKey(optionName)){
+			return options.get(optionName);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean isClusterReplication() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return isClusterReplication;
 	}
 
 	@Override
 	public double getLimitRevisions() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return limitRevisions;
 	}
 
 	@Override
 	public void setLimitRevisions(double revisions) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.limitRevisions = revisions;
 
 	}
 
 	@Override
 	public double getLimitUpdatedBy() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return limitUpdateBy;
 	}
 
 	@Override
 	public void setLimitUpdatedBy(double updateBy) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.limitUpdateBy = updateBy;
+		
 
 	}
 
 	@Override
 	public boolean getListInDbCatalog() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return false;
+		return listInDbCatalog;
 	}
 
 	@Override
 	public void setListInDbCatalog(boolean flag) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.listInDbCatalog = flag;
 
 	}
 
 	@Override
 	public int getUndeleteExpireTime() throws NotesApiException {
-		// TODO Auto-generated method stub
-		return 0;
+		return undeleteExpireTime;
 	}
 
 	@Override
 	public void setUndeleteExpireTime(int hours) throws NotesApiException {
-		// TODO Auto-generated method stub
+		this.undeleteExpireTime = hours;
 
 	}
 
