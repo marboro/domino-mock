@@ -27,7 +27,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	private boolean useCertificateAuthority;
 	private boolean certificateAuthorityAvailable;
 	private NotesSession parent;
-	private Map<String, Vector> groups;
+	private Map<String, Vector<String>> groups;
 	private Map<String, Integer> groupNoteIDs;
 	private String server;
 	private NotesDatabase administrationRequestDB;
@@ -36,7 +36,7 @@ public class NotesAdministrationProcessMockImpl extends NotesBaseMockImpl
 	 * Default-Constructor
 	 */
 	public NotesAdministrationProcessMockImpl() {
-		groups = new HashMap<String, Vector>();
+		groups = new HashMap<String, Vector<String>>();
 		groupNoteIDs = new HashMap<String, Integer>();
 	}
 
